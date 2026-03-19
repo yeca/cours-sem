@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Exercice SEM — Mon travail</title>
+<style>
+:root{--bl:#1a56db;--bl-l:#e8eefb;--bl-d:#0f3a8e;--gn:#0d9f6e;--gn-l:#e6f7f0;--or:#e67e22;--or-l:#fef3e2;--rd:#e74c3c;--rd-l:#fdecea;--pu:#7c3aed;--pu-l:#f0ebff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;--g500:#6b7280;--g700:#374151;--g900:#111827;--tofu:#3b82f6;--mofu:#f59e0b;--bofu:#ef4444;--r:12px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--g900);line-height:1.6;background:var(--g50);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--g200);height:52px;display:flex;align-items:center;padding:0 1.2rem;gap:.6rem;}
+nav .logo{font-weight:800;font-size:.9rem;color:var(--bl);cursor:pointer;white-space:nowrap;flex-shrink:0;}
+nav .nr{margin-left:auto;display:flex;gap:.35rem;flex-shrink:0;overflow-x:auto;align-items:center;}
+nav .user-info{font-size:.75rem;color:var(--g500);margin-right:.5rem;white-space:nowrap;}
+.nb{font-size:.72rem;padding:.3rem .6rem;border-radius:7px;border:1px solid var(--g200);background:#fff;cursor:pointer;color:var(--g700);font-weight:600;transition:all .15s;white-space:nowrap;}
+.nb:hover{border-color:var(--bl);color:var(--bl);background:var(--bl-l);}
+.nb.on{background:var(--bl);color:#fff;border-color:var(--bl);}
+.nb.logout{border-color:var(--rd);color:var(--rd);}.nb.logout:hover{background:var(--rd);color:#fff;}
+.page{display:none;padding-top:52px;min-height:100vh;}.page.active{display:block;}
+section{padding:3rem 1.5rem;}.container{max-width:1100px;margin:0 auto;}
+.sl{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .65rem;border-radius:999px;margin-bottom:.5rem;}
+.st{font-size:1.6rem;font-weight:800;margin-bottom:.35rem;}
+.sd{color:var(--g500);font-size:.92rem;margin-bottom:2rem;max-width:700px;}
+h3{font-size:1.05rem;margin-bottom:.65rem;}
+.hero{background:linear-gradient(135deg,var(--bl-d),var(--bl) 50%,#4f8ff7);color:#fff;padding:4.5rem 2rem 3.5rem;text-align:center;}
+.hero h1{font-size:2.3rem;font-weight:800;margin-bottom:.4rem;}
+.hero .sub{font-size:1.05rem;opacity:.85;max-width:600px;margin:0 auto 1.5rem;}
+.hero .badges{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;}
+.hero .badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.25rem .8rem;font-size:.78rem;font-weight:600;}
+.card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.4rem;transition:box-shadow .2s;}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+@media(max-width:850px){.grid-2,.grid-3{grid-template-columns:1fr;}.hero h1{font-size:1.6rem;}}
+.dv{height:1px;background:var(--g200);margin:2rem 0;}
+.co{border-left:4px solid;border-radius:0 8px 8px 0;padding:.75rem 1rem;margin:1rem 0;font-size:.86rem;}
+.co.b{background:var(--bl-l);border-color:var(--bl);}.co.g{background:var(--gn-l);border-color:var(--gn);}.co.p{background:var(--pu-l);border-color:var(--pu);}.co.o{background:var(--or-l);border-color:var(--or);}
+footer{text-align:center;padding:1.5rem;color:var(--g500);font-size:.78rem;border-top:1px solid var(--g200);}
+.fade{animation:fi .3s ease;}@keyframes fi{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.back{display:inline-flex;align-items:center;gap:.35rem;font-size:.86rem;font-weight:600;color:var(--bl);cursor:pointer;margin-bottom:1.2rem;padding:.35rem 0;}.back:hover{opacity:.7;}
+.field{margin-bottom:1rem;}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;}
+.field input,.field textarea,.field select{width:100%;border:1.5px solid var(--g200);border-radius:8px;padding:.55rem .75rem;font-size:.88rem;font-family:inherit;color:var(--g900);background:#fff;transition:border-color .15s,box-shadow .15s;line-height:1.5;}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.field textarea{resize:vertical;min-height:60px;}
+.field .hint{font-size:.72rem;color:var(--g500);margin-top:.2rem;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+@media(max-width:700px){.field-row,.field-row-3{grid-template-columns:1fr;}}
+.sec-h{display:flex;align-items:center;gap:.75rem;margin:2rem 0 1rem;padding-bottom:.75rem;border-bottom:3px solid var(--g200);}
+.sec-h .sec-i{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;}
+.sec-h h3{font-size:1.1rem;font-weight:800;margin:0;}
+.funnel-block{border-radius:var(--r);padding:1.4rem;margin-bottom:1.5rem;border-left:5px solid;}
+.funnel-block.tofu{background:#eff6ff;border-color:var(--tofu);}.funnel-block.mofu{background:#fffbeb;border-color:var(--mofu);}.funnel-block.bofu{background:#fef2f2;border-color:var(--bofu);}
+.funnel-block .fb{display:inline-block;padding:.2rem .6rem;border-radius:6px;font-size:.7rem;font-weight:800;color:#fff;margin-bottom:.8rem;letter-spacing:.04em;}
+.tofu .fb{background:var(--tofu);}.mofu .fb{background:var(--mofu);}.bofu .fb{background:var(--bofu);}
+.funnel-block h4{font-size:.92rem;font-weight:700;margin-bottom:.6rem;}
+.serp-preview{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1rem;max-width:620px;margin:.6rem 0;pointer-events:none;}
+.serp-preview .su{font-size:.8rem;color:#202124;margin-bottom:.1rem;}.serp-preview .su span{color:#4d5156;}
+.serp-preview .stt{font-size:1.08rem;color:#1a0dab;margin-bottom:.18rem;}
+.serp-preview .sde{font-size:.82rem;color:#4d5156;line-height:1.4;}
+.ad-preview{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1rem;max-width:620px;margin:.6rem 0;}
+.ad-preview .alb{font-size:.66rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
+.ad-preview .asp{font-size:.7rem;font-weight:700;color:var(--g900);margin-bottom:.08rem;}
+.ad-preview .att{font-size:1.08rem;color:#1a0dab;margin-bottom:.18rem;}
+.ad-preview .ade{font-size:.82rem;color:#4d5156;line-height:1.4;}
+.lp-block{display:flex;gap:.7rem;align-items:flex-start;padding:.75rem;border-radius:8px;margin-bottom:.4rem;background:#fff;border:1px solid var(--g200);}
+.lp-num{width:26px;height:26px;border-radius:6px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;flex-shrink:0;}
+.lp-block .field{margin-bottom:.4rem;}.lp-block .field label{font-size:.7rem;}.lp-block .field input,.lp-block .field textarea{font-size:.82rem;padding:.4rem .6rem;}
+.tag{display:inline-flex;align-items:center;justify-content:center;padding:.12rem .4rem;border-radius:5px;font-size:.65rem;font-weight:800;letter-spacing:.03em;flex-shrink:0;line-height:1;}
+.tag.d{background:#fef3e2;color:#b45309;border:1px solid #fcd34d;}.tag.b{background:var(--bl-l);color:var(--bl);border:1px solid #93c5fd;}.tag.p{background:var(--rd-l);color:var(--rd);border:1px solid #fca5a5;}.tag.m{background:var(--gn-l);color:var(--gn);border:1px solid #6ee7b7;}
+.inv{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:850px){.inv{grid-template-columns:1fr;}}
+.inv-cat{background:#fff;border:1px solid var(--g200);border-radius:10px;padding:1rem;}.inv-cat h4{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.inv-cat.douleurs h4{color:var(--or);}.inv-cat.besoins h4{color:var(--bl);}.inv-cat.peurs h4{color:var(--rd);}.inv-cat.motivations h4{color:var(--gn);}
+.inv-item{display:flex;align-items:center;gap:.4rem;margin-bottom:.35rem;}
+.inv-item input{flex:1;border:1.5px solid var(--g200);border-radius:6px;padding:.35rem .55rem;font-size:.82rem;font-family:inherit;color:var(--g700);}
+.inv-item input:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.kw-row{display:flex;gap:.4rem;margin-bottom:.35rem;align-items:center;}
+.kw-row input{flex:1;border:1.5px solid var(--g200);border-radius:6px;padding:.35rem .55rem;font-size:.82rem;font-family:'SF Mono','Fira Code',monospace;color:var(--g700);}
+.kw-row input:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.kw-row select{border:1.5px solid var(--g200);border-radius:6px;padding:.35rem .4rem;font-size:.76rem;background:#fff;color:var(--g700);cursor:pointer;}
+.kw-row .rm,.neg-kw-item .rm{width:24px;height:24px;border:none;background:var(--rd-l);color:var(--rd);border-radius:6px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.kw-row .rm:hover,.neg-kw-item .rm:hover{background:var(--rd);color:#fff;}
+.add-btn{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;color:var(--bl);cursor:pointer;padding:.3rem .5rem;border-radius:6px;border:1px dashed var(--bl);background:transparent;margin-top:.3rem;transition:all .15s;}
+.add-btn:hover{background:var(--bl-l);}
+.neg-kw{display:flex;flex-wrap:wrap;gap:.3rem;margin:.5rem 0;}
+.neg-kw-item{display:flex;align-items:center;gap:.2rem;background:var(--rd-l);border-radius:6px;padding:.2rem .5rem;}
+.neg-kw-item input{border:none;background:transparent;font-size:.76rem;color:var(--rd);font-weight:600;width:80px;outline:none;}
+.action-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--g200);padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.action-bar .status{font-size:.78rem;color:var(--g500);}
+.action-bar .btns{display:flex;gap:.4rem;}
+.btn-primary{background:var(--bl);color:#fff;border:none;border-radius:8px;padding:.5rem 1.2rem;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn-primary:hover{background:var(--bl-d);}
+.btn-secondary{background:#fff;color:var(--g700);border:1.5px solid var(--g200);border-radius:8px;padding:.5rem 1.2rem;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn-secondary:hover{border-color:var(--bl);color:var(--bl);}
+.btn-success{background:var(--gn);color:#fff;border:none;border-radius:8px;padding:.5rem 1.2rem;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn-success:hover{background:#0b8a5e;}
+.progress-bar{height:4px;background:var(--g100);border-radius:2px;overflow:hidden;margin-bottom:1.5rem;}
+.progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--bl),var(--gn));border-radius:2px;transition:width .4s ease;}
+body{padding-bottom:60px;}
+.submitted-banner{background:var(--gn-l);border:2px solid var(--gn);border-radius:var(--r);padding:1rem 1.5rem;margin-bottom:1.5rem;display:none;align-items:center;gap:.6rem;font-size:.88rem;color:var(--gn);font-weight:600;}
+.submitted-banner.show{display:flex;}
+@media print{nav,.action-bar{display:none!important;}body{padding:0;}.page{display:block!important;padding-top:0;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo" onclick="go('home')">Exercice SEM</div>
+  <div class="nr" id="nr">
+    <span class="user-info" id="user-info"></span>
+  </div>
+</nav>
+
+<!-- ======================== HOME ======================== -->
+<div class="page active" id="page-home">
+<div class="hero">
+  <h1>Mon Exercice SEM</h1>
+  <p class="sub">Remplissez chaque section avec votre recherche et reflexion</p>
+  <div class="badges"><span class="badge">SEO</span><span class="badge">SEA</span><span class="badge">Landing Pages</span><span class="badge">TOFU / MOFU / BOFU</span></div>
+</div>
+<section>
+<div class="container fade">
+  <div class="submitted-banner" id="submitted-banner">&#9989; Exercice soumis avec succes !</div>
+  <div class="progress-bar"><div class="fill" id="progress-fill" style="width:0%"></div></div>
+  <span class="sl" style="background:var(--bl-l);color:var(--bl);">Etape 1</span>
+  <h2 class="st">Presentation du client</h2>
+  <p class="sd">Decrivez l'entreprise pour laquelle vous construisez la strategie SEM.</p>
+  <div class="field-row">
+    <div class="field"><label>Nom de l'entreprise</label><input type="text" id="client-name" placeholder="Ex : Mon Entreprise SAS"></div>
+    <div class="field"><label>Secteur / metier</label><input type="text" id="client-sector" placeholder="Ex : E-commerce mode, restaurant, SaaS..."></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label>Zone de chalandise</label><input type="text" id="client-zone" placeholder="Ex : Lyon et region, France entiere..."></div>
+    <div class="field"><label>Budget marketing mensuel</label><input type="text" id="client-budget" placeholder="Ex : 1 000 - 5 000 EUR/mois"></div>
+  </div>
+  <div class="field"><label>Activites / services principaux</label><textarea id="client-activities" rows="2" placeholder="Ex : Vente de vetements en ligne, personal shopping"></textarea></div>
+  <div class="field"><label>Particularites</label><textarea id="client-particularites" rows="2" placeholder="Ex : Petite equipe, positionnement premium..."></textarea></div>
+  <div class="dv"></div>
+  <h3>Forces & Faiblesses</h3>
+  <div class="field-row">
+    <div class="field"><label>Forces (une par ligne)</label><textarea id="client-forces" rows="4" placeholder="Point fort 1&#10;Point fort 2"></textarea></div>
+    <div class="field"><label>Faiblesses (une par ligne)</label><textarea id="client-faiblesses" rows="4" placeholder="Point faible 1&#10;Point faible 2"></textarea></div>
+  </div>
+  <div class="dv"></div>
+  <h3>Nombre d'activites</h3>
+  <div class="co o"><strong>Rappel :</strong> Pour chaque activite : 1 persona, ses douleurs/besoins/peurs/motivations, puis SEO + SEA + LP a chaque niveau du funnel (TOFU, MOFU, BOFU).</div>
+  <div class="field" style="max-width:200px;">
+    <label>Activites</label>
+    <select id="nb-activities" onchange="updateActivities()">
+      <option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option>
+    </select>
+  </div>
+  <div id="act-names-list"></div>
+</div>
+</section>
+</div>
+
+<div id="activity-pages"></div>
+
+<!-- SEO SUMMARY -->
+<div class="page" id="page-seo-sum">
+<section style="background:#fff;"><div class="container fade">
+<div class="back" onclick="go('home')">&#8592; Accueil</div>
+<span class="sl" style="background:var(--bl-l);color:var(--bl);">Synthese</span>
+<h2 class="st">Resume Strategie SEO</h2>
+<div class="field"><label>Vision SEO globale</label><textarea id="seo-vision" rows="3" placeholder="Votre approche SEO globale..."></textarea></div>
+<div class="field"><label>Priorites SEO</label><textarea id="seo-priorites" rows="3" placeholder="1. ...&#10;2. ..."></textarea></div>
+<div class="field"><label>KPIs SEO</label><textarea id="seo-kpis" rows="2" placeholder="Positions, trafic, CTR..."></textarea></div>
+<div class="field"><label>Timeline</label><textarea id="seo-timeline" rows="2" placeholder="M1-M3 : ... | M4-M6 : ..."></textarea></div>
+</div></section>
+</div>
+
+<!-- SEA SUMMARY -->
+<div class="page" id="page-sea-sum">
+<section style="background:#fff;"><div class="container fade">
+<div class="back" onclick="go('home')">&#8592; Accueil</div>
+<span class="sl" style="background:var(--gn-l);color:var(--gn);">Synthese</span>
+<h2 class="st">Resume Strategie SEA</h2>
+<div class="field"><label>Architecture du compte Google Ads</label><textarea id="sea-archi" rows="4" placeholder="Compte > Campagnes > Groupes..."></textarea></div>
+<div class="field"><label>Strategie d'encheres</label><input type="text" id="sea-encheres" placeholder="Ex : CPA cible..."></div>
+<div class="field"><label>Budget quotidien</label><input type="text" id="sea-budget" placeholder="Ex : 30 EUR/jour"></div>
+<div class="field"><label>Extensions</label><textarea id="sea-extensions" rows="3" placeholder="Liens annexes, appel, lieu..."></textarea></div>
+<div class="dv"></div>
+<h3>Mots-cles negatifs (compte)</h3>
+<div id="neg-kw-global" class="neg-kw"></div>
+<button class="add-btn" onclick="addNegKw('neg-kw-global')">+ Mot-cle negatif</button>
+<div class="dv"></div>
+<div class="field"><label>KPIs SEA</label><textarea id="sea-kpis" rows="2" placeholder="CPC, CTR, CPA, ROAS..."></textarea></div>
+</div></section>
+</div>
+
+<footer>Exercice SEM — Cours 2026</footer>
+
+<div class="action-bar">
+  <div class="status" id="autosave-status">Chargement...</div>
+  <div class="btns">
+    <button class="btn-secondary" onclick="exportJSON()">Exporter JSON</button>
+    <button class="btn-success" id="btn-submit" onclick="submitExercise()">Soumettre l'exercice</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/config.js"></script>
+<script>
+// ===================== SUPABASE INIT =====================
+const { createClient } = supabase;
+let sb, currentUser, exerciseId;
+
+async function initApp() {
+  const cfg = window.__SEM_CONFIG;
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/'; return; }
+  currentUser = session.user;
+
+  document.getElementById('user-info').textContent = currentUser.email;
+
+  // Load or create exercise
+  const { data: exercises } = await sb.from('sem_exercises').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(1);
+
+  if (exercises && exercises.length > 0) {
+    exerciseId = exercises[0].id;
+    if (exercises[0].data && Object.keys(exercises[0].data).length > 0) {
+      const d = exercises[0].data;
+      if (d.nbAct) { nbAct = d.nbAct; document.getElementById('nb-activities').value = nbAct; }
+      renderActivityNames();
+      renderActivityPages();
+      updateNav();
+      restoreData(d);
+    }
+    if (exercises[0].submitted) {
+      document.getElementById('submitted-banner').classList.add('show');
+      document.getElementById('btn-submit').textContent = 'Deja soumis';
+    }
+  } else {
+    const { data: newEx } = await sb.from('sem_exercises').insert({ user_id: currentUser.id, title: 'Mon exercice SEM', data: {} }).select().single();
+    if (newEx) exerciseId = newEx.id;
+  }
+
+  document.getElementById('autosave-status').textContent = 'Sauvegarde automatique activee';
+  updateProgress();
+}
+
+// ===================== SAVE TO SUPABASE =====================
+let saveTimeout;
+function scheduleSave() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(saveToSupabase, 1500);
+  const s = document.getElementById('autosave-status');
+  s.textContent = 'Modifications non sauvegardees...';
+  s.style.color = 'var(--or)';
+}
+
+async function saveToSupabase() {
+  if (!exerciseId) return;
+  const data = gatherData();
+  const progress = computeProgress();
+  const title = data['client-name'] || 'Mon exercice SEM';
+  const { error } = await sb.from('sem_exercises').update({ data, progress, title }).eq('id', exerciseId);
+  const s = document.getElementById('autosave-status');
+  if (error) {
+    s.textContent = 'Erreur de sauvegarde !';
+    s.style.color = 'var(--rd)';
+  } else {
+    s.textContent = 'Sauvegarde a ' + new Date().toLocaleTimeString('fr-FR');
+    s.style.color = 'var(--gn)';
+  }
+}
+
+async function submitExercise() {
+  if (!exerciseId) return;
+  const data = gatherData();
+  const progress = computeProgress();
+  if (progress < 20) {
+    alert('Votre exercice semble encore tres peu rempli (' + progress + '%). Continuez a le completer avant de soumettre.');
+    return;
+  }
+  if (!confirm('Soumettre votre exercice ? Vous pourrez encore le modifier apres.')) return;
+  await sb.from('sem_exercises').update({ data, progress, title: data['client-name'] || 'Mon exercice SEM', submitted: true, submitted_at: new Date().toISOString() }).eq('id', exerciseId);
+  document.getElementById('submitted-banner').classList.add('show');
+  document.getElementById('btn-submit').textContent = 'Soumis !';
+  alert('Exercice soumis avec succes !');
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  window.location.href = '/';
+}
+
+// ===================== NAVIGATION =====================
+let currentPage = 'home';
+let nbAct = 3;
+
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const t = document.getElementById('page-' + id);
+  if (t) { t.classList.add('active'); window.scrollTo(0, 0); currentPage = id; }
+  updateNav();
+}
+
+function updateNav() {
+  const nr = document.getElementById('nr');
+  let pages = ['home'];
+  let labels = ['Accueil'];
+  for (let i = 1; i <= nbAct; i++) { pages.push('act' + i); labels.push('Act ' + i); }
+  pages.push('seo-sum', 'sea-sum');
+  labels.push('&Sigma; SEO', '&Sigma; SEA');
+  const userInfo = '<span class="user-info" id="user-info">' + (currentUser ? currentUser.email : '') + '</span>';
+  nr.innerHTML = userInfo + pages.map((p, j) =>
+    '<button class="nb' + (p === currentPage ? ' on' : '') + '" onclick="go(\'' + p + '\')">' + labels[j] + '</button>'
+  ).join('') + '<button class="nb logout" onclick="doLogout()">Deconnexion</button>';
+}
+
+// ===================== ACTIVITIES =====================
+function updateActivities() {
+  nbAct = parseInt(document.getElementById('nb-activities').value);
+  renderActivityNames();
+  renderActivityPages();
+  updateNav();
+  scheduleSave();
+}
+
+function renderActivityNames() {
+  const c = document.getElementById('act-names-list');
+  const colors = ['var(--bl)', 'var(--gn)', 'var(--pu)', 'var(--or)', 'var(--rd)'];
+  let h = '<div class="grid-3" style="margin-top:1rem;">';
+  for (let i = 1; i <= nbAct; i++) {
+    h += '<div class="field"><label style="color:' + colors[(i-1)%5] + '">Nom activite ' + i + '</label>';
+    h += '<input type="text" id="act-name-' + i + '" placeholder="Ex : Audit SEO, Google Ads..."></div>';
+  }
+  h += '</div>';
+  c.innerHTML = h;
+}
+
+function renderActivityPages() {
+  const container = document.getElementById('activity-pages');
+  let html = '';
+  const colors = [
+    { main: 'var(--bl)', bg: 'var(--bl-l)' },
+    { main: 'var(--gn)', bg: 'var(--gn-l)' },
+    { main: 'var(--pu)', bg: 'var(--pu-l)' },
+    { main: 'var(--or)', bg: 'var(--or-l)' },
+    { main: 'var(--rd)', bg: 'var(--rd-l)' }
+  ];
+
+  for (let i = 1; i <= nbAct; i++) {
+    const c = colors[(i - 1) % 5];
+    const p = 'a' + i;
+    html += `<div class="page" id="page-act${i}"><section style="background:#fff;"><div class="container fade">
+<div class="back" onclick="go('home')">&#8592; Accueil</div>
+<span class="sl" style="background:${c.bg};color:${c.main};">Activite ${i}</span>
+<h2 class="st">Activite ${i}</h2>
+<div class="sec-h" style="border-color:${c.main};"><div class="sec-i" style="background:${c.main};">&#128100;</div><h3>Persona cible</h3></div>
+<div class="card" style="border-top:4px solid ${c.main};margin-bottom:1.5rem;">
+  <div class="field-row"><div class="field"><label>Nom du persona</label><input type="text" id="${p}-persona-name" placeholder="Ex : Le commercant local"></div><div class="field"><label>Profil</label><input type="text" id="${p}-persona-profil" placeholder="35-55 ans, peu digital..."></div></div>
+  <div class="field"><label>Description</label><textarea id="${p}-persona-desc" rows="2" placeholder="Contexte, habitudes..."></textarea></div>
+</div>
+<div class="sec-h" style="border-color:${c.main};"><div class="sec-i" style="background:${c.main};">&#128203;</div><h3>Inventaire D/B/P/M</h3></div>
+<div class="co o"><strong>Tags :</strong> D1, B1, P1, M1... a associer aux blocs LP pour tracer la resolution de chaque probleme.</div>
+<div class="inv">
+  <div class="inv-cat douleurs"><h4>&#128293; Douleurs</h4><div id="${p}-douleurs"></div><button class="add-btn" onclick="addInvItem('${p}-douleurs','D','d')">+ Douleur</button></div>
+  <div class="inv-cat besoins"><h4>&#127919; Besoins</h4><div id="${p}-besoins"></div><button class="add-btn" onclick="addInvItem('${p}-besoins','B','b')">+ Besoin</button></div>
+  <div class="inv-cat peurs"><h4>&#128680; Peurs</h4><div id="${p}-peurs"></div><button class="add-btn" onclick="addInvItem('${p}-peurs','P','p')">+ Peur</button></div>
+  <div class="inv-cat motivations"><h4>&#128154; Motivations</h4><div id="${p}-motivations"></div><button class="add-btn" onclick="addInvItem('${p}-motivations','M','m')">+ Motivation</button></div>
+</div>
+${['tofu','mofu','bofu'].map((f, fi) => {
+  const fn = ['TOFU — Sensibilisation','MOFU — Consideration','BOFU — Decision'][fi];
+  const fd = ['Le prospect decouvre son probleme','Le prospect compare les solutions','Le prospect est pret a acheter'][fi];
+  const ic = ['T','M','B'][fi];
+  return `<div class="sec-h" style="border-color:var(--${f});margin-top:3rem;"><div class="sec-i" style="background:var(--${f});">${ic}</div><div><h3 style="margin:0;">${fn}</h3><p style="font-size:.82rem;color:var(--g500);">${fd}</p></div></div>
+<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — Mots-cles</div><h4>Mots-cles</h4>
+  <div class="field"><label>Intention de recherche</label><input type="text" id="${p}-${f}-intention" placeholder="${fi===0?'Informationnelle':fi===1?'Commerciale':'Transactionnelle'}"></div>
+  <div id="${p}-${f}-kws"></div><button class="add-btn" onclick="addKw('${p}-${f}-kws')">+ Mot-cle</button>
+</div>
+<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEO</div><h4>Proposition SEO</h4>
+  <div class="field"><label>Title tag (max 60)</label><input type="text" id="${p}-${f}-seo-title" maxlength="60" placeholder="Titre optimise" oninput="updateSerpPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-seo-title-count">0/60</div></div>
+  <div class="field"><label>Meta description (max 155)</label><textarea id="${p}-${f}-seo-meta" maxlength="155" rows="2" placeholder="Description" oninput="updateSerpPreview('${p}','${f}')"></textarea><div class="hint" id="${p}-${f}-seo-meta-count">0/155</div></div>
+  <div class="field"><label>URL</label><input type="text" id="${p}-${f}-seo-url" placeholder="https://..." oninput="updateSerpPreview('${p}','${f}')"></div>
+  <div class="field"><label>Structure Hn</label><textarea id="${p}-${f}-seo-hn" rows="3" placeholder="H1 : ...&#10;  H2 : ..."></textarea></div>
+  <p style="font-size:.78rem;font-weight:700;color:var(--g500);margin:.5rem 0 .3rem;">Apercu SERP</p>
+  <div class="serp-preview" id="${p}-${f}-serp"><div class="su"><span>www.example.com</span></div><div class="stt">Titre ici</div><div class="sde">Description ici...</div></div>
+</div>
+<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEA</div><h4>Google Ads</h4>
+  <div class="field"><label>Groupe d'annonces</label><input type="text" id="${p}-${f}-sea-group" placeholder="Nom du groupe"></div>
+  <div class="field-row-3"><div class="field"><label>Titre 1 (30)</label><input type="text" id="${p}-${f}-sea-t1" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div><div class="field"><label>Titre 2 (30)</label><input type="text" id="${p}-${f}-sea-t2" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div><div class="field"><label>Titre 3 (30)</label><input type="text" id="${p}-${f}-sea-t3" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div></div>
+  <div class="field"><label>Description 1 (90)</label><textarea id="${p}-${f}-sea-d1" maxlength="90" rows="2" oninput="updateAdPreview('${p}','${f}')"></textarea></div>
+  <div class="field"><label>Description 2 (90)</label><textarea id="${p}-${f}-sea-d2" maxlength="90" rows="2"></textarea></div>
+  <p style="font-size:.78rem;font-weight:700;color:var(--g500);margin:.5rem 0 .3rem;">Apercu annonce</p>
+  <div class="ad-preview" id="${p}-${f}-ad"><div class="alb">Sponsorise</div><div class="asp">www.example.com</div><div class="att">Titre 1 | Titre 2 | Titre 3</div><div class="ade">Description...</div></div>
+</div>
+<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — Landing Page</div><h4>Structure LP</h4>
+  <div class="co b"><strong>Conseil :</strong> Associez les tags D1, B2, P3... pour montrer quelles douleurs chaque bloc resout.</div>
+  <div class="field"><label>CTA principal</label><input type="text" id="${p}-${f}-lp-cta" placeholder="Telecharger, Demander devis..."></div>
+  <div id="${p}-${f}-lp-blocks"></div><button class="add-btn" onclick="addLpBlock('${p}-${f}-lp-blocks','${f}')">+ Bloc LP</button>
+</div>`;
+}).join('')}
+</div></section></div>`;
+  }
+  container.innerHTML = html;
+
+  for (let i = 1; i <= nbAct; i++) {
+    const p = 'a' + i;
+    initInvItems(p + '-douleurs', 'D', 'd', 4);
+    initInvItems(p + '-besoins', 'B', 'b', 3);
+    initInvItems(p + '-peurs', 'P', 'p', 4);
+    initInvItems(p + '-motivations', 'M', 'm', 3);
+    ['tofu','mofu','bofu'].forEach(f => {
+      initKws(p + '-' + f + '-kws', 3);
+      initLpBlocks(p + '-' + f + '-lp-blocks', f, f === 'tofu' ? 5 : f === 'mofu' ? 6 : 7);
+    });
+  }
+}
+
+// ===================== UI HELPERS =====================
+function addInvItem(cid, letter, cls, value) {
+  const c = document.getElementById(cid);
+  const n = c.querySelectorAll('.inv-item').length + 1;
+  const d = document.createElement('div'); d.className = 'inv-item';
+  d.innerHTML = `<span class="tag ${cls}">${letter}${n}</span><input type="text" placeholder="Decrivez..." value="${value||''}"><button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.parentElement.remove();reindexInv('${cid}','${letter}','${cls}');">&times;</button>`;
+  c.appendChild(d);
+}
+function initInvItems(cid, letter, cls, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';for(let i=0;i<n;i++)addInvItem(cid,letter,cls); }
+function reindexInv(cid, letter) { document.getElementById(cid).querySelectorAll('.inv-item').forEach((it,i)=>{it.querySelector('.tag').textContent=letter+(i+1);}); }
+
+function addKw(cid, value, match) {
+  const c = document.getElementById(cid);
+  const d = document.createElement('div'); d.className = 'kw-row';
+  d.innerHTML = `<input type="text" placeholder="mot-cle..." value="${value||''}"><select><option value="broad" ${match==='broad'?'selected':''}>Large</option><option value="phrase" ${match==='phrase'?'selected':''}>Expression</option><option value="exact" ${match==='exact'?'selected':''}>Exact</option></select><button class="rm" onclick="this.parentElement.remove();">&times;</button>`;
+  c.appendChild(d);
+}
+function initKws(cid, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';for(let i=0;i<n;i++)addKw(cid); }
+
+const lpNames={tofu:['Hero — Accroche','Probleme — Miroir','Solution — Vue d\'ensemble','Preuve sociale','CTA final'],mofu:['Hero — Proposition','Probleme rappele','Solution detaillee','Benefices','Temoignages','CTA final'],bofu:['Hero — Offre','Rappel probleme','Votre solution','Details offre','Garanties','Temoignages','CTA + urgence']};
+function addLpBlock(cid, f, name, desc, tags) {
+  const c = document.getElementById(cid);
+  const n = c.querySelectorAll('.lp-block').length + 1;
+  const fc = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
+  const d = document.createElement('div'); d.className = 'lp-block';
+  d.innerHTML = `<div class="lp-num" style="background:${fc[f]};">${n}</div><div style="flex:1;"><div class="field"><label>Role</label><input type="text" value="${name||''}" placeholder="Hero, Probleme..."></div><div class="field"><label>Contenu</label><input type="text" value="${desc||''}" placeholder="Accroche..."></div><div class="field"><label>Tags (D1, B2...)</label><input type="text" value="${tags||''}" placeholder="D1, D2, P1..."></div><button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.closest('.lp-block').remove();reindexLp('${cid}');">&times; Suppr</button></div>`;
+  c.appendChild(d);
+}
+function initLpBlocks(cid, f, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';const names=lpNames[f]||[];for(let i=0;i<Math.min(n,names.length);i++)addLpBlock(cid,f,names[i]); }
+function reindexLp(cid) { document.getElementById(cid).querySelectorAll('.lp-block .lp-num').forEach((n,i)=>{n.textContent=i+1;}); }
+
+function addNegKw(cid, value) {
+  const c = document.getElementById(cid);
+  const d = document.createElement('div'); d.className = 'neg-kw-item';
+  d.innerHTML = `<input type="text" placeholder="terme" value="${value||''}"><button class="rm" onclick="this.parentElement.remove();">&times;</button>`;
+  c.appendChild(d);
+}
+
+function updateSerpPreview(p, f) {
+  const title = document.getElementById(p+'-'+f+'-seo-title');
+  const meta = document.getElementById(p+'-'+f+'-seo-meta');
+  const url = document.getElementById(p+'-'+f+'-seo-url');
+  const serp = document.getElementById(p+'-'+f+'-serp');
+  if(!serp)return;
+  document.getElementById(p+'-'+f+'-seo-title-count').textContent=title.value.length+'/60';
+  document.getElementById(p+'-'+f+'-seo-meta-count').textContent=meta.value.length+'/155';
+  serp.querySelector('.su').innerHTML='<span>'+(url.value||'www.example.com')+'</span>';
+  serp.querySelector('.stt').textContent=title.value||'Titre ici';
+  serp.querySelector('.sde').textContent=meta.value||'Description ici...';
+}
+function updateAdPreview(p, f) {
+  const ad = document.getElementById(p+'-'+f+'-ad');if(!ad)return;
+  const t=[document.getElementById(p+'-'+f+'-sea-t1').value||'Titre 1',document.getElementById(p+'-'+f+'-sea-t2').value||'Titre 2',document.getElementById(p+'-'+f+'-sea-t3').value||'Titre 3'];
+  ad.querySelector('.att').textContent=t.join(' | ');
+  ad.querySelector('.ade').textContent=document.getElementById(p+'-'+f+'-sea-d1').value||'Description...';
+}
+
+// ===================== DATA =====================
+function gatherData() {
+  const data = { nbAct, version: 2 };
+  ['client-name','client-sector','client-zone','client-budget','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id => { const el=document.getElementById(id);if(el)data[id]=el.value; });
+  ['seo-vision','seo-priorites','seo-kpis','seo-timeline','sea-archi','sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(id => { const el=document.getElementById(id);if(el)data[id]=el.value; });
+  for(let i=1;i<=nbAct;i++){
+    const el=document.getElementById('act-name-'+i);if(el)data['act-name-'+i]=el.value;
+    const p='a'+i;
+    ['persona-name','persona-profil','persona-desc'].forEach(f=>{const el=document.getElementById(p+'-'+f);if(el)data[p+'-'+f]=el.value;});
+    ['douleurs','besoins','peurs','motivations'].forEach(cat=>{const c=document.getElementById(p+'-'+cat);if(!c)return;data[p+'-'+cat]=Array.from(c.querySelectorAll('.inv-item input')).map(i=>i.value);});
+    ['tofu','mofu','bofu'].forEach(f=>{
+      ['intention'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      const kwC=document.getElementById(p+'-'+f+'-kws');
+      if(kwC)data[p+'-'+f+'-kws']=Array.from(kwC.querySelectorAll('.kw-row')).map(r=>({kw:r.querySelector('input').value,match:r.querySelector('select').value}));
+      ['seo-title','seo-meta','seo-url','seo-hn'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      ['sea-group','sea-t1','sea-t2','sea-t3','sea-d1','sea-d2'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      ['lp-cta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      const lpC=document.getElementById(p+'-'+f+'-lp-blocks');
+      if(lpC)data[p+'-'+f+'-lp-blocks']=Array.from(lpC.querySelectorAll('.lp-block')).map(b=>{const ins=b.querySelectorAll('input');return{name:ins[0]?.value||'',desc:ins[1]?.value||'',tags:ins[2]?.value||''};});
+    });
+  }
+  const negC=document.getElementById('neg-kw-global');
+  if(negC)data['neg-kw-global']=Array.from(negC.querySelectorAll('.neg-kw-item input')).map(i=>i.value);
+  return data;
+}
+
+function restoreData(data) {
+  ['client-name','client-sector','client-zone','client-budget','client-activities','client-particularites','client-forces','client-faiblesses',
+   'seo-vision','seo-priorites','seo-kpis','seo-timeline','sea-archi','sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(id=>{const el=document.getElementById(id);if(el&&data[id]!==undefined)el.value=data[id];});
+  for(let i=1;i<=nbAct;i++){
+    const el=document.getElementById('act-name-'+i);if(el&&data['act-name-'+i])el.value=data['act-name-'+i];
+    const p='a'+i;
+    ['persona-name','persona-profil','persona-desc'].forEach(f=>{const el=document.getElementById(p+'-'+f);if(el&&data[p+'-'+f])el.value=data[p+'-'+f];});
+    const cats={douleurs:['D','d'],besoins:['B','b'],peurs:['P','p'],motivations:['M','m']};
+    Object.entries(cats).forEach(([cat,[letter,cls]])=>{const key=p+'-'+cat;if(!data[key])return;const c=document.getElementById(key);if(!c)return;c.innerHTML='';data[key].forEach(v=>addInvItem(key,letter,cls,v));});
+    ['tofu','mofu','bofu'].forEach(f=>{
+      ['intention'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      const kwKey=p+'-'+f+'-kws';if(data[kwKey]){const c=document.getElementById(kwKey);if(c){c.innerHTML='';data[kwKey].forEach(k=>addKw(kwKey,k.kw,k.match));}}
+      ['seo-title','seo-meta','seo-url','seo-hn'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      ['sea-group','sea-t1','sea-t2','sea-t3','sea-d1','sea-d2'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      ['lp-cta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      const lpKey=p+'-'+f+'-lp-blocks';if(data[lpKey]){const c=document.getElementById(lpKey);if(c){c.innerHTML='';data[lpKey].forEach(b=>addLpBlock(lpKey,f,b.name,b.desc,b.tags));}}
+      updateSerpPreview(p,f);updateAdPreview(p,f);
+    });
+  }
+  if(data['neg-kw-global']){const c=document.getElementById('neg-kw-global');if(c){c.innerHTML='';data['neg-kw-global'].forEach(v=>addNegKw('neg-kw-global',v));}}
+  updateProgress();
+}
+
+function computeProgress() {
+  const all=document.querySelectorAll('input[type="text"],textarea');
+  let filled=0,total=0;
+  all.forEach(inp=>{if(inp.closest('.action-bar')||inp.closest('.neg-kw-item'))return;total++;if(inp.value.trim())filled++;});
+  return total>0?Math.round((filled/total)*100):0;
+}
+function updateProgress(){const pct=computeProgress();const bar=document.getElementById('progress-fill');if(bar)bar.style.width=pct+'%';}
+
+function exportJSON() {
+  const data = gatherData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'exercice-sem.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+// ===================== INIT =====================
+renderActivityNames();
+renderActivityPages();
+['gratuit','emploi','stage','formation','tuto','definition','wikipedia'].forEach(v=>addNegKw('neg-kw-global',v));
+initApp();
+
+document.addEventListener('input', e => {
+  if(e.target.closest('.action-bar'))return;
+  scheduleSave();
+  updateProgress();
+});
+</script>
+</body>
+</html>

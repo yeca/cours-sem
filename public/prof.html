@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Exercice SEM — Dashboard Prof</title>
+<style>
+:root{--bl:#1a56db;--bl-l:#e8eefb;--bl-d:#0f3a8e;--gn:#0d9f6e;--gn-l:#e6f7f0;--or:#e67e22;--or-l:#fef3e2;--rd:#e74c3c;--rd-l:#fdecea;--pu:#7c3aed;--pu-l:#f0ebff;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g300:#d1d5db;--g500:#6b7280;--g700:#374151;--g900:#111827;--tofu:#3b82f6;--mofu:#f59e0b;--bofu:#ef4444;--r:12px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--g900);line-height:1.6;background:var(--g50);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--g200);height:52px;display:flex;align-items:center;padding:0 1.5rem;gap:.8rem;}
+nav .logo{font-weight:800;font-size:.9rem;color:var(--pu);}
+nav .role{font-size:.72rem;background:var(--pu-l);color:var(--pu);padding:.15rem .5rem;border-radius:999px;font-weight:700;}
+nav .spacer{flex:1;}
+nav .user{font-size:.78rem;color:var(--g500);}
+.nb{font-size:.72rem;padding:.3rem .6rem;border-radius:7px;border:1px solid var(--g200);background:#fff;cursor:pointer;color:var(--g700);font-weight:600;transition:all .15s;white-space:nowrap;}
+.nb:hover{border-color:var(--bl);color:var(--bl);background:var(--bl-l);}
+.nb.logout{border-color:var(--rd);color:var(--rd);margin-left:.4rem;}.nb.logout:hover{background:var(--rd);color:#fff;}
+.main{padding:72px 1.5rem 2rem;max-width:1200px;margin:0 auto;}
+h1{font-size:1.5rem;font-weight:800;margin-bottom:.3rem;}
+.subtitle{color:var(--g500);font-size:.88rem;margin-bottom:2rem;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+@media(max-width:850px){.stats{grid-template-columns:1fr 1fr;}}
+.stat{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:1.2rem;text-align:center;}
+.stat .val{font-size:1.8rem;font-weight:800;}.stat .lbl{font-size:.78rem;color:var(--g500);font-weight:600;}
+.stat.blue .val{color:var(--bl);}.stat.green .val{color:var(--gn);}.stat.orange .val{color:var(--or);}.stat.purple .val{color:var(--pu);}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--g200);}
+th{background:var(--g100);padding:.65rem .85rem;text-align:left;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--g500);border-bottom:2px solid var(--g200);}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--g100);font-size:.86rem;}
+tr:hover td{background:var(--g50);}
+.progress-cell{display:flex;align-items:center;gap:.5rem;}
+.progress-mini{flex:1;height:6px;background:var(--g100);border-radius:3px;overflow:hidden;min-width:60px;}
+.progress-mini .fill{height:100%;border-radius:3px;transition:width .4s ease;}
+.progress-mini .fill.low{background:var(--rd);}.progress-mini .fill.mid{background:var(--or);}.progress-mini .fill.high{background:var(--gn);}
+.badge-submitted{display:inline-block;padding:.15rem .5rem;border-radius:6px;font-size:.72rem;font-weight:700;}
+.badge-submitted.yes{background:var(--gn-l);color:var(--gn);}.badge-submitted.no{background:var(--g100);color:var(--g500);}
+.btn-view{font-size:.78rem;color:var(--bl);font-weight:600;cursor:pointer;border:none;background:none;text-decoration:underline;}
+.btn-view:hover{color:var(--bl-d);}
+
+/* MODAL */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.show{display:flex;}
+.modal{background:#fff;border-radius:var(--r);max-width:1000px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border:none;background:var(--g100);border-radius:8px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--g700);}
+.modal-close:hover{background:var(--rd-l);color:var(--rd);}
+.modal h2{font-size:1.2rem;font-weight:800;margin-bottom:.2rem;}
+.modal .meta{font-size:.82rem;color:var(--g500);margin-bottom:1.5rem;}
+.section-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--pu);margin:1.5rem 0 .5rem;padding-bottom:.3rem;border-bottom:2px solid var(--pu-l);}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem;}
+@media(max-width:700px){.data-grid{grid-template-columns:1fr;}}
+.data-item{background:var(--g50);border-radius:8px;padding:.6rem .8rem;}
+.data-item .dl{font-size:.68rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.15rem;}
+.data-item .dv{font-size:.86rem;color:var(--g900);}
+.data-item .dv:empty::after{content:'(non rempli)';color:var(--g300);font-style:italic;}
+.tag{display:inline-flex;align-items:center;justify-content:center;padding:.12rem .4rem;border-radius:5px;font-size:.65rem;font-weight:800;letter-spacing:.03em;flex-shrink:0;line-height:1;margin:.1rem;}
+.tag.d{background:#fef3e2;color:#b45309;border:1px solid #fcd34d;}.tag.b{background:var(--bl-l);color:var(--bl);border:1px solid #93c5fd;}.tag.p{background:var(--rd-l);color:var(--rd);border:1px solid #fca5a5;}.tag.m{background:var(--gn-l);color:var(--gn);border:1px solid #6ee7b7;}
+.funnel-label{display:inline-block;padding:.15rem .5rem;border-radius:6px;font-size:.68rem;font-weight:800;color:#fff;margin:.8rem 0 .4rem;letter-spacing:.04em;}
+.funnel-label.tofu{background:var(--tofu);}.funnel-label.mofu{background:var(--mofu);}.funnel-label.bofu{background:var(--bofu);}
+.kw{display:inline-block;background:var(--g100);border:1px solid var(--g200);border-radius:6px;padding:.12rem .4rem;font-size:.74rem;font-family:monospace;margin:.1rem;color:var(--g700);}
+.serp-mini{border:1px solid var(--g200);border-radius:8px;padding:.7rem;margin:.4rem 0;max-width:550px;}
+.serp-mini .s-url{font-size:.75rem;color:#4d5156;}.serp-mini .s-title{font-size:.95rem;color:#1a0dab;}.serp-mini .s-desc{font-size:.78rem;color:#4d5156;}
+.lp-list{margin:.4rem 0;}
+.lp-item{display:flex;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--g100);font-size:.82rem;align-items:flex-start;}
+.lp-item .lp-n{width:20px;height:20px;border-radius:4px;font-size:.68rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.empty-state{text-align:center;padding:3rem;color:var(--g500);}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Exercice SEM</div>
+  <span class="role">PROF</span>
+  <div class="spacer"></div>
+  <span class="user" id="user-email"></span>
+  <button class="nb" onclick="location.href='/app'">Mon exercice</button>
+  <button class="nb logout" onclick="doLogout()">Deconnexion</button>
+</nav>
+
+<div class="main" id="main">
+  <h1>Dashboard Enseignant</h1>
+  <p class="subtitle">Suivez l'avancement des exercices de vos etudiants</p>
+
+  <div class="stats">
+    <div class="stat blue"><div class="val" id="s-total">-</div><div class="lbl">Etudiants inscrits</div></div>
+    <div class="stat green"><div class="val" id="s-submitted">-</div><div class="lbl">Exercices soumis</div></div>
+    <div class="stat orange"><div class="val" id="s-progress">-</div><div class="lbl">Progression moyenne</div></div>
+    <div class="stat purple"><div class="val" id="s-active">-</div><div class="lbl">Actifs (7j)</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Etudiant</th><th>Sujet</th><th>Progression</th><th>Soumis</th><th>Derniere modif.</th><th></th></tr></thead>
+    <tbody id="students-tbody"><tr><td colspan="6" class="empty-state">Chargement...</td></tr></tbody>
+  </table>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal();">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/config.js"></script>
+<script>
+const { createClient } = supabase;
+let sb, currentUser;
+
+async function init() {
+  const cfg = window.__SEM_CONFIG;
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/'; return; }
+  currentUser = session.user;
+
+  // Verify prof role
+  if (!cfg.PROF_EMAILS.includes(currentUser.email.toLowerCase())) {
+    window.location.href = '/app';
+    return;
+  }
+
+  document.getElementById('user-email').textContent = currentUser.email;
+  await loadStudents();
+}
+
+async function loadStudents() {
+  // Fetch all exercises with profiles
+  const { data: exercises, error } = await sb.from('sem_exercises')
+    .select('*, sem_profiles!inner(full_name, email)')
+    .order('updated_at', { ascending: false });
+
+  if (error) {
+    document.getElementById('students-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Erreur : ' + error.message + '</td></tr>';
+    return;
+  }
+
+  if (!exercises || exercises.length === 0) {
+    document.getElementById('students-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Aucun etudiant inscrit pour le moment.</td></tr>';
+    updateStats([], []);
+    return;
+  }
+
+  // Stats
+  const sevenDaysAgo = new Date(Date.now() - 7 * 86400000);
+  const totalStudents = new Set(exercises.map(e => e.user_id)).size;
+  const submitted = exercises.filter(e => e.submitted).length;
+  const avgProgress = Math.round(exercises.reduce((s, e) => s + (e.progress || 0), 0) / exercises.length);
+  const active = exercises.filter(e => new Date(e.updated_at) > sevenDaysAgo).length;
+
+  document.getElementById('s-total').textContent = totalStudents;
+  document.getElementById('s-submitted').textContent = submitted;
+  document.getElementById('s-progress').textContent = avgProgress + '%';
+  document.getElementById('s-active').textContent = active;
+
+  // Table
+  const tbody = document.getElementById('students-tbody');
+  tbody.innerHTML = exercises.map(ex => {
+    const p = ex.progress || 0;
+    const pClass = p < 30 ? 'low' : p < 70 ? 'mid' : 'high';
+    const name = ex.sem_profiles?.full_name || ex.sem_profiles?.email || 'Inconnu';
+    const title = ex.title || 'Sans titre';
+    const updated = new Date(ex.updated_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+    return `<tr>
+      <td><strong>${esc(name)}</strong><br><span style="font-size:.75rem;color:var(--g500);">${esc(ex.sem_profiles?.email||'')}</span></td>
+      <td>${esc(title)}</td>
+      <td><div class="progress-cell"><div class="progress-mini"><div class="fill ${pClass}" style="width:${p}%"></div></div><span style="font-size:.78rem;font-weight:600;">${p}%</span></div></td>
+      <td><span class="badge-submitted ${ex.submitted?'yes':'no'}">${ex.submitted?'Soumis':'En cours'}</span></td>
+      <td style="font-size:.82rem;color:var(--g500);">${updated}</td>
+      <td><button class="btn-view" onclick='viewExercise(${JSON.stringify(JSON.stringify({name,email:ex.sem_profiles?.email,data:ex.data,progress:p,submitted:ex.submitted,submitted_at:ex.submitted_at,updated_at:ex.updated_at}))})'>Voir</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function viewExercise(jsonStr) {
+  const ex = JSON.parse(jsonStr);
+  const d = ex.data || {};
+  let h = `<h2>${esc(d['client-name'] || 'Sans titre')}</h2>
+  <div class="meta">${esc(ex.name)} &bull; ${esc(ex.email)} &bull; ${ex.progress}% &bull; ${ex.submitted ? 'Soumis le ' + new Date(ex.submitted_at).toLocaleDateString('fr-FR') : 'Non soumis'}</div>`;
+
+  // Client
+  h += '<div class="section-title">Presentation du client</div>';
+  h += '<div class="data-grid">';
+  h += dataItem('Entreprise', d['client-name']);
+  h += dataItem('Secteur', d['client-sector']);
+  h += dataItem('Zone', d['client-zone']);
+  h += dataItem('Budget', d['client-budget']);
+  h += '</div>';
+  h += dataItem('Activites', d['client-activities']);
+  h += dataItem('Particularites', d['client-particularites']);
+  h += '<div class="data-grid">';
+  h += dataItem('Forces', (d['client-forces']||'').replace(/\n/g, '<br>'));
+  h += dataItem('Faiblesses', (d['client-faiblesses']||'').replace(/\n/g, '<br>'));
+  h += '</div>';
+
+  // Activities
+  const nbAct = d.nbAct || 3;
+  for (let i = 1; i <= nbAct; i++) {
+    const p = 'a' + i;
+    h += `<div class="section-title">Activite ${i} — ${esc(d['act-name-'+i]||'')}</div>`;
+    h += '<div class="data-grid">';
+    h += dataItem('Persona', d[p+'-persona-name']);
+    h += dataItem('Profil', d[p+'-persona-profil']);
+    h += '</div>';
+    h += dataItem('Description', d[p+'-persona-desc']);
+
+    // DBPM
+    const cats = {douleurs:['D','d','Douleurs'],besoins:['B','b','Besoins'],peurs:['P','p','Peurs'],motivations:['M','m','Motivations']};
+    Object.entries(cats).forEach(([cat,[letter,cls,label]]) => {
+      const items = d[p+'-'+cat];
+      if(items && items.some(v=>v)) {
+        h += `<div style="margin:.3rem 0;"><strong style="font-size:.78rem;">${label} :</strong> `;
+        items.forEach((v,j) => { if(v) h += `<span class="tag ${cls}">${letter}${j+1}</span> ${esc(v)} &nbsp; `; });
+        h += '</div>';
+      }
+    });
+
+    // Funnel
+    ['tofu','mofu','bofu'].forEach((f,fi) => {
+      h += `<div class="funnel-label ${f}">${f.toUpperCase()}</div>`;
+
+      // KWs
+      const kws = d[p+'-'+f+'-kws'];
+      if(kws && kws.some(k=>k.kw)) {
+        h += '<div style="margin:.3rem 0;">';
+        kws.forEach(k => { if(k.kw) h += `<span class="kw">${k.match==='exact'?'['+esc(k.kw)+']':k.match==='phrase'?'"'+esc(k.kw)+'"':esc(k.kw)}</span>`; });
+        h += '</div>';
+      }
+
+      // SERP
+      const title = d[p+'-'+f+'-seo-title'];
+      const meta = d[p+'-'+f+'-seo-meta'];
+      if(title||meta) {
+        h += `<div class="serp-mini"><div class="s-url">${esc(d[p+'-'+f+'-seo-url']||'')}</div><div class="s-title">${esc(title||'')}</div><div class="s-desc">${esc(meta||'')}</div></div>`;
+      }
+
+      // Ad
+      const t1 = d[p+'-'+f+'-sea-t1'];
+      if(t1) {
+        h += `<div style="font-size:.82rem;margin:.3rem 0;"><strong>Annonce :</strong> ${esc(t1)} | ${esc(d[p+'-'+f+'-sea-t2']||'')} | ${esc(d[p+'-'+f+'-sea-t3']||'')}<br><span style="color:var(--g500);">${esc(d[p+'-'+f+'-sea-d1']||'')}</span></div>`;
+      }
+
+      // LP
+      const blocks = d[p+'-'+f+'-lp-blocks'];
+      if(blocks && blocks.some(b=>b.name)) {
+        const fColors = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
+        h += '<div class="lp-list">';
+        blocks.forEach((b,j) => {
+          if(!b.name) return;
+          h += `<div class="lp-item"><div class="lp-n" style="background:${fColors[f]};">${j+1}</div><div><strong>${esc(b.name)}</strong>`;
+          if(b.desc) h += ` — <span style="color:var(--g500);">${esc(b.desc)}</span>`;
+          if(b.tags) { h += '<br>'; b.tags.split(',').forEach(t=>{t=t.trim();const c=t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':t[0]==='M'?'m':'';h+=`<span class="tag ${c}">${esc(t)}</span>`;}); }
+          h += '</div></div>';
+        });
+        h += '</div>';
+      }
+    });
+  }
+
+  // Syntheses
+  h += '<div class="section-title">Synthese SEO</div>';
+  ['seo-vision','seo-priorites','seo-kpis','seo-timeline'].forEach(k => { if(d[k]) h += dataItem(k.replace('seo-',''), (d[k]||'').replace(/\n/g,'<br>')); });
+
+  h += '<div class="section-title">Synthese SEA</div>';
+  if(d['sea-archi']) h += `<pre style="background:var(--g900);color:#e5e7eb;padding:.8rem;border-radius:8px;font-size:.76rem;overflow-x:auto;">${esc(d['sea-archi'])}</pre>`;
+  ['sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(k => { if(d[k]) h += dataItem(k.replace('sea-',''), (d[k]||'').replace(/\n/g,'<br>')); });
+
+  document.getElementById('modal-content').innerHTML = h;
+  document.getElementById('modal').classList.add('show');
+}
+
+function dataItem(label, value) {
+  return `<div class="data-item"><div class="dl">${label}</div><div class="dv">${value||''}</div></div>`;
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+async function doLogout() { await sb.auth.signOut(); window.location.href = '/'; }
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Exercice SEM — Connexion</title>
+<style>
+:root{--bl:#1a56db;--bl-l:#e8eefb;--bl-d:#0f3a8e;--gn:#0d9f6e;--gn-l:#e6f7f0;--rd:#e74c3c;--rd-l:#fdecea;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g500:#6b7280;--g700:#374151;--g900:#111827;--r:12px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--g50);color:var(--g900);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.wrap{width:100%;max-width:420px;padding:2rem;}
+.logo{text-align:center;margin-bottom:2rem;}
+.logo h1{font-size:1.5rem;color:var(--bl);margin-bottom:.3rem;}
+.logo p{color:var(--g500);font-size:.88rem;}
+.card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.tabs{display:flex;margin-bottom:1.5rem;border-bottom:2px solid var(--g200);}
+.tab{flex:1;text-align:center;padding:.6rem;font-size:.88rem;font-weight:700;color:var(--g500);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.tab:hover{color:var(--g700);}.tab.active{color:var(--bl);border-bottom-color:var(--bl);}
+.field{margin-bottom:1rem;}
+.field label{display:block;font-size:.78rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;}
+.field input{width:100%;border:1.5px solid var(--g200);border-radius:8px;padding:.6rem .75rem;font-size:.9rem;font-family:inherit;color:var(--g900);transition:border-color .15s,box-shadow .15s;}
+.field input:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.btn{width:100%;padding:.7rem;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
+.btn-primary{background:var(--bl);color:#fff;}.btn-primary:hover{background:var(--bl-d);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.error{background:var(--rd-l);color:var(--rd);padding:.6rem .8rem;border-radius:8px;font-size:.82rem;margin-bottom:1rem;display:none;}
+.success{background:var(--gn-l);color:var(--gn);padding:.6rem .8rem;border-radius:8px;font-size:.82rem;margin-bottom:1rem;display:none;}
+.form{display:none;}.form.active{display:block;}
+footer{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--g500);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <h1>Exercice SEM</h1>
+    <p>Connectez-vous pour acceder a votre exercice</p>
+  </div>
+  <div class="card">
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('login')">Connexion</div>
+      <div class="tab" onclick="showTab('register')">Inscription</div>
+    </div>
+    <div id="msg-error" class="error"></div>
+    <div id="msg-success" class="success"></div>
+
+    <!-- Login form -->
+    <div class="form active" id="form-login">
+      <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="votre@email.com"></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="login-password" placeholder="Votre mot de passe"></div>
+      <button class="btn btn-primary" id="btn-login" onclick="doLogin()">Se connecter</button>
+    </div>
+
+    <!-- Register form -->
+    <div class="form" id="form-register">
+      <div class="field"><label>Nom complet</label><input type="text" id="reg-name" placeholder="Prenom Nom"></div>
+      <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="votre@email.com"></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="reg-password" placeholder="Min. 6 caracteres"></div>
+      <button class="btn btn-primary" id="btn-register" onclick="doRegister()">Creer mon compte</button>
+    </div>
+  </div>
+  <footer>Cours SEM 2026</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/config.js"></script>
+<script>
+const { createClient } = supabase;
+let sb;
+
+async function init() {
+  const cfg = window.__SEM_CONFIG;
+  if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
+    showError('Configuration Supabase manquante. Contactez votre enseignant.');
+    return;
+  }
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+
+  // Check if already logged in
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    redirectUser(session.user);
+  }
+}
+
+function redirectUser(user) {
+  const cfg = window.__SEM_CONFIG;
+  const isProf = cfg.PROF_EMAILS.includes(user.email.toLowerCase());
+  window.location.href = isProf ? '/prof' : '/app';
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === (tab === 'login' ? 0 : 1)));
+  document.getElementById('form-login').classList.toggle('active', tab === 'login');
+  document.getElementById('form-register').classList.toggle('active', tab === 'register');
+  hideMessages();
+}
+
+function showError(msg) { const el = document.getElementById('msg-error'); el.textContent = msg; el.style.display = 'block'; document.getElementById('msg-success').style.display = 'none'; }
+function showSuccess(msg) { const el = document.getElementById('msg-success'); el.textContent = msg; el.style.display = 'block'; document.getElementById('msg-error').style.display = 'none'; }
+function hideMessages() { document.getElementById('msg-error').style.display = 'none'; document.getElementById('msg-success').style.display = 'none'; }
+
+async function doLogin() {
+  hideMessages();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email || !password) { showError('Remplissez tous les champs.'); return; }
+
+  const btn = document.getElementById('btn-login');
+  btn.disabled = true; btn.textContent = 'Connexion...';
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  btn.disabled = false; btn.textContent = 'Se connecter';
+
+  if (error) { showError(error.message); return; }
+  redirectUser(data.user);
+}
+
+async function doRegister() {
+  hideMessages();
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  if (!name || !email || !password) { showError('Remplissez tous les champs.'); return; }
+  if (password.length < 6) { showError('Le mot de passe doit faire au moins 6 caracteres.'); return; }
+
+  const btn = document.getElementById('btn-register');
+  btn.disabled = true; btn.textContent = 'Inscription...';
+
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password,
+    options: { data: { full_name: name, role: 'student' } }
+  });
+  btn.disabled = false; btn.textContent = 'Creer mon compte';
+
+  if (error) { showError(error.message); return; }
+
+  // If email confirmation is disabled, redirect directly
+  if (data.session) {
+    redirectUser(data.user);
+  } else {
+    showSuccess('Compte cree ! Verifiez votre email pour confirmer, puis connectez-vous.');
+    showTab('login');
+  }
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (document.getElementById('form-login').classList.contains('active')) doLogin();
+    else doRegister();
+  }
+});
+
+init();
+</script>
+</body>
+</html>
