@@ -8,7 +8,7 @@
 :root{--bl:#1a56db;--bl-l:#e8eefb;--bl-d:#0f3a8e;--gn:#0d9f6e;--gn-l:#e6f7f0;--rd:#e74c3c;--rd-l:#fdecea;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g500:#6b7280;--g700:#374151;--g900:#111827;--r:12px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--g50);color:var(--g900);min-height:100vh;display:flex;align-items:center;justify-content:center;}
-.wrap{width:100%;max-width:420px;padding:2rem;}
+.wrap{width:100%;max-width:520px;padding:2rem;}
 .logo{text-align:center;margin-bottom:2rem;}
 .logo h1{font-size:1.5rem;color:var(--bl);margin-bottom:.3rem;}
 .logo p{color:var(--g500);font-size:.88rem;}
@@ -22,11 +22,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .field input:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
 .btn{width:100%;padding:.7rem;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
 .btn-primary{background:var(--bl);color:#fff;}.btn-primary:hover{background:var(--bl-d);}
+.btn-secondary{background:#fff;color:var(--g700);border:1.5px solid var(--g200);}.btn-secondary:hover{border-color:var(--bl);color:var(--bl);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
 .error{background:var(--rd-l);color:var(--rd);padding:.6rem .8rem;border-radius:8px;font-size:.82rem;margin-bottom:1rem;display:none;}
 .success{background:var(--gn-l);color:var(--gn);padding:.6rem .8rem;border-radius:8px;font-size:.82rem;margin-bottom:1rem;display:none;}
 .form{display:none;}.form.active{display:block;}
 footer{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--g500);}
+.step{display:none;}.step.active{display:block;}
+.step-indicator{display:flex;gap:.5rem;margin-bottom:1.5rem;align-items:center;justify-content:center;}
+.step-dot{width:10px;height:10px;border-radius:50%;background:var(--g200);transition:all .2s;}
+.step-dot.active{background:var(--bl);transform:scale(1.2);}
+.step-dot.done{background:var(--gn);}
+.step-line{width:30px;height:2px;background:var(--g200);}
+.member-row{display:grid;grid-template-columns:1fr 1fr 1.5fr auto;gap:.5rem;margin-bottom:.6rem;align-items:end;}
+.member-row .field{margin-bottom:0;}
+.member-row .field input{font-size:.82rem;padding:.5rem .6rem;}
+.rm-btn{width:32px;height:36px;border:none;background:var(--rd-l);color:var(--rd);border-radius:8px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.rm-btn:hover{background:var(--rd);color:#fff;}
+.add-member-btn{display:inline-flex;align-items:center;gap:.3rem;font-size:.82rem;font-weight:600;color:var(--bl);cursor:pointer;padding:.4rem .6rem;border-radius:6px;border:1px dashed var(--bl);background:transparent;margin:.5rem 0 1rem;transition:all .15s;width:100%;justify-content:center;}
+.add-member-btn:hover{background:var(--bl-l);}
+.btn-row{display:flex;gap:.5rem;margin-top:.5rem;}
+.btn-row .btn{flex:1;}
+.hint{font-size:.72rem;color:var(--g500);margin-top:.2rem;}
+@media(max-width:600px){.member-row{grid-template-columns:1fr 1fr;}.member-row .field:nth-child(3){grid-column:1/-1;}}
 </style>
 </head>
 <body>
@@ -38,7 +56,7 @@ footer{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--g500);}
   <div class="card">
     <div class="tabs">
       <div class="tab active" onclick="showTab('login')">Connexion</div>
-      <div class="tab" onclick="showTab('register')">Inscription</div>
+      <div class="tab" onclick="showTab('register')">Inscription groupe</div>
     </div>
     <div id="msg-error" class="error"></div>
     <div id="msg-success" class="success"></div>
@@ -50,12 +68,36 @@ footer{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--g500);}
       <button class="btn btn-primary" id="btn-login" onclick="doLogin()">Se connecter</button>
     </div>
 
-    <!-- Register form -->
+    <!-- Register form: multi-step -->
     <div class="form" id="form-register">
-      <div class="field"><label>Nom complet</label><input type="text" id="reg-name" placeholder="Prenom Nom"></div>
-      <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="votre@email.com"></div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="reg-password" placeholder="Min. 6 caracteres"></div>
-      <button class="btn btn-primary" id="btn-register" onclick="doRegister()">Creer mon compte</button>
+      <div class="step-indicator">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="dot-2"></div>
+      </div>
+
+      <!-- Step 1: Group info -->
+      <div class="step active" id="step-1">
+        <div class="field">
+          <label>Nom du groupe</label>
+          <input type="text" id="reg-group-name" placeholder="MonGroupe (sans espaces)" pattern="[a-zA-Z0-9_-]+">
+          <div class="hint">Lettres, chiffres, tirets ou underscores uniquement</div>
+        </div>
+        <div class="field"><label>Mot de passe du groupe</label><input type="password" id="reg-password" placeholder="Min. 6 caracteres"></div>
+        <div class="field"><label>Confirmer le mot de passe</label><input type="password" id="reg-password-confirm" placeholder="Confirmez le mot de passe"></div>
+        <button class="btn btn-primary" onclick="goToStep2()">Suivant</button>
+      </div>
+
+      <!-- Step 2: Members -->
+      <div class="step" id="step-2">
+        <p style="font-size:.88rem;color:var(--g500);margin-bottom:1rem;">Ajoutez les membres du groupe. Chacun recevra un compte avec le mot de passe du groupe.</p>
+        <div id="members-list"></div>
+        <button class="add-member-btn" onclick="addMemberRow()">+ Ajouter un membre</button>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="goToStep1()">Retour</button>
+          <button class="btn btn-primary" id="btn-register" onclick="doRegisterGroup()">Creer le groupe</button>
+        </div>
+      </div>
     </div>
   </div>
   <footer>Cours SEM 2026</footer>
@@ -73,9 +115,8 @@ async function init() {
     showError('Configuration Supabase manquante. Contactez votre enseignant.');
     return;
   }
-  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, { db: { schema: 'courssem' } });
 
-  // Check if already logged in
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
     redirectUser(session.user);
@@ -99,6 +140,7 @@ function showError(msg) { const el = document.getElementById('msg-error'); el.te
 function showSuccess(msg) { const el = document.getElementById('msg-success'); el.textContent = msg; el.style.display = 'block'; document.getElementById('msg-error').style.display = 'none'; }
 function hideMessages() { document.getElementById('msg-error').style.display = 'none'; document.getElementById('msg-success').style.display = 'none'; }
 
+// ===================== LOGIN =====================
 async function doLogin() {
   hideMessages();
   const email = document.getElementById('login-email').value.trim();
@@ -115,32 +157,106 @@ async function doLogin() {
   redirectUser(data.user);
 }
 
-async function doRegister() {
+// ===================== REGISTRATION STEPS =====================
+function goToStep2() {
   hideMessages();
-  const name = document.getElementById('reg-name').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
+  const groupName = document.getElementById('reg-group-name').value.trim();
   const password = document.getElementById('reg-password').value;
-  if (!name || !email || !password) { showError('Remplissez tous les champs.'); return; }
+  const passwordConfirm = document.getElementById('reg-password-confirm').value;
+
+  if (!groupName) { showError('Entrez un nom de groupe.'); return; }
+  if (/\s/.test(groupName)) { showError('Le nom du groupe ne doit pas contenir d\'espaces.'); return; }
+  if (!/^[a-zA-Z0-9_-]+$/.test(groupName)) { showError('Le nom du groupe ne peut contenir que des lettres, chiffres, tirets ou underscores.'); return; }
   if (password.length < 6) { showError('Le mot de passe doit faire au moins 6 caracteres.'); return; }
+  if (password !== passwordConfirm) { showError('Les mots de passe ne correspondent pas.'); return; }
+
+  document.getElementById('step-1').classList.remove('active');
+  document.getElementById('step-2').classList.add('active');
+  document.getElementById('dot-1').classList.remove('active');
+  document.getElementById('dot-1').classList.add('done');
+  document.getElementById('dot-2').classList.add('active');
+
+  // Add initial member row if empty
+  if (document.getElementById('members-list').children.length === 0) {
+    addMemberRow();
+  }
+}
+
+function goToStep1() {
+  document.getElementById('step-2').classList.remove('active');
+  document.getElementById('step-1').classList.add('active');
+  document.getElementById('dot-2').classList.remove('active');
+  document.getElementById('dot-1').classList.remove('done');
+  document.getElementById('dot-1').classList.add('active');
+  hideMessages();
+}
+
+function addMemberRow() {
+  const list = document.getElementById('members-list');
+  const row = document.createElement('div');
+  row.className = 'member-row';
+  row.innerHTML = `
+    <div class="field"><label>Nom</label><input type="text" placeholder="Dupont" class="m-last"></div>
+    <div class="field"><label>Prenom</label><input type="text" placeholder="Jean" class="m-first"></div>
+    <div class="field"><label>Email</label><input type="email" placeholder="jean@email.com" class="m-email"></div>
+    <button class="rm-btn" onclick="removeMemberRow(this)" title="Supprimer">&times;</button>
+  `;
+  list.appendChild(row);
+}
+
+function removeMemberRow(btn) {
+  const list = document.getElementById('members-list');
+  if (list.children.length <= 1) { showError('Le groupe doit avoir au moins 1 membre.'); return; }
+  btn.closest('.member-row').remove();
+}
+
+// ===================== GROUP REGISTRATION =====================
+async function doRegisterGroup() {
+  hideMessages();
+  const groupName = document.getElementById('reg-group-name').value.trim();
+  const password = document.getElementById('reg-password').value;
+
+  // Gather members
+  const rows = document.querySelectorAll('#members-list .member-row');
+  const members = [];
+  for (const row of rows) {
+    const lastName = row.querySelector('.m-last').value.trim();
+    const firstName = row.querySelector('.m-first').value.trim();
+    const email = row.querySelector('.m-email').value.trim();
+    if (!lastName || !firstName || !email) {
+      showError('Remplissez tous les champs pour chaque membre.');
+      return;
+    }
+    members.push({ firstName, lastName, email });
+  }
+
+  if (members.length === 0) { showError('Ajoutez au moins 1 membre.'); return; }
 
   const btn = document.getElementById('btn-register');
-  btn.disabled = true; btn.textContent = 'Inscription...';
+  btn.disabled = true; btn.textContent = 'Creation en cours...';
 
-  const { data, error } = await sb.auth.signUp({
-    email,
-    password,
-    options: { data: { full_name: name, role: 'student' } }
-  });
-  btn.disabled = false; btn.textContent = 'Creer mon compte';
+  try {
+    const resp = await fetch('/api/register-group', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ groupName, password, members })
+    });
+    const result = await resp.json();
 
-  if (error) { showError(error.message); return; }
+    btn.disabled = false; btn.textContent = 'Creer le groupe';
 
-  // If email confirmation is disabled, redirect directly
-  if (data.session) {
-    redirectUser(data.user);
-  } else {
-    showSuccess('Compte cree ! Verifiez votre email pour confirmer, puis connectez-vous.');
+    if (!resp.ok) {
+      showError(result.error || 'Erreur lors de la creation du groupe.');
+      return;
+    }
+
+    // Success: switch to login tab with first member's email pre-filled
+    showSuccess(`Groupe "${groupName}" cree avec ${result.memberCount} membre(s) ! Connectez-vous avec votre email.`);
+    document.getElementById('login-email').value = members[0].email;
     showTab('login');
+  } catch (err) {
+    btn.disabled = false; btn.textContent = 'Creer le groupe';
+    showError('Erreur reseau. Reessayez.');
   }
 }
 
@@ -148,7 +264,6 @@ async function doRegister() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     if (document.getElementById('form-login').classList.contains('active')) doLogin();
-    else doRegister();
   }
 });
 

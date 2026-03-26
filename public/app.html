@@ -38,7 +38,7 @@ h3{font-size:1.05rem;margin-bottom:.65rem;}
 footer{text-align:center;padding:1.5rem;color:var(--g500);font-size:.78rem;border-top:1px solid var(--g200);}
 .fade{animation:fi .3s ease;}@keyframes fi{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .back{display:inline-flex;align-items:center;gap:.35rem;font-size:.86rem;font-weight:600;color:var(--bl);cursor:pointer;margin-bottom:1.2rem;padding:.35rem 0;}.back:hover{opacity:.7;}
-.field{margin-bottom:1rem;}
+.field{margin-bottom:1rem;position:relative;}
 .field label{display:block;font-size:.78rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem;}
 .field input,.field textarea,.field select{width:100%;border:1.5px solid var(--g200);border-radius:8px;padding:.55rem .75rem;font-size:.88rem;font-family:inherit;color:var(--g900);background:#fff;transition:border-color .15s,box-shadow .15s;line-height:1.5;}
 .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
@@ -101,6 +101,111 @@ footer{text-align:center;padding:1.5rem;color:var(--g500);font-size:.78rem;borde
 body{padding-bottom:60px;}
 .submitted-banner{background:var(--gn-l);border:2px solid var(--gn);border-radius:var(--r);padding:1rem 1.5rem;margin-bottom:1.5rem;display:none;align-items:center;gap:.6rem;font-size:.88rem;color:var(--gn);font-weight:600;}
 .submitted-banner.show{display:flex;}
+/* Lock overlay */
+.lock-label{font-size:.7rem;color:var(--or);font-weight:600;margin-top:.15rem;animation:fi .2s ease;}
+/* Group management */
+.member-table{width:100%;border-collapse:collapse;margin:1rem 0;}
+.member-table th,.member-table td{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--g200);font-size:.85rem;}
+.member-table th{font-size:.72rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.04em;}
+.member-table .rm-btn{width:28px;height:28px;border:none;background:var(--rd-l);color:var(--rd);border-radius:6px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;}
+.member-table .rm-btn:hover{background:var(--rd);color:#fff;}
+.add-member-form{display:grid;grid-template-columns:1fr 1fr 1.5fr 1.5fr auto;gap:.5rem;align-items:end;margin:1rem 0;}
+.add-member-form .field{margin-bottom:0;}
+.add-member-form .field input{font-size:.82rem;padding:.5rem .6rem;}
+@media(max-width:700px){.add-member-form{grid-template-columns:1fr 1fr;}.add-member-form .field:nth-child(3),.add-member-form .field:nth-child(4){grid-column:1/-1;}}
+/* LP reorder buttons */
+/* Google Ads structure */
+.gads-campaign{background:#fff;border:2px solid var(--or);border-radius:var(--r);margin-bottom:1rem;overflow:hidden;}
+.gads-campaign-header{display:flex;align-items:center;gap:.6rem;padding:.8rem 1rem;background:var(--or-l);cursor:pointer;}
+.gads-campaign-header .gads-icon{width:28px;height:28px;background:var(--or);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;}
+.gads-campaign-header input{flex:1;border:1.5px solid var(--g200);border-radius:6px;padding:.4rem .6rem;font-size:.88rem;font-weight:600;font-family:inherit;}
+.gads-campaign-header input:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(230,126,34,.12);}
+.gads-campaign-header .rm-btn{flex-shrink:0;}
+.gads-groups{padding:.5rem 1rem 1rem;padding-left:2.5rem;}
+.gads-group{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;padding:.35rem .5rem;background:var(--g50);border:1px solid var(--g200);border-radius:6px;}
+.gads-group .gads-g-icon{width:20px;height:20px;background:var(--bl);color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;flex-shrink:0;}
+.gads-group input{flex:1;border:1px solid var(--g200);border-radius:5px;padding:.3rem .5rem;font-size:.82rem;font-family:inherit;}
+.gads-group input:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 2px rgba(26,86,219,.1);}
+.gads-group .rm-btn{width:22px;height:22px;font-size:.7rem;}
+/* Collapsible sections */
+.sec-h{cursor:pointer;user-select:none;}
+.sec-h .sec-toggle{margin-left:auto;font-size:.8rem;color:var(--g500);transition:transform .2s;}
+.sec-h.collapsed .sec-toggle{transform:rotate(-90deg);}
+.sec-body{transition:max-height .3s ease,opacity .2s ease;overflow:hidden;}
+.sec-body.collapsed{max-height:0!important;opacity:0;margin:0;padding:0;}
+.lp-mv{width:26px;height:20px;border:1px solid var(--g200);background:#fff;border-radius:4px;cursor:pointer;font-size:.6rem;color:var(--g500);display:flex;align-items:center;justify-content:center;transition:all .1s;}
+.lp-mv:hover{border-color:var(--bl);color:var(--bl);background:var(--bl-l);}
+/* LP tag dropdown */
+.lp-tag-dropdown{position:relative;display:inline-block;}
+.lp-tag-btn{font-size:.75rem;padding:.3rem .6rem;border:1.5px solid var(--g200);border-radius:6px;background:#fff;cursor:pointer;color:var(--g700);font-weight:600;font-family:inherit;display:flex;align-items:center;gap:.3rem;}
+.lp-tag-btn:hover{border-color:var(--bl);}
+.lp-tag-btn .tag-count{background:var(--bl);color:#fff;border-radius:4px;padding:.05rem .3rem;font-size:.6rem;font-weight:800;}
+.lp-tag-panel{display:none;position:absolute;top:100%;left:0;z-index:50;background:#fff;border:1.5px solid var(--g200);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:.5rem;min-width:280px;max-height:250px;overflow-y:auto;margin-top:.2rem;}
+.lp-tag-panel.show{display:block;}
+.lp-tag-panel label{display:flex;align-items:flex-start;gap:.4rem;padding:.3rem .4rem;border-radius:4px;cursor:pointer;font-size:.75rem;line-height:1.3;}
+.lp-tag-panel label:hover{background:var(--g50);}
+.lp-tag-panel label input[type="checkbox"]{margin-top:2px;flex-shrink:0;}
+.lp-tag-panel .tag-cat{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:.3rem .4rem .15rem;color:var(--g500);}
+.lp-copy-prompt{font-size:.72rem;padding:.25rem .5rem;border:1px solid var(--bl);border-radius:6px;background:var(--bl-l);color:var(--bl);cursor:pointer;font-weight:600;transition:all .15s;font-family:inherit;}
+.lp-copy-prompt:hover{background:var(--bl);color:#fff;}
+.lp-coverage{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;font-size:.75rem;}
+.lp-cov-item{padding:.2rem .5rem;border-radius:6px;font-weight:700;}
+.lp-cov-item.ok{background:var(--gn-l);color:var(--gn);}.lp-cov-item.miss{background:var(--rd-l);color:var(--rd);opacity:.6;}
+/* WYSIWYG editor */
+.wysiwyg-wrap{position:relative;}
+.wysiwyg-toolbar{display:flex;gap:2px;padding:3px 4px;background:var(--g100);border:1.5px solid var(--g200);border-bottom:none;border-radius:8px 8px 0 0;opacity:0;max-height:0;overflow:hidden;transition:opacity .15s,max-height .15s;}
+.wysiwyg-wrap.focused .wysiwyg-toolbar{opacity:1;max-height:40px;}
+.wysiwyg-toolbar button{width:28px;height:26px;border:none;background:transparent;border-radius:5px;cursor:pointer;font-size:.78rem;font-weight:700;color:var(--g700);display:flex;align-items:center;justify-content:center;transition:all .1s;font-family:inherit;}
+.wysiwyg-toolbar button:hover{background:var(--bl-l);color:var(--bl);}
+.wysiwyg-toolbar button.active{background:var(--bl);color:#fff;}
+.wysiwyg-toolbar .sep{width:1px;background:var(--g300);margin:3px 4px;flex-shrink:0;}
+.wysiwyg-editor{width:100%;border:1.5px solid var(--g200);border-radius:8px;padding:.55rem .75rem;font-size:.88rem;font-family:inherit;color:var(--g900);background:#fff;transition:border-color .15s,box-shadow .15s;line-height:1.6;min-height:60px;outline:none;overflow-y:auto;}
+.wysiwyg-wrap.focused .wysiwyg-editor{border-top-left-radius:0;border-top-right-radius:0;border-color:var(--bl);box-shadow:0 0 0 3px rgba(26,86,219,.12);}
+.wysiwyg-editor:empty::before{content:attr(data-placeholder);color:var(--g300);pointer-events:none;}
+.wysiwyg-editor ul,.wysiwyg-editor ol{margin:.3rem 0 .3rem 1.2rem;}
+.wysiwyg-editor b,.wysiwyg-editor strong{font-weight:700;}
+.wysiwyg-editor blockquote{border-left:3px solid var(--g300);padding-left:.6rem;margin:.3rem 0;color:var(--g500);}
+.lp-block .wysiwyg-editor{font-size:.82rem;padding:.4rem .6rem;min-height:40px;}
+/* Presentation */
+.pres-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#111;z-index:9999;display:none;flex-direction:column;}
+.pres-overlay.show{display:flex;}
+.pres-topbar{display:flex;justify-content:space-between;align-items:center;padding:.4rem 1rem;background:#000;flex-shrink:0;}
+.pres-counter{color:#fff;font-size:.82rem;font-weight:600;}
+.pres-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;border-radius:6px;}.pres-close:hover{background:rgba(255,255,255,.15);}
+.pres-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem;overflow:hidden;}
+.pres-arrow{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.8rem 1rem;border-radius:8px;flex-shrink:0;transition:background .15s;}.pres-arrow:hover{background:rgba(255,255,255,.25);}
+.pres-slide-wrap{flex:1;display:flex;align-items:center;justify-content:center;max-height:100%;max-width:100%;}
+.pres-slide{width:960px;height:540px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+@media(max-width:1000px){.pres-slide{width:100%;height:0;padding-bottom:56.25%;}}
+.ps{width:100%;height:100%;position:absolute;top:0;left:0;display:flex;flex-direction:column;padding:2.5rem 3rem;}
+.ps .ps-tag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:999px;display:inline-block;margin-bottom:.6rem;}
+.ps h1{font-size:1.6rem;font-weight:800;margin-bottom:.3rem;line-height:1.2;}
+.ps h2{font-size:1.2rem;font-weight:700;margin-bottom:.4rem;color:var(--g700);}
+.ps h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem;}
+.ps p,.ps li{font-size:.78rem;color:var(--g700);line-height:1.5;}
+.ps ul{margin:.3rem 0 .3rem 1.2rem;}
+.ps .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex:1;}
+.ps .ps-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;flex:1;}
+.ps .ps-card{background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:.8rem;}
+.ps .ps-card h3{font-size:.82rem;margin-bottom:.2rem;}
+.ps .ps-card p{font-size:.7rem;}
+.ps .ps-serp{background:#fff;border:1px solid var(--g200);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;}
+.ps .ps-serp .s-url{font-size:.6rem;color:#4d5156;}.ps .ps-serp .s-title{font-size:.82rem;color:#1a0dab;font-weight:600;}.ps .ps-serp .s-desc{font-size:.65rem;color:#4d5156;}
+.ps .ps-ad{background:#fff;border:1px solid var(--g200);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;}
+.ps .ps-ad .a-sp{font-size:.55rem;font-weight:700;color:var(--g500);text-transform:uppercase;margin-bottom:.15rem;}
+.ps .ps-ad .a-url{font-size:.6rem;color:var(--g900);font-weight:600;}.ps .ps-ad .a-title{font-size:.82rem;color:#1a0dab;font-weight:600;}.ps .ps-ad .a-desc{font-size:.65rem;color:#4d5156;}
+.ps .ps-flow{display:flex;align-items:center;gap:.5rem;margin:.4rem 0;flex-wrap:wrap;}
+.ps .ps-flow-item{background:var(--g50);border:1px solid var(--g200);border-radius:6px;padding:.3rem .6rem;font-size:.7rem;font-weight:600;}
+.ps .ps-flow-arrow{color:var(--g300);font-size:.9rem;}
+.ps .ps-footer{margin-top:auto;font-size:.6rem;color:var(--g500);text-align:right;padding-top:.5rem;border-top:1px solid var(--g100);}
+.ps-title-slide{background:linear-gradient(135deg,var(--bl-d),var(--bl) 50%,#4f8ff7);color:#fff;justify-content:center;align-items:center;text-align:center;}
+.ps-title-slide h1{font-size:2.2rem;color:#fff;}.ps-title-slide p{color:rgba(255,255,255,.8);font-size:.95rem;}
+.ps-title-slide .ps-tag{background:rgba(255,255,255,.2);color:#fff;}
+.ps .ps-kw-list{display:flex;flex-wrap:wrap;gap:.3rem;margin:.3rem 0;}
+.ps .ps-kw{background:var(--g100);border:1px solid var(--g200);border-radius:4px;padding:.15rem .4rem;font-size:.65rem;font-family:monospace;}
+.ps .ps-lp{background:var(--g50);border:1px solid var(--g200);border-radius:6px;padding:.4rem .6rem;margin:.2rem 0;}
+.ps .ps-lp-num{display:inline-flex;width:18px;height:18px;border-radius:4px;font-size:.6rem;font-weight:800;color:#fff;align-items:center;justify-content:center;margin-right:.3rem;}
+.ps .ps-lp-name{font-size:.7rem;font-weight:700;}.ps .ps-lp-desc{font-size:.62rem;color:var(--g500);}
 @media print{nav,.action-bar{display:none!important;}body{padding:0;}.page{display:block!important;padding-top:0;}}
 </style>
 </head>
@@ -122,7 +227,10 @@ body{padding-bottom:60px;}
 <section>
 <div class="container fade">
   <div class="submitted-banner" id="submitted-banner">&#9989; Exercice soumis avec succes !</div>
-  <div class="progress-bar"><div class="fill" id="progress-fill" style="width:0%"></div></div>
+  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1.5rem;">
+    <div class="progress-bar" style="flex:1;margin-bottom:0;"><div class="fill" id="progress-fill" style="width:0%"></div></div>
+    <span id="progress-text" style="font-size:.82rem;font-weight:700;color:var(--g500);white-space:nowrap;">0%</span>
+  </div>
   <span class="sl" style="background:var(--bl-l);color:var(--bl);">Etape 1</span>
   <h2 class="st">Presentation du client</h2>
   <p class="sd">Decrivez l'entreprise pour laquelle vous construisez la strategie SEM.</p>
@@ -132,7 +240,7 @@ body{padding-bottom:60px;}
   </div>
   <div class="field-row">
     <div class="field"><label>Zone de chalandise</label><input type="text" id="client-zone" placeholder="Ex : Lyon et region, France entiere..."></div>
-    <div class="field"><label>Budget marketing mensuel</label><input type="text" id="client-budget" placeholder="Ex : 1 000 - 5 000 EUR/mois"></div>
+    <div class="field"><label>URL du site</label><input type="text" id="client-url" placeholder="https://www.monsite.com"></div>
   </div>
   <div class="field"><label>Activites / services principaux</label><textarea id="client-activities" rows="2" placeholder="Ex : Vente de vetements en ligne, personal shopping"></textarea></div>
   <div class="field"><label>Particularites</label><textarea id="client-particularites" rows="2" placeholder="Ex : Petite equipe, positionnement premium..."></textarea></div>
@@ -158,45 +266,69 @@ body{padding-bottom:60px;}
 
 <div id="activity-pages"></div>
 
-<!-- SEO SUMMARY -->
-<div class="page" id="page-seo-sum">
+
+<!-- GROUP MANAGEMENT -->
+<!-- GOOGLE ADS ACCOUNT STRUCTURE -->
+<div class="page" id="page-gads">
 <section style="background:#fff;"><div class="container fade">
 <div class="back" onclick="go('home')">&#8592; Accueil</div>
-<span class="sl" style="background:var(--bl-l);color:var(--bl);">Synthese</span>
-<h2 class="st">Resume Strategie SEO</h2>
-<div class="field"><label>Vision SEO globale</label><textarea id="seo-vision" rows="3" placeholder="Votre approche SEO globale..."></textarea></div>
-<div class="field"><label>Priorites SEO</label><textarea id="seo-priorites" rows="3" placeholder="1. ...&#10;2. ..."></textarea></div>
-<div class="field"><label>KPIs SEO</label><textarea id="seo-kpis" rows="2" placeholder="Positions, trafic, CTR..."></textarea></div>
-<div class="field"><label>Timeline</label><textarea id="seo-timeline" rows="2" placeholder="M1-M3 : ... | M4-M6 : ..."></textarea></div>
+<span class="sl" style="background:var(--or-l);color:var(--or);">Google Ads</span>
+<h2 class="st">Structure du compte Google Ads</h2>
+<p class="sd">Organisez vos campagnes Search et leurs groupes d'annonces.</p>
+<div id="gads-campaigns"></div>
+<button class="add-btn" onclick="addGadsCampaign()" style="margin-top:.5rem;">+ Ajouter une campagne</button>
 </div></section>
 </div>
 
-<!-- SEA SUMMARY -->
-<div class="page" id="page-sea-sum">
+<div class="page" id="page-group">
 <section style="background:#fff;"><div class="container fade">
 <div class="back" onclick="go('home')">&#8592; Accueil</div>
-<span class="sl" style="background:var(--gn-l);color:var(--gn);">Synthese</span>
-<h2 class="st">Resume Strategie SEA</h2>
-<div class="field"><label>Architecture du compte Google Ads</label><textarea id="sea-archi" rows="4" placeholder="Compte > Campagnes > Groupes..."></textarea></div>
-<div class="field"><label>Strategie d'encheres</label><input type="text" id="sea-encheres" placeholder="Ex : CPA cible..."></div>
-<div class="field"><label>Budget quotidien</label><input type="text" id="sea-budget" placeholder="Ex : 30 EUR/jour"></div>
-<div class="field"><label>Extensions</label><textarea id="sea-extensions" rows="3" placeholder="Liens annexes, appel, lieu..."></textarea></div>
+<span class="sl" style="background:var(--pu-l);color:var(--pu);">Groupe</span>
+<h2 class="st">Gestion du groupe</h2>
+<p class="sd" id="group-name-display"></p>
+<h3>Membres</h3>
+<table class="member-table">
+  <thead><tr><th>Prenom</th><th>Nom</th><th>Email</th><th></th></tr></thead>
+  <tbody id="group-members-tbody"></tbody>
+</table>
+<div id="add-member-section" style="display:none;">
+  <div class="dv"></div>
+  <h3>Ajouter un membre</h3>
+  <div class="add-member-form">
+    <div class="field"><label>Prenom</label><input type="text" id="new-m-first" placeholder="Jean"></div>
+    <div class="field"><label>Nom</label><input type="text" id="new-m-last" placeholder="Dupont"></div>
+    <div class="field"><label>Email</label><input type="email" id="new-m-email" placeholder="jean@email.com"></div>
+    <div class="field"><label>Mot de passe groupe</label><input type="password" id="new-m-password" placeholder="Mot de passe"></div>
+    <button class="btn-primary" style="height:36px;padding:0 1rem;" onclick="addGroupMember()">Ajouter</button>
+  </div>
+  <div id="add-member-msg" style="font-size:.82rem;margin-top:.5rem;"></div>
+</div>
 <div class="dv"></div>
-<h3>Mots-cles negatifs (compte)</h3>
-<div id="neg-kw-global" class="neg-kw"></div>
-<button class="add-btn" onclick="addNegKw('neg-kw-global')">+ Mot-cle negatif</button>
-<div class="dv"></div>
-<div class="field"><label>KPIs SEA</label><textarea id="sea-kpis" rows="2" placeholder="CPC, CTR, CPA, ROAS..."></textarea></div>
+<h3>Notes du groupe</h3>
+<p style="font-size:.85rem;color:var(--g500);margin-bottom:.8rem;">Informations complementaires, precisions, remarques...</p>
+<div class="field"><textarea id="group-notes" rows="5" placeholder="Ajoutez ici toute precision utile pour votre exercice..."></textarea></div>
 </div></section>
 </div>
 
 <footer>Exercice SEM — Cours 2026</footer>
 
+<!-- PRESENTATION OVERLAY -->
+<div class="pres-overlay" id="pres-overlay">
+  <div class="pres-topbar">
+    <span class="pres-counter" id="pres-counter">1 / 1</span>
+    <button class="pres-close" onclick="closePresentation()">&times;</button>
+  </div>
+  <div class="pres-stage">
+    <button class="pres-arrow pres-prev" onclick="presNav(-1)">&#8592;</button>
+    <div class="pres-slide-wrap"><div class="pres-slide" id="pres-slide"></div></div>
+    <button class="pres-arrow pres-next" onclick="presNav(1)">&#8594;</button>
+  </div>
+</div>
+
 <div class="action-bar">
   <div class="status" id="autosave-status">Chargement...</div>
   <div class="btns">
-    <button class="btn-secondary" onclick="exportJSON()">Exporter JSON</button>
-    <button class="btn-success" id="btn-submit" onclick="submitExercise()">Soumettre l'exercice</button>
+    <button class="btn-success" id="btn-present" onclick="generatePresentation()">Generer la presentation</button>
   </div>
 </div>
 
@@ -206,42 +338,208 @@ body{padding-bottom:60px;}
 // ===================== SUPABASE INIT =====================
 const { createClient } = supabase;
 let sb, currentUser, exerciseId;
+let currentGroupId, currentFirstName, groupCreatedBy, groupName;
+let realtimeChannel;
 
 async function initApp() {
   const cfg = window.__SEM_CONFIG;
-  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, { db: { schema: 'courssem' } });
 
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = '/'; return; }
   currentUser = session.user;
 
-  document.getElementById('user-info').textContent = currentUser.email;
+  // Get profile with group info
+  const { data: profile, error: profileErr } = await sb.from('sem_profiles').select('group_id, first_name, last_name').eq('id', currentUser.id).single();
+  console.log('Profile:', profile, 'Error:', profileErr);
+  if (profile) {
+    currentGroupId = profile.group_id;
+    currentFirstName = profile.first_name || currentUser.email;
+  }
 
-  // Load or create exercise
-  const { data: exercises } = await sb.from('sem_exercises').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(1);
-
-  if (exercises && exercises.length > 0) {
-    exerciseId = exercises[0].id;
-    if (exercises[0].data && Object.keys(exercises[0].data).length > 0) {
-      const d = exercises[0].data;
-      if (d.nbAct) { nbAct = d.nbAct; document.getElementById('nb-activities').value = nbAct; }
-      renderActivityNames();
-      renderActivityPages();
-      updateNav();
-      restoreData(d);
-    }
-    if (exercises[0].submitted) {
-      document.getElementById('submitted-banner').classList.add('show');
-      document.getElementById('btn-submit').textContent = 'Deja soumis';
+  // Get group info
+  if (currentGroupId) {
+    const { data: grp, error: grpErr } = await sb.from('sem_groups').select('group_name, created_by').eq('id', currentGroupId).single();
+    console.log('Group:', grp, 'Error:', grpErr);
+    if (grp) {
+      groupCreatedBy = grp.created_by;
+      groupName = grp.group_name;
     }
   } else {
-    const { data: newEx } = await sb.from('sem_exercises').insert({ user_id: currentUser.id, title: 'Mon exercice SEM', data: {} }).select().single();
-    if (newEx) exerciseId = newEx.id;
+    console.warn('No group_id found for user');
+  }
+
+  document.getElementById('user-info').textContent = currentFirstName + (groupName ? ' (' + groupName + ')' : '');
+
+  // Load or create exercise (by group)
+  if (currentGroupId) {
+    const { data: exercises, error: exErr } = await sb.from('sem_exercises').select('*').eq('group_id', currentGroupId).limit(1);
+    console.log('Exercises:', exercises, 'Error:', exErr);
+
+    if (exercises && exercises.length > 0) {
+      exerciseId = exercises[0].id;
+      console.log('exerciseId set to:', exerciseId);
+      if (exercises[0].data && Object.keys(exercises[0].data).length > 0) {
+        const d = exercises[0].data;
+        if (d.nbAct) { nbAct = d.nbAct; document.getElementById('nb-activities').value = nbAct; }
+        renderActivityNames();
+        renderActivityPages();
+        updateNav();
+        restoreData(d);
+      }
+      if (exercises[0].submitted) {
+        document.getElementById('submitted-banner').classList.add('show');
+        document.getElementById('btn-submit').textContent = 'Deja soumis';
+      }
+    } else {
+      console.log('No exercise found, creating one...');
+      const { data: newEx, error: newExErr } = await sb.from('sem_exercises').insert({ group_id: currentGroupId, title: 'Mon exercice SEM', data: {} }).select().single();
+      console.log('New exercise:', newEx, 'Error:', newExErr);
+      if (newEx) exerciseId = newEx.id;
+    }
+  } else {
+    console.error('Cannot load exercise: no group_id');
   }
 
   document.getElementById('autosave-status').textContent = 'Sauvegarde automatique activee';
   updateProgress();
+  updateNav();
+
+  // Setup Realtime for field locking
+  if (currentGroupId) {
+    setupRealtime();
+  }
 }
+
+// ===================== REALTIME FIELD LOCKING =====================
+const fieldLocks = new Map(); // fieldId -> { userId, firstName, timestamp }
+
+function setupRealtime() {
+  realtimeChannel = sb.channel('exercise-' + currentGroupId, {
+    config: { broadcast: { self: false } }
+  });
+
+  realtimeChannel.on('broadcast', { event: 'field-lock' }, ({ payload }) => {
+    const { fieldId, userId, firstName, action } = payload;
+    if (userId === currentUser.id) return;
+    if (action === 'lock') {
+      fieldLocks.set(fieldId, { userId, firstName, timestamp: Date.now() });
+      applyLock(fieldId, firstName);
+    } else {
+      fieldLocks.delete(fieldId);
+      removeLock(fieldId);
+    }
+  });
+
+  realtimeChannel.on('broadcast', { event: 'data-updated' }, async ({ payload }) => {
+    if (payload.userId === currentUser.id) return;
+    // Reload exercise data from DB
+    const { data } = await sb.from('sem_exercises').select('data, progress, submitted').eq('id', exerciseId).single();
+    if (data && data.data) {
+      restoreData(data.data);
+      // Re-apply active locks after restore
+      for (const [fid, lock] of fieldLocks) {
+        applyLock(fid, lock.firstName);
+      }
+    }
+  });
+
+  realtimeChannel.subscribe();
+
+  // Heartbeat: re-broadcast current focus every 10s + expire stale locks
+  setInterval(() => {
+    const focused = document.activeElement;
+    if (focused && focused.id && (focused.matches('input, textarea, select') || focused.classList.contains('wysiwyg-editor'))) {
+      realtimeChannel.send({
+        type: 'broadcast',
+        event: 'field-lock',
+        payload: { fieldId: focused.id, userId: currentUser.id, firstName: currentFirstName, action: 'lock' }
+      });
+    }
+    // Expire stale locks (>15s without heartbeat)
+    const now = Date.now();
+    for (const [fid, lock] of fieldLocks) {
+      if (now - lock.timestamp > 15000) {
+        fieldLocks.delete(fid);
+        removeLock(fid);
+      }
+    }
+  }, 10000);
+}
+
+function applyLock(fieldId, firstName) {
+  const el = document.getElementById(fieldId);
+  if (!el) return;
+  if (el.classList.contains('wysiwyg-editor')) {
+    el.contentEditable = 'false';
+  } else {
+    el.disabled = true;
+  }
+  el.style.backgroundColor = '#f3f4f6';
+  el.style.opacity = '0.6';
+  let label = document.getElementById('lock-' + fieldId);
+  if (!label) {
+    label = document.createElement('div');
+    label.id = 'lock-' + fieldId;
+    label.className = 'lock-label';
+    el.parentNode.appendChild(label);
+  }
+  label.textContent = '\uD83D\uDD12 ' + firstName + ' est en train d\'ecrire...';
+}
+
+function removeLock(fieldId) {
+  const el = document.getElementById(fieldId);
+  if (!el) return;
+  if (el.classList.contains('wysiwyg-editor')) {
+    el.contentEditable = 'true';
+  } else {
+    el.disabled = false;
+  }
+  el.style.backgroundColor = '';
+  el.style.opacity = '';
+  const label = document.getElementById('lock-' + fieldId);
+  if (label) label.remove();
+}
+
+// Broadcast lock on focus (inputs, selects, and contenteditable editors)
+document.addEventListener('focusin', e => {
+  if (!realtimeChannel) return;
+  const t = e.target;
+  if (t.closest('.action-bar') || t.closest('.add-member-form') || t.closest('#page-group')) return;
+  const fieldId = t.id;
+  if (!fieldId) return;
+  if (!t.matches('input, textarea, select') && !t.classList.contains('wysiwyg-editor')) return;
+  realtimeChannel.send({
+    type: 'broadcast',
+    event: 'field-lock',
+    payload: { fieldId, userId: currentUser.id, firstName: currentFirstName, action: 'lock' }
+  });
+});
+
+// Broadcast unlock on blur + save immediately
+document.addEventListener('focusout', e => {
+  const t = e.target;
+  if (t.closest('.action-bar') || t.closest('.add-member-form') || t.closest('#page-group')) return;
+  const fieldId = t.id;
+  const isField = t.matches('input, textarea, select') || t.classList.contains('wysiwyg-editor');
+  if (!fieldId || !isField) return;
+
+  // Save immediately on blur
+  clearTimeout(saveTimeout);
+  saveToSupabase();
+
+  // Broadcast unlock
+  if (!realtimeChannel) return;
+  realtimeChannel.send({
+    type: 'broadcast',
+    event: 'field-lock',
+    payload: { fieldId, userId: currentUser.id, action: 'unlock' }
+  });
+});
+
+window.addEventListener('beforeunload', () => {
+  if (realtimeChannel) realtimeChannel.unsubscribe();
+});
 
 // ===================== SAVE TO SUPABASE =====================
 let saveTimeout;
@@ -254,18 +552,37 @@ function scheduleSave() {
 }
 
 async function saveToSupabase() {
-  if (!exerciseId) return;
-  const data = gatherData();
-  const progress = computeProgress();
-  const title = data['client-name'] || 'Mon exercice SEM';
-  const { error } = await sb.from('sem_exercises').update({ data, progress, title }).eq('id', exerciseId);
   const s = document.getElementById('autosave-status');
-  if (error) {
-    s.textContent = 'Erreur de sauvegarde !';
+  if (!exerciseId) {
+    s.textContent = 'Erreur : exercice non charge';
     s.style.color = 'var(--rd)';
-  } else {
-    s.textContent = 'Sauvegarde a ' + new Date().toLocaleTimeString('fr-FR');
-    s.style.color = 'var(--gn)';
+    console.error('saveToSupabase: exerciseId is', exerciseId);
+    return;
+  }
+  try {
+    const data = gatherData();
+    const progress = computeProgress();
+    const title = data['client-name'] || 'Mon exercice SEM';
+    const { error } = await sb.from('sem_exercises').update({ data, progress, title }).eq('id', exerciseId);
+    if (error) {
+      s.textContent = 'Erreur : ' + error.message;
+      s.style.color = 'var(--rd)';
+      console.error('saveToSupabase error:', error);
+    } else {
+      s.textContent = 'Sauvegarde a ' + new Date().toLocaleTimeString('fr-FR');
+      s.style.color = 'var(--gn)';
+      if (realtimeChannel) {
+        realtimeChannel.send({
+          type: 'broadcast',
+          event: 'data-updated',
+          payload: { userId: currentUser.id, timestamp: Date.now() }
+        });
+      }
+    }
+  } catch (err) {
+    s.textContent = 'Erreur JS : ' + err.message;
+    s.style.color = 'var(--rd)';
+    console.error('saveToSupabase exception:', err);
   }
 }
 
@@ -285,6 +602,7 @@ async function submitExercise() {
 }
 
 async function doLogout() {
+  if (realtimeChannel) realtimeChannel.unsubscribe();
   await sb.auth.signOut();
   window.location.href = '/';
 }
@@ -298,19 +616,113 @@ function go(id) {
   const t = document.getElementById('page-' + id);
   if (t) { t.classList.add('active'); window.scrollTo(0, 0); currentPage = id; }
   updateNav();
+  if (id === 'group') loadGroupMembers();
 }
 
 function updateNav() {
   const nr = document.getElementById('nr');
   let pages = ['home'];
   let labels = ['Accueil'];
-  for (let i = 1; i <= nbAct; i++) { pages.push('act' + i); labels.push('Act ' + i); }
-  pages.push('seo-sum', 'sea-sum');
-  labels.push('&Sigma; SEO', '&Sigma; SEA');
-  const userInfo = '<span class="user-info" id="user-info">' + (currentUser ? currentUser.email : '') + '</span>';
+  for (let i = 1; i <= nbAct; i++) {
+    pages.push('act' + i);
+    const nameEl = document.getElementById('act-name-' + i);
+    const actName = nameEl ? nameEl.value.trim() : '';
+    labels.push(actName || 'Act ' + i);
+  }
+  pages.push('gads');
+  labels.push('Google Ads');
+  // Group management button
+  pages.push('group');
+  labels.push('Groupe');
+  const userInfo = '<span class="user-info" id="user-info">' + (currentFirstName || '') + (groupName ? ' (' + groupName + ')' : '') + '</span>';
   nr.innerHTML = userInfo + pages.map((p, j) =>
     '<button class="nb' + (p === currentPage ? ' on' : '') + '" onclick="go(\'' + p + '\')">' + labels[j] + '</button>'
   ).join('') + '<button class="nb logout" onclick="doLogout()">Deconnexion</button>';
+}
+
+// ===================== GROUP MANAGEMENT =====================
+async function loadGroupMembers() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return;
+
+  try {
+    const resp = await fetch('/api/group-members', {
+      headers: { 'Authorization': 'Bearer ' + session.access_token }
+    });
+    const result = await resp.json();
+    if (!resp.ok) return;
+
+    document.getElementById('group-name-display').textContent = 'Groupe : ' + result.group.groupName;
+    const tbody = document.getElementById('group-members-tbody');
+    const isCreator = currentUser.id === result.group.createdBy;
+    tbody.innerHTML = result.members.map(m => {
+      const rmBtn = isCreator && m.id !== currentUser.id
+        ? `<button class="rm-btn" onclick="removeGroupMember('${m.id}')" title="Supprimer">&times;</button>`
+        : (m.id === result.group.createdBy ? '<span style="font-size:.7rem;color:var(--g500);">Admin</span>' : '');
+      return `<tr><td>${m.first_name}</td><td>${m.last_name}</td><td>${m.email}</td><td>${rmBtn}</td></tr>`;
+    }).join('');
+
+    // Show add member form only for creator
+    document.getElementById('add-member-section').style.display = isCreator ? 'block' : 'none';
+  } catch (err) {
+    console.error('Error loading members:', err);
+  }
+}
+
+async function addGroupMember() {
+  const firstName = document.getElementById('new-m-first').value.trim();
+  const lastName = document.getElementById('new-m-last').value.trim();
+  const email = document.getElementById('new-m-email').value.trim();
+  const password = document.getElementById('new-m-password').value;
+  const msgEl = document.getElementById('add-member-msg');
+
+  if (!firstName || !lastName || !email || !password) {
+    msgEl.textContent = 'Remplissez tous les champs.';
+    msgEl.style.color = 'var(--rd)';
+    return;
+  }
+
+  const { data: { session } } = await sb.auth.getSession();
+  try {
+    const resp = await fetch('/api/add-member', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify({ firstName, lastName, email, password })
+    });
+    const result = await resp.json();
+    if (!resp.ok) {
+      msgEl.textContent = result.error || 'Erreur.';
+      msgEl.style.color = 'var(--rd)';
+      return;
+    }
+    msgEl.textContent = 'Membre ajoute !';
+    msgEl.style.color = 'var(--gn)';
+    document.getElementById('new-m-first').value = '';
+    document.getElementById('new-m-last').value = '';
+    document.getElementById('new-m-email').value = '';
+    document.getElementById('new-m-password').value = '';
+    loadGroupMembers();
+  } catch (err) {
+    msgEl.textContent = 'Erreur reseau.';
+    msgEl.style.color = 'var(--rd)';
+  }
+}
+
+async function removeGroupMember(memberId) {
+  if (!confirm('Supprimer ce membre du groupe ?')) return;
+  const { data: { session } } = await sb.auth.getSession();
+  try {
+    const resp = await fetch('/api/remove-member', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify({ memberId })
+    });
+    const result = await resp.json();
+    if (!resp.ok) { alert(result.error || 'Erreur.'); return; }
+    loadGroupMembers();
+  } catch (err) {
+    alert('Erreur reseau.');
+  }
 }
 
 // ===================== ACTIVITIES =====================
@@ -328,7 +740,7 @@ function renderActivityNames() {
   let h = '<div class="grid-3" style="margin-top:1rem;">';
   for (let i = 1; i <= nbAct; i++) {
     h += '<div class="field"><label style="color:' + colors[(i-1)%5] + '">Nom activite ' + i + '</label>';
-    h += '<input type="text" id="act-name-' + i + '" placeholder="Ex : Audit SEO, Google Ads..."></div>';
+    h += '<input type="text" id="act-name-' + i + '" placeholder="Ex : Audit SEO, Google Ads..." oninput="updateNav();updateActTitle(' + i + ')"></div>';
   }
   h += '</div>';
   c.innerHTML = h;
@@ -351,13 +763,16 @@ function renderActivityPages() {
     html += `<div class="page" id="page-act${i}"><section style="background:#fff;"><div class="container fade">
 <div class="back" onclick="go('home')">&#8592; Accueil</div>
 <span class="sl" style="background:${c.bg};color:${c.main};">Activite ${i}</span>
-<h2 class="st">Activite ${i}</h2>
-<div class="sec-h" style="border-color:${c.main};"><div class="sec-i" style="background:${c.main};">&#128100;</div><h3>Persona cible</h3></div>
+<h2 class="st" id="act-title-${i}">Activite ${i}</h2>
+<div class="sec-h" style="border-color:${c.main};" onclick="toggleSection(this)"><div class="sec-i" style="background:${c.main};">&#128100;</div><h3>Persona cible</h3><span class="sec-toggle">&#9660;</span></div>
+<div class="sec-body">
 <div class="card" style="border-top:4px solid ${c.main};margin-bottom:1.5rem;">
   <div class="field-row"><div class="field"><label>Nom du persona</label><input type="text" id="${p}-persona-name" placeholder="Ex : Le commercant local"></div><div class="field"><label>Profil</label><input type="text" id="${p}-persona-profil" placeholder="35-55 ans, peu digital..."></div></div>
   <div class="field"><label>Description</label><textarea id="${p}-persona-desc" rows="2" placeholder="Contexte, habitudes..."></textarea></div>
 </div>
-<div class="sec-h" style="border-color:${c.main};"><div class="sec-i" style="background:${c.main};">&#128203;</div><h3>Inventaire D/B/P/M</h3></div>
+</div>
+<div class="sec-h" style="border-color:${c.main};" onclick="toggleSection(this)"><div class="sec-i" style="background:${c.main};">&#128203;</div><h3>Inventaire D/B/P/M</h3><span class="sec-toggle">&#9660;</span></div>
+<div class="sec-body">
 <div class="co o"><strong>Tags :</strong> D1, B1, P1, M1... a associer aux blocs LP pour tracer la resolution de chaque probleme.</div>
 <div class="inv">
   <div class="inv-cat douleurs"><h4>&#128293; Douleurs</h4><div id="${p}-douleurs"></div><button class="add-btn" onclick="addInvItem('${p}-douleurs','D','d')">+ Douleur</button></div>
@@ -365,37 +780,64 @@ function renderActivityPages() {
   <div class="inv-cat peurs"><h4>&#128680; Peurs</h4><div id="${p}-peurs"></div><button class="add-btn" onclick="addInvItem('${p}-peurs','P','p')">+ Peur</button></div>
   <div class="inv-cat motivations"><h4>&#128154; Motivations</h4><div id="${p}-motivations"></div><button class="add-btn" onclick="addInvItem('${p}-motivations','M','m')">+ Motivation</button></div>
 </div>
+</div>
 ${['tofu','mofu','bofu'].map((f, fi) => {
-  const fn = ['TOFU — Sensibilisation','MOFU — Consideration','BOFU — Decision'][fi];
+  const fn = ['TOFU — Sensibilisation (informationnel)','MOFU — Consideration (commercial)','BOFU — Decision (transactionnel)'][fi];
   const fd = ['Le prospect decouvre son probleme','Le prospect compare les solutions','Le prospect est pret a acheter'][fi];
   const ic = ['T','M','B'][fi];
-  return `<div class="sec-h" style="border-color:var(--${f});margin-top:3rem;"><div class="sec-i" style="background:var(--${f});">${ic}</div><div><h3 style="margin:0;">${fn}</h3><p style="font-size:.82rem;color:var(--g500);">${fd}</p></div></div>
+  return `<div class="sec-h" style="border-color:var(--${f});margin-top:3rem;" onclick="toggleSection(this)"><div class="sec-i" style="background:var(--${f});">${ic}</div><div><h3 style="margin:0;">${fn}</h3><p style="font-size:.82rem;color:var(--g500);">${fd}</p></div><span class="sec-toggle">&#9660;</span></div>
+<div class="sec-body">
 <div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — Mots-cles</div><h4>Mots-cles</h4>
   <div class="field"><label>Intention de recherche</label><input type="text" id="${p}-${f}-intention" placeholder="${fi===0?'Informationnelle':fi===1?'Commerciale':'Transactionnelle'}"></div>
   <div id="${p}-${f}-kws"></div><button class="add-btn" onclick="addKw('${p}-${f}-kws')">+ Mot-cle</button>
 </div>
 <div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEO</div><h4>Proposition SEO</h4>
-  <div class="field"><label>Title tag (max 60)</label><input type="text" id="${p}-${f}-seo-title" maxlength="60" placeholder="Titre optimise" oninput="updateSerpPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-seo-title-count">0/60</div></div>
-  <div class="field"><label>Meta description (max 155)</label><textarea id="${p}-${f}-seo-meta" maxlength="155" rows="2" placeholder="Description" oninput="updateSerpPreview('${p}','${f}')"></textarea><div class="hint" id="${p}-${f}-seo-meta-count">0/155</div></div>
-  <div class="field"><label>URL</label><input type="text" id="${p}-${f}-seo-url" placeholder="https://..." oninput="updateSerpPreview('${p}','${f}')"></div>
-  <div class="field"><label>Structure Hn</label><textarea id="${p}-${f}-seo-hn" rows="3" placeholder="H1 : ...&#10;  H2 : ..."></textarea></div>
+  <div class="field"><label>Title tag (max 65)</label><input type="text" id="${p}-${f}-seo-title" placeholder="Titre optimise" oninput="updateSerpPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-seo-title-count">0/65</div></div>
+  <div class="field"><label>Meta description (max 160)</label><textarea id="${p}-${f}-seo-meta" rows="2" placeholder="Description" oninput="updateSerpPreview('${p}','${f}')"></textarea><div class="hint" id="${p}-${f}-seo-meta-count">0/160</div></div>
+  <div class="field"><label>H1</label><input type="text" id="${p}-${f}-seo-h1" placeholder="Titre principal de la page (H1)"></div>
+  <div id="${p}-${f}-seo-h2s"></div>
+  <button class="add-btn" onclick="addH2('${p}-${f}-seo-h2s')">+ Ajouter un H2</button>
   <p style="font-size:.78rem;font-weight:700;color:var(--g500);margin:.5rem 0 .3rem;">Apercu SERP</p>
   <div class="serp-preview" id="${p}-${f}-serp"><div class="su"><span>www.example.com</span></div><div class="stt">Titre ici</div><div class="sde">Description ici...</div></div>
 </div>
-<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEA</div><h4>Google Ads</h4>
+${f !== 'tofu' ? `<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEA</div><h4>Google Ads</h4>
   <div class="field"><label>Groupe d'annonces</label><input type="text" id="${p}-${f}-sea-group" placeholder="Nom du groupe"></div>
-  <div class="field-row-3"><div class="field"><label>Titre 1 (30)</label><input type="text" id="${p}-${f}-sea-t1" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div><div class="field"><label>Titre 2 (30)</label><input type="text" id="${p}-${f}-sea-t2" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div><div class="field"><label>Titre 3 (30)</label><input type="text" id="${p}-${f}-sea-t3" maxlength="30" oninput="updateAdPreview('${p}','${f}')"></div></div>
-  <div class="field"><label>Description 1 (90)</label><textarea id="${p}-${f}-sea-d1" maxlength="90" rows="2" oninput="updateAdPreview('${p}','${f}')"></textarea></div>
-  <div class="field"><label>Description 2 (90)</label><textarea id="${p}-${f}-sea-d2" maxlength="90" rows="2"></textarea></div>
+  <div class="grid-3">${Array.from({length:15},(_, ti) => `<div class="field"><label>Titre ${ti+1} (30)</label><input type="text" id="${p}-${f}-sea-t${ti+1}" oninput="updateAdPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-sea-t${ti+1}-count">0/30</div></div>`).join('')}</div>
+  ${Array.from({length:4},(_, di) => `<div class="field"><label>Description ${di+1} (90)</label><textarea id="${p}-${f}-sea-d${di+1}" rows="2" oninput="updateAdPreview('${p}','${f}')"></textarea><div class="hint" id="${p}-${f}-sea-d${di+1}-count">0/90</div></div>`).join('')}
   <p style="font-size:.78rem;font-weight:700;color:var(--g500);margin:.5rem 0 .3rem;">Apercu annonce</p>
   <div class="ad-preview" id="${p}-${f}-ad"><div class="alb">Sponsorise</div><div class="asp">www.example.com</div><div class="att">Titre 1 | Titre 2 | Titre 3</div><div class="ade">Description...</div></div>
-</div>
-<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — Landing Page</div><h4>Structure LP</h4>
-  <div class="co b"><strong>Conseil :</strong> Associez les tags D1, B2, P3... pour montrer quelles douleurs chaque bloc resout.</div>
+  <div class="dv"></div>
+  <h4>Mots-cles negatifs</h4>
+  <div id="${p}-${f}-neg-kws" class="neg-kw"></div>
+  <button class="add-btn" onclick="addNegKw('${p}-${f}-neg-kws')">+ Mot-cle negatif</button>
+  <div class="dv"></div>
+  <div class="field-row">
+    <div class="field"><label>Zone geographique ciblee</label><input type="text" id="${p}-${f}-sea-geo" placeholder="Ex : France, Auvergne-Rhone-Alpes, rayon 30km autour d'Annecy..."></div>
+    <div class="field"><label>Calendrier de diffusion</label><input type="text" id="${p}-${f}-sea-schedule" placeholder="Ex : Lun-Ven 8h-20h, toute la semaine..."></div>
+  </div>
+  <div class="dv"></div>
+  <h4>Extensions suggerees</h4>
+  <div class="field"><label>Extensions (liens annexes, appel, lieu, prix, promo...)</label><textarea id="${p}-${f}-sea-extensions" rows="3" placeholder="Extension 1 : ...&#10;Extension 2 : ..."></textarea></div>
+</div>` : ''}
+<div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — Landing Page</div>
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;"><h4 style="margin:0;">Structure LP</h4><button class="lp-copy-prompt" onclick="copyLpPrompt('${p}','${f}')" title="Copier le prompt de creation LP">&#128203; Prompt</button><button class="lp-copy-prompt" onclick="toggleLpHtml('${p}','${f}')" title="Coller le code HTML de la LP" style="border-color:var(--gn);background:var(--gn-l);color:var(--gn);">&lt;/&gt; HTML</button></div>
+  <div id="${p}-${f}-lp-html-wrap" style="display:none;margin-bottom:1rem;">
+    <div class="field"><label>Code HTML de la landing page</label><textarea id="${p}-${f}-lp-html" rows="6" placeholder="Collez ici le code HTML genere par l'IA..." style="font-family:'SF Mono','Fira Code',monospace;font-size:.75rem;"></textarea></div>
+    <button class="add-btn" onclick="previewLpHtml('${p}','${f}')" style="border-color:var(--gn);color:var(--gn);">Apercu dans un nouvel onglet</button>
+  </div>
+  <div class="lp-coverage" id="${p}-${f}-lp-coverage"></div>
+  <div class="co b"><strong>Conseil :</strong> Construisez votre page section par section. Associez chaque section aux douleurs, besoins, peurs ou motivations du persona.</div>
   <div class="field"><label>CTA principal</label><input type="text" id="${p}-${f}-lp-cta" placeholder="Telecharger, Demander devis..."></div>
-  <div id="${p}-${f}-lp-blocks"></div><button class="add-btn" onclick="addLpBlock('${p}-${f}-lp-blocks','${f}')">+ Bloc LP</button>
+  <div id="${p}-${f}-lp-blocks"></div><button class="add-btn" onclick="addLpBlock('${p}-${f}-lp-blocks','${f}','${p}')">+ Ajouter une section</button>
+</div>
 </div>`;
 }).join('')}
+<div class="sec-h" style="border-color:var(--pu);margin-top:3rem;" onclick="toggleSection(this)"><div class="sec-i" style="background:var(--pu);">+</div><div><h3 style="margin:0;">Autres campagnes Google Ads</h3><p style="font-size:.82rem;color:var(--g500);">Display, Shopping, Video, Performance Max...</p></div><span class="sec-toggle">&#9660;</span></div>
+<div class="sec-body">
+<div class="co p"><strong>Conseil :</strong> Justifiez pourquoi ces types de campagnes sont pertinents pour ce client et cette activite.</div>
+<div class="field"><label>Types de campagnes supplementaires</label><textarea id="${p}-other-campaigns" rows="4" placeholder="Ex : Campagne Display pour le remarketing des visiteurs...&#10;Campagne Shopping car le client vend des produits en ligne..."></textarea></div>
+<div class="field"><label>Justification strategique</label><textarea id="${p}-other-campaigns-why" rows="3" placeholder="Pourquoi ces campagnes sont pertinentes pour ce client..."></textarea></div>
+</div>
 </div></section></div>`;
   }
   container.innerHTML = html;
@@ -408,7 +850,7 @@ ${['tofu','mofu','bofu'].map((f, fi) => {
     initInvItems(p + '-motivations', 'M', 'm', 3);
     ['tofu','mofu','bofu'].forEach(f => {
       initKws(p + '-' + f + '-kws', 3);
-      initLpBlocks(p + '-' + f + '-lp-blocks', f, f === 'tofu' ? 5 : f === 'mofu' ? 6 : 7);
+      initH2s(p + '-' + f + '-seo-h2s', 3);
     });
   }
 }
@@ -416,65 +858,420 @@ ${['tofu','mofu','bofu'].map((f, fi) => {
 // ===================== UI HELPERS =====================
 function addInvItem(cid, letter, cls, value) {
   const c = document.getElementById(cid);
-  const n = c.querySelectorAll('.inv-item').length + 1;
+  const n = c.querySelectorAll('.inv-item').length;
+  const itemId = cid + '-' + n;
   const d = document.createElement('div'); d.className = 'inv-item';
-  d.innerHTML = `<span class="tag ${cls}">${letter}${n}</span><input type="text" placeholder="Decrivez..." value="${value||''}"><button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.parentElement.remove();reindexInv('${cid}','${letter}','${cls}');">&times;</button>`;
+  d.innerHTML = `<span class="tag ${cls}">${letter}${n+1}</span><input type="text" id="${itemId}" placeholder="Decrivez..."><button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.parentElement.remove();reindexInv('${cid}','${letter}','${cls}');scheduleSave();">&times;</button>`;
+  if (value) d.querySelector('input').value = value;
   c.appendChild(d);
 }
 function initInvItems(cid, letter, cls, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';for(let i=0;i<n;i++)addInvItem(cid,letter,cls); }
-function reindexInv(cid, letter) { document.getElementById(cid).querySelectorAll('.inv-item').forEach((it,i)=>{it.querySelector('.tag').textContent=letter+(i+1);}); }
+function reindexInv(cid, letter) {
+  document.getElementById(cid).querySelectorAll('.inv-item').forEach((it,i)=>{
+    it.querySelector('.tag').textContent=letter+(i+1);
+    const inp = it.querySelector('input');
+    inp.id = cid + '-' + i;
+  });
+}
 
 function addKw(cid, value, match) {
   const c = document.getElementById(cid);
+  const n = c.querySelectorAll('.kw-row').length;
+  const kwId = cid + '-' + n;
   const d = document.createElement('div'); d.className = 'kw-row';
-  d.innerHTML = `<input type="text" placeholder="mot-cle..." value="${value||''}"><select><option value="broad" ${match==='broad'?'selected':''}>Large</option><option value="phrase" ${match==='phrase'?'selected':''}>Expression</option><option value="exact" ${match==='exact'?'selected':''}>Exact</option></select><button class="rm" onclick="this.parentElement.remove();">&times;</button>`;
+  d.innerHTML = `<input type="text" id="${kwId}" placeholder="mot-cle..."><button class="rm" onclick="this.parentElement.remove();reindexKws('${cid}');">&times;</button>`;
+  if (value) d.querySelector('input').value = value;
   c.appendChild(d);
 }
 function initKws(cid, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';for(let i=0;i<n;i++)addKw(cid); }
+function reindexKws(cid) {
+  document.getElementById(cid).querySelectorAll('.kw-row').forEach((row, i) => {
+    row.querySelector('input').id = cid + '-' + i;
+  });
+}
 
-const lpNames={tofu:['Hero — Accroche','Probleme — Miroir','Solution — Vue d\'ensemble','Preuve sociale','CTA final'],mofu:['Hero — Proposition','Probleme rappele','Solution detaillee','Benefices','Temoignages','CTA final'],bofu:['Hero — Offre','Rappel probleme','Votre solution','Details offre','Garanties','Temoignages','CTA + urgence']};
-function addLpBlock(cid, f, name, desc, tags) {
+function addLpBlock(cid, f, actPrefix, name, desc, tags) {
   const c = document.getElementById(cid);
-  const n = c.querySelectorAll('.lp-block').length + 1;
+  const n = c.querySelectorAll('.lp-block').length;
   const fc = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
+  const blockId = cid + '-' + n;
+
+  // Build tag checkboxes from current DBPM inventory
+  const p = actPrefix || cid.split('-').slice(0,1).join('');
+  const tagHtml = buildTagCheckboxes(p, blockId, tags);
+
   const d = document.createElement('div'); d.className = 'lp-block';
-  d.innerHTML = `<div class="lp-num" style="background:${fc[f]};">${n}</div><div style="flex:1;"><div class="field"><label>Role</label><input type="text" value="${name||''}" placeholder="Hero, Probleme..."></div><div class="field"><label>Contenu</label><input type="text" value="${desc||''}" placeholder="Accroche..."></div><div class="field"><label>Tags (D1, B2...)</label><input type="text" value="${tags||''}" placeholder="D1, D2, P1..."></div><button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.closest('.lp-block').remove();reindexLp('${cid}');">&times; Suppr</button></div>`;
+  d.innerHTML = `<div style="display:flex;flex-direction:column;gap:2px;flex-shrink:0;margin-right:.2rem;">
+    <div class="lp-num" style="background:${fc[f]};">${n+1}</div>
+    <button class="lp-mv" onclick="moveLpBlock(this,-1,'${cid}')" title="Monter">&#9650;</button>
+    <button class="lp-mv" onclick="moveLpBlock(this,1,'${cid}')" title="Descendre">&#9660;</button>
+  </div>
+  <div style="flex:1;">
+    <div class="field"><label>Role de la section</label><input type="text" id="${blockId}-role" placeholder="Ex : Hero, Probleme, Solution, Temoignages, CTA..."></div>
+    <div class="field"><label>Description du contenu</label><textarea id="${blockId}-desc" rows="2" placeholder="Decrivez ce que cette section contient..."></textarea></div>
+    <div class="field"><label>Associer aux D/B/P/M du persona</label><div class="lp-tags-wrap" id="${blockId}-tags-wrap">${tagHtml}</div></div>
+    <button class="add-btn" style="margin:0;padding:.2rem .4rem;font-size:.7rem;border-color:var(--rd);color:var(--rd);" onclick="this.closest('.lp-block').remove();reindexLp('${cid}');scheduleSave();">&times; Supprimer</button>
+  </div>`;
+  if (name) d.querySelector('input[id$="-role"]').value = name;
+  if (desc) { const ta = d.querySelector('textarea'); if(ta) ta.value = desc; }
   c.appendChild(d);
 }
-function initLpBlocks(cid, f, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';const names=lpNames[f]||[];for(let i=0;i<Math.min(n,names.length);i++)addLpBlock(cid,f,names[i]); }
-function reindexLp(cid) { document.getElementById(cid).querySelectorAll('.lp-block .lp-num').forEach((n,i)=>{n.textContent=i+1;}); }
+
+function buildTagCheckboxes(p, blockId, selectedTags) {
+  const cats = [
+    { key: 'douleurs', letter: 'D', cls: 'd', label: 'Douleurs', color: 'var(--or)' },
+    { key: 'besoins', letter: 'B', cls: 'b', label: 'Besoins', color: 'var(--bl)' },
+    { key: 'peurs', letter: 'P', cls: 'p', label: 'Peurs', color: 'var(--rd)' },
+    { key: 'motivations', letter: 'M', cls: 'm', label: 'Motivations', color: 'var(--gn)' }
+  ];
+  const selected = selectedTags ? selectedTags.split(',').map(s=>s.trim()).filter(Boolean) : [];
+  const panelId = blockId + '-tag-panel';
+
+  let panelHtml = '';
+  cats.forEach(cat => {
+    const container = document.getElementById(p + '-' + cat.key);
+    if (!container) return;
+    const items = container.querySelectorAll('.inv-item');
+    if (items.length === 0) return;
+    panelHtml += `<div class="tag-cat" style="color:${cat.color};">${cat.label}</div>`;
+    items.forEach((item, idx) => {
+      const tagName = cat.letter + (idx + 1);
+      const inputEl = item.querySelector('input');
+      const val = inputEl ? inputEl.value : '';
+      const checked = selected.includes(tagName) ? 'checked' : '';
+      panelHtml += `<label><input type="checkbox" value="${tagName}" ${checked} onchange="updateTagBtn('${blockId}');scheduleSave();updateLpCoverageFromEl(this)"><span class="tag ${cat.cls}" style="flex-shrink:0;">${tagName}</span>${val ? '<span>' + val.replace(/"/g,'&quot;') + '</span>' : ''}</label>`;
+    });
+  });
+
+  // Build selected tags display
+  const selectedDisplay = selected.map(t => {
+    const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
+    return `<span class="tag ${cls}" style="font-size:.55rem;">${t}</span>`;
+  }).join(' ');
+
+  return `<div class="lp-tag-dropdown">
+    <button type="button" class="lp-tag-btn" id="${blockId}-tag-btn" onclick="toggleTagPanel('${panelId}')">
+      Associer D/B/P/M <span class="tag-count">${selected.length}</span>
+    </button>
+    <div class="lp-tag-panel" id="${panelId}">${panelHtml}</div>
+    <div id="${blockId}-tag-display" style="margin-top:.3rem;">${selectedDisplay}</div>
+  </div>`;
+}
+
+function toggleTagPanel(panelId) {
+  const panel = document.getElementById(panelId);
+  const wasOpen = panel.classList.contains('show');
+  // Close all panels first
+  document.querySelectorAll('.lp-tag-panel.show').forEach(p => p.classList.remove('show'));
+  if (!wasOpen) panel.classList.add('show');
+}
+
+function updateTagBtn(blockId) {
+  const btn = document.getElementById(blockId + '-tag-btn');
+  const display = document.getElementById(blockId + '-tag-display');
+  if (!btn) return;
+  const panel = btn.nextElementSibling;
+  const checked = panel.querySelectorAll('input[type="checkbox"]:checked');
+  btn.querySelector('.tag-count').textContent = checked.length;
+  // Update display
+  if (display) {
+    display.innerHTML = Array.from(checked).map(cb => {
+      const t = cb.value;
+      const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
+      return `<span class="tag ${cls}" style="font-size:.55rem;">${t}</span>`;
+    }).join(' ');
+  }
+}
+
+// Close tag panels when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.lp-tag-dropdown')) {
+    document.querySelectorAll('.lp-tag-panel.show').forEach(p => p.classList.remove('show'));
+  }
+});
+
+function getLpBlockTags(block) {
+  const checks = block.querySelectorAll('.lp-tag-panel input[type="checkbox"]:checked, .lp-tag-check input[type="checkbox"]:checked');
+  return Array.from(checks).map(c => c.value).join(', ');
+}
+
+function moveLpBlock(btn, dir, cid) {
+  const block = btn.closest('.lp-block');
+  const c = document.getElementById(cid);
+  const blocks = Array.from(c.querySelectorAll('.lp-block'));
+  const idx = blocks.indexOf(block);
+  const targetIdx = idx + dir;
+  if (targetIdx < 0 || targetIdx >= blocks.length) return;
+  if (dir === -1) {
+    c.insertBefore(block, blocks[targetIdx]);
+  } else {
+    c.insertBefore(blocks[targetIdx], block);
+  }
+  reindexLp(cid);
+  scheduleSave();
+}
+
+function reindexLp(cid) {
+  document.getElementById(cid).querySelectorAll('.lp-block').forEach((block, i) => {
+    block.querySelector('.lp-num').textContent = i + 1;
+    const roleInput = block.querySelector('input[id$="-role"]');
+    const descTa = block.querySelector('textarea[id$="-desc"]');
+    const tagsWrap = block.querySelector('[id$="-tags-wrap"]');
+    const newId = cid + '-' + i;
+    if (roleInput) roleInput.id = newId + '-role';
+    if (descTa) descTa.id = newId + '-desc';
+    if (tagsWrap) tagsWrap.id = newId + '-tags-wrap';
+  });
+}
+
+function addH2(cid, value) {
+  const c = document.getElementById(cid);
+  const n = c.querySelectorAll('.h2-row').length;
+  const h2Id = cid + '-' + n;
+  const d = document.createElement('div'); d.className = 'h2-row';
+  d.style.cssText = 'display:flex;gap:.4rem;margin-bottom:.35rem;align-items:center;';
+  d.innerHTML = `<span style="font-size:.7rem;font-weight:800;color:var(--g500);flex-shrink:0;">H2</span><input type="text" id="${h2Id}" placeholder="Sous-titre de section" style="flex:1;border:1.5px solid var(--g200);border-radius:6px;padding:.35rem .55rem;font-size:.82rem;font-family:inherit;color:var(--g700);"><button class="rm" style="width:24px;height:24px;border:none;background:var(--rd-l);color:var(--rd);border-radius:6px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;" onclick="this.parentElement.remove();reindexH2s('${cid}');scheduleSave();">&times;</button>`;
+  if (value) d.querySelector('input').value = value;
+  c.appendChild(d);
+}
+function initH2s(cid, n) { const c=document.getElementById(cid);if(!c)return;c.innerHTML='';for(let i=0;i<n;i++)addH2(cid); }
+function reindexH2s(cid) {
+  document.getElementById(cid).querySelectorAll('.h2-row').forEach((row, i) => {
+    row.querySelector('input').id = cid + '-' + i;
+  });
+}
 
 function addNegKw(cid, value) {
   const c = document.getElementById(cid);
+  const n = c.querySelectorAll('.neg-kw-item').length;
   const d = document.createElement('div'); d.className = 'neg-kw-item';
-  d.innerHTML = `<input type="text" placeholder="terme" value="${value||''}"><button class="rm" onclick="this.parentElement.remove();">&times;</button>`;
+  d.innerHTML = `<input type="text" id="${cid}-${n}" placeholder="terme"><button class="rm" onclick="this.parentElement.remove();">&times;</button>`;
+  if (value) d.querySelector('input').value = value;
   c.appendChild(d);
 }
 
+// ===================== LP PROMPT & COVERAGE =====================
+function copyLpPrompt(p, f) {
+  const data = gatherData();
+  const funnelNames = {tofu:'TOFU (Sensibilisation)',mofu:'MOFU (Consideration)',bofu:'BOFU (Decision)'};
+
+  let prompt = `Cree une landing page HTML complete et professionnelle avec le CSS integre.\n\n`;
+  prompt += `## Contexte client\n`;
+  prompt += `- Entreprise : ${data['client-name']||'Non renseigne'}\n`;
+  prompt += `- Secteur : ${data['client-sector']||'Non renseigne'}\n`;
+  prompt += `- Zone : ${data['client-zone']||'Non renseigne'}\n`;
+  prompt += `- URL : ${data['client-url']||'Non renseigne'}\n`;
+  if (data['client-activities']) prompt += `- Activites : ${stripHtml(data['client-activities'])}\n`;
+  if (data['client-particularites']) prompt += `- Particularites : ${stripHtml(data['client-particularites'])}\n`;
+  if (data['client-forces']) prompt += `- Forces : ${stripHtml(data['client-forces'])}\n`;
+  if (data['client-faiblesses']) prompt += `- Faiblesses : ${stripHtml(data['client-faiblesses'])}\n`;
+
+  prompt += `\n## Persona cible\n`;
+  prompt += `- Nom : ${data[p+'-persona-name']||'Non renseigne'}\n`;
+  prompt += `- Profil : ${data[p+'-persona-profil']||'Non renseigne'}\n`;
+  if (data[p+'-persona-desc']) prompt += `- Description : ${stripHtml(data[p+'-persona-desc'])}\n`;
+
+  // DBPM
+  const cats = {douleurs:'Douleurs',besoins:'Besoins',peurs:'Peurs',motivations:'Motivations'};
+  Object.entries(cats).forEach(([key, label]) => {
+    const items = data[p+'-'+key];
+    if (items && items.some(v=>v)) {
+      prompt += `\n### ${label} du persona\n`;
+      items.forEach((v,i) => { if(v) prompt += `- ${key[0].toUpperCase()}${i+1}: ${v}\n`; });
+    }
+  });
+
+  prompt += `\n## Niveau de funnel : ${funnelNames[f]}\n`;
+  prompt += `- CTA principal : ${data[p+'-'+f+'-lp-cta']||'Non renseigne'}\n`;
+
+  // Mots-cles associes
+  const kws = data[p+'-'+f+'-kws'];
+  if (kws && kws.some(k=>k.kw)) {
+    prompt += `- Mots-cles cibles : ${kws.filter(k=>k.kw).map(k=>k.kw).join(', ')}\n`;
+  }
+
+  // Sections LP
+  const blocks = data[p+'-'+f+'-lp-blocks'];
+  if (blocks && blocks.length > 0) {
+    prompt += `\n## Structure de la page (${blocks.length} sections)\n`;
+    blocks.forEach((b,i) => {
+      prompt += `\n### Section ${i+1} : ${b.name||'Sans titre'}\n`;
+      if (b.desc) prompt += `Description : ${stripHtml(b.desc)}\n`;
+      if (b.tags) {
+        prompt += `Cette section doit repondre aux points suivants du persona :\n`;
+        b.tags.split(',').map(t=>t.trim()).filter(Boolean).forEach(tag => {
+          const cat = tag[0]==='D'?'douleurs':tag[0]==='B'?'besoins':tag[0]==='P'?'peurs':tag[0]==='M'?'motivations':'';
+          const idx = parseInt(tag.substring(1)) - 1;
+          const items = data[p+'-'+cat];
+          const val = items && items[idx] ? items[idx] : '';
+          prompt += `- ${tag}${val ? ' : ' + val : ''}\n`;
+        });
+      }
+    });
+  }
+
+  prompt += `\n## Instructions de redaction\n`;
+  prompt += `- Pour chaque section, redige un titre H2 accrocheur et pertinent par rapport au role de la section et au persona cible\n`;
+  prompt += `- Redige le contenu textuel de chaque section (paragraphes, listes, arguments) en t'appuyant sur les descriptions fournies et les D/B/P/M associes\n`;
+  prompt += `- Le ton et le vocabulaire doivent etre adaptes au persona cible decrit plus haut\n`;
+  prompt += `- Chaque section doit repondre concretement aux douleurs, besoins, peurs ou motivations qui lui sont associes\n`;
+  prompt += `- Ne pas inventer d'informations non fournies ci-dessus, mais redige des textes complets et convaincants a partir des donnees\n`;
+  prompt += `\n## Instructions techniques\n`;
+  prompt += `- Page HTML autonome avec CSS integre (pas de fichiers externes)\n`;
+  prompt += `- Design moderne, professionnel et responsive\n`;
+  prompt += `- Utiliser les couleurs et le ton adaptes au secteur "${data['client-sector']||''}"\n`;
+  prompt += `- Chaque section doit etre clairement identifiable avec son titre H2\n`;
+  prompt += `- Le CTA "${data[p+'-'+f+'-lp-cta']||''}" doit etre visible et present a plusieurs endroits strategiques\n`;
+
+  navigator.clipboard.writeText(prompt).then(() => {
+    const btn = event.target.closest('.lp-copy-prompt');
+    const orig = btn.textContent;
+    btn.textContent = 'Copie !';
+    btn.style.background = 'var(--gn)';
+    btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--gn)';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }, 1500);
+  });
+}
+
+function toggleLpHtml(p, f) {
+  const wrap = document.getElementById(p+'-'+f+'-lp-html-wrap');
+  wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+}
+
+function openHtmlInNewTab(html) {
+  if (!html || !html.trim()) { alert('Aucun code HTML a afficher.'); return; }
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+
+function previewLpHtml(p, f) {
+  const el = document.getElementById(p+'-'+f+'-lp-html');
+  const html = el ? el.value : '';
+  openHtmlInNewTab(html);
+}
+
+function stripHtml(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent.replace(/\s+/g,' ').trim();
+}
+
+function updateLpCoverage(p, f) {
+  const covEl = document.getElementById(p+'-'+f+'-lp-coverage');
+  if (!covEl) return;
+  const container = document.getElementById(p+'-'+f+'-lp-blocks');
+  if (!container) { covEl.innerHTML = ''; return; }
+
+  // Collect all checked tags across all blocks
+  const checkedTags = new Set();
+  container.querySelectorAll('.lp-tag-check input[type="checkbox"]:checked').forEach(cb => checkedTags.add(cb.value));
+
+  // Get all available tags from DBPM
+  const cats = [
+    {key:'douleurs',letter:'D',cls:'d'},
+    {key:'besoins',letter:'B',cls:'b'},
+    {key:'peurs',letter:'P',cls:'p'},
+    {key:'motivations',letter:'M',cls:'m'}
+  ];
+
+  let html = '';
+  let totalTags = 0, coveredTags = 0;
+  cats.forEach(cat => {
+    const el = document.getElementById(p+'-'+cat.key);
+    if (!el) return;
+    const count = el.querySelectorAll('.inv-item').length;
+    let catCovered = 0;
+    for (let j=1;j<=count;j++) {
+      totalTags++;
+      if (checkedTags.has(cat.letter+j)) { catCovered++; coveredTags++; }
+    }
+    if (count > 0) {
+      const ok = catCovered === count;
+      html += `<span class="lp-cov-item ${ok?'ok':'miss'}">${cat.letter}: ${catCovered}/${count}</span>`;
+    }
+  });
+
+  if (totalTags > 0) {
+    const pct = Math.round((coveredTags/totalTags)*100);
+    const allOk = coveredTags === totalTags;
+    html = `<span class="lp-cov-item ${allOk?'ok':'miss'}">Couverture : ${pct}%</span>` + html;
+  }
+  covEl.innerHTML = html;
+}
+
+function updateLpCoverageFromEl(el) {
+  // Find the lp-blocks container and extract p and f from its id
+  const blocksContainer = el.closest('[id$="-lp-blocks"]');
+  if (!blocksContainer) return;
+  const id = blocksContainer.id; // e.g. "a1-tofu-lp-blocks"
+  const parts = id.replace('-lp-blocks','').split('-');
+  const p = parts[0]; const f = parts[1];
+  updateLpCoverage(p, f);
+}
+
+function toggleSection(header) {
+  header.classList.toggle('collapsed');
+  const body = header.nextElementSibling;
+  if (body && body.classList.contains('sec-body')) {
+    body.classList.toggle('collapsed');
+  }
+}
+
+function updateActTitle(i) {
+  const el = document.getElementById('act-title-' + i);
+  const nameEl = document.getElementById('act-name-' + i);
+  if (el && nameEl) el.textContent = nameEl.value.trim() || 'Activite ' + i;
+}
+function _fv(id) { return getFieldValue(id); }
+function _countHint(id, max) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const len = (_fv(id.replace('-count',''))||'').length;
+  el.textContent = len + '/' + max;
+  el.style.color = len > max ? 'var(--rd)' : 'var(--g500)';
+  el.style.fontWeight = len > max ? '700' : 'normal';
+}
+function _truncate(text, max) {
+  if (!text || text.length <= max) return text;
+  const truncated = text.substring(0, max);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + '...';
+}
 function updateSerpPreview(p, f) {
-  const title = document.getElementById(p+'-'+f+'-seo-title');
-  const meta = document.getElementById(p+'-'+f+'-seo-meta');
-  const url = document.getElementById(p+'-'+f+'-seo-url');
   const serp = document.getElementById(p+'-'+f+'-serp');
   if(!serp)return;
-  document.getElementById(p+'-'+f+'-seo-title-count').textContent=title.value.length+'/60';
-  document.getElementById(p+'-'+f+'-seo-meta-count').textContent=meta.value.length+'/155';
-  serp.querySelector('.su').innerHTML='<span>'+(url.value||'www.example.com')+'</span>';
-  serp.querySelector('.stt').textContent=title.value||'Titre ici';
-  serp.querySelector('.sde').textContent=meta.value||'Description ici...';
+  const tv = _fv(p+'-'+f+'-seo-title');
+  const mv = _fv(p+'-'+f+'-seo-meta');
+  _countHint(p+'-'+f+'-seo-title-count', 65);
+  _countHint(p+'-'+f+'-seo-meta-count', 160);
+  const clientUrl = _fv('client-url') || 'www.example.com';
+  serp.querySelector('.su').innerHTML='<span>'+clientUrl+'</span>';
+  serp.querySelector('.stt').textContent=_truncate(tv, 65)||'Titre ici';
+  serp.querySelector('.sde').textContent=_truncate(mv, 160)||'Description ici...';
 }
 function updateAdPreview(p, f) {
   const ad = document.getElementById(p+'-'+f+'-ad');if(!ad)return;
-  const t=[document.getElementById(p+'-'+f+'-sea-t1').value||'Titre 1',document.getElementById(p+'-'+f+'-sea-t2').value||'Titre 2',document.getElementById(p+'-'+f+'-sea-t3').value||'Titre 3'];
-  ad.querySelector('.att').textContent=t.join(' | ');
-  ad.querySelector('.ade').textContent=document.getElementById(p+'-'+f+'-sea-d1').value||'Description...';
+  // Show first 3 non-empty titles in preview
+  const allTitles = [];
+  for (let ti=1;ti<=15;ti++) { const v=_fv(p+'-'+f+'-sea-t'+ti); if(v)allTitles.push(v); }
+  const previewTitles = allTitles.length > 0 ? allTitles.slice(0,3) : ['Titre 1','Titre 2','Titre 3'];
+  const clientUrlAd = _fv('client-url') || 'www.example.com';
+  ad.querySelector('.asp').textContent=clientUrlAd;
+  ad.querySelector('.att').textContent=previewTitles.join(' | ');
+  ad.querySelector('.ade').textContent=_fv(p+'-'+f+'-sea-d1')||'Description...';
+  for(let ti=1;ti<=15;ti++) _countHint(p+'-'+f+'-sea-t'+ti+'-count', 30);
+  for(let di=1;di<=4;di++) _countHint(p+'-'+f+'-sea-d'+di+'-count', 90);
 }
 
 // ===================== DATA =====================
 function gatherData() {
   const data = { nbAct, version: 2 };
-  ['client-name','client-sector','client-zone','client-budget','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id => { const el=document.getElementById(id);if(el)data[id]=el.value; });
-  ['seo-vision','seo-priorites','seo-kpis','seo-timeline','sea-archi','sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(id => { const el=document.getElementById(id);if(el)data[id]=el.value; });
+  ['client-name','client-sector','client-zone','client-url','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id => { const el=document.getElementById(id);if(el)data[id]=el.value; });
   for(let i=1;i<=nbAct;i++){
     const el=document.getElementById('act-name-'+i);if(el)data['act-name-'+i]=el.value;
     const p='a'+i;
@@ -483,12 +1280,13 @@ function gatherData() {
     ['tofu','mofu','bofu'].forEach(f=>{
       ['intention'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
       const kwC=document.getElementById(p+'-'+f+'-kws');
-      if(kwC)data[p+'-'+f+'-kws']=Array.from(kwC.querySelectorAll('.kw-row')).map(r=>({kw:r.querySelector('input').value,match:r.querySelector('select').value}));
-      ['seo-title','seo-meta','seo-url','seo-hn'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
-      ['sea-group','sea-t1','sea-t2','sea-t3','sea-d1','sea-d2'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      if(kwC)data[p+'-'+f+'-kws']=Array.from(kwC.querySelectorAll('.kw-row')).map(r=>({kw:r.querySelector('input').value}));
+      ['seo-title','seo-meta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
+      {const h1El=document.getElementById(p+'-'+f+'-seo-h1');if(h1El)data[p+'-'+f+'-seo-h1']=h1El.value;const h2C=document.getElementById(p+'-'+f+'-seo-h2s');if(h2C)data[p+'-'+f+'-seo-h2s']=Array.from(h2C.querySelectorAll('.h2-row input')).map(i=>i.value);}
+      if(f!=='tofu'){const sgEl=document.getElementById(p+'-'+f+'-sea-group');if(sgEl)data[p+'-'+f+'-sea-group']=sgEl.value;for(let ti=1;ti<=15;ti++){const el=document.getElementById(p+'-'+f+'-sea-t'+ti);if(el)data[p+'-'+f+'-sea-t'+ti]=el.value;}for(let di=1;di<=4;di++){const el=document.getElementById(p+'-'+f+'-sea-d'+di);if(el)data[p+'-'+f+'-sea-d'+di]=el.value;}}
       ['lp-cta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el)data[p+'-'+f+'-'+fld]=el.value;});
       const lpC=document.getElementById(p+'-'+f+'-lp-blocks');
-      if(lpC)data[p+'-'+f+'-lp-blocks']=Array.from(lpC.querySelectorAll('.lp-block')).map(b=>{const ins=b.querySelectorAll('input');return{name:ins[0]?.value||'',desc:ins[1]?.value||'',tags:ins[2]?.value||''};});
+      if(lpC)data[p+'-'+f+'-lp-blocks']=Array.from(lpC.querySelectorAll('.lp-block')).map(b=>{const roleEl=b.querySelector('input[id$="-role"]');const descEl=b.querySelector('textarea[id$="-desc"]')||b.querySelector('.wysiwyg-editor[id$="-desc"]');return{name:roleEl?.value||'',desc:descEl?(descEl.value!==undefined?descEl.value:descEl.innerHTML)||'':'',tags:getLpBlockTags(b)};});
     });
   }
   const negC=document.getElementById('neg-kw-global');
@@ -497,8 +1295,7 @@ function gatherData() {
 }
 
 function restoreData(data) {
-  ['client-name','client-sector','client-zone','client-budget','client-activities','client-particularites','client-forces','client-faiblesses',
-   'seo-vision','seo-priorites','seo-kpis','seo-timeline','sea-archi','sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(id=>{const el=document.getElementById(id);if(el&&data[id]!==undefined)el.value=data[id];});
+  ['client-name','client-sector','client-zone','client-url','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id=>{const el=document.getElementById(id);if(el&&data[id]!==undefined)el.value=data[id];});
   for(let i=1;i<=nbAct;i++){
     const el=document.getElementById('act-name-'+i);if(el&&data['act-name-'+i])el.value=data['act-name-'+i];
     const p='a'+i;
@@ -507,12 +1304,13 @@ function restoreData(data) {
     Object.entries(cats).forEach(([cat,[letter,cls]])=>{const key=p+'-'+cat;if(!data[key])return;const c=document.getElementById(key);if(!c)return;c.innerHTML='';data[key].forEach(v=>addInvItem(key,letter,cls,v));});
     ['tofu','mofu','bofu'].forEach(f=>{
       ['intention'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
-      const kwKey=p+'-'+f+'-kws';if(data[kwKey]){const c=document.getElementById(kwKey);if(c){c.innerHTML='';data[kwKey].forEach(k=>addKw(kwKey,k.kw,k.match));}}
-      ['seo-title','seo-meta','seo-url','seo-hn'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
-      ['sea-group','sea-t1','sea-t2','sea-t3','sea-d1','sea-d2'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      const kwKey=p+'-'+f+'-kws';if(data[kwKey]){const c=document.getElementById(kwKey);if(c){c.innerHTML='';data[kwKey].forEach(k=>addKw(kwKey,k.kw));}}
+      ['seo-title','seo-meta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
+      {const h1El=document.getElementById(p+'-'+f+'-seo-h1');if(h1El&&data[p+'-'+f+'-seo-h1'])h1El.value=data[p+'-'+f+'-seo-h1'];const h2Key=p+'-'+f+'-seo-h2s';if(data[h2Key]){const c=document.getElementById(h2Key);if(c){c.innerHTML='';data[h2Key].forEach(v=>addH2(h2Key,v));}}}
+      if(f!=='tofu'){const sgEl=document.getElementById(p+'-'+f+'-sea-group');if(sgEl&&data[p+'-'+f+'-sea-group'])sgEl.value=data[p+'-'+f+'-sea-group'];for(let ti=1;ti<=15;ti++){const el=document.getElementById(p+'-'+f+'-sea-t'+ti);if(el&&data[p+'-'+f+'-sea-t'+ti])el.value=data[p+'-'+f+'-sea-t'+ti];}for(let di=1;di<=4;di++){const el=document.getElementById(p+'-'+f+'-sea-d'+di);if(el&&data[p+'-'+f+'-sea-d'+di])el.value=data[p+'-'+f+'-sea-d'+di];}}
       ['lp-cta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
-      const lpKey=p+'-'+f+'-lp-blocks';if(data[lpKey]){const c=document.getElementById(lpKey);if(c){c.innerHTML='';data[lpKey].forEach(b=>addLpBlock(lpKey,f,b.name,b.desc,b.tags));}}
-      updateSerpPreview(p,f);updateAdPreview(p,f);
+      const lpKey=p+'-'+f+'-lp-blocks';if(data[lpKey]){const c=document.getElementById(lpKey);if(c){c.innerHTML='';data[lpKey].forEach(b=>addLpBlock(lpKey,f,p,b.name,b.desc,b.tags));}}
+      updateSerpPreview(p,f);updateAdPreview(p,f);updateLpCoverage(p,f);
     });
   }
   if(data['neg-kw-global']){const c=document.getElementById('neg-kw-global');if(c){c.innerHTML='';data['neg-kw-global'].forEach(v=>addNegKw('neg-kw-global',v));}}
@@ -522,10 +1320,19 @@ function restoreData(data) {
 function computeProgress() {
   const all=document.querySelectorAll('input[type="text"],textarea');
   let filled=0,total=0;
-  all.forEach(inp=>{if(inp.closest('.action-bar')||inp.closest('.neg-kw-item'))return;total++;if(inp.value.trim())filled++;});
+  all.forEach(inp=>{if(inp.closest('.action-bar')||inp.closest('.neg-kw-item')||inp.closest('.add-member-form')||inp.closest('#page-group'))return;total++;if(inp.value.trim())filled++;});
   return total>0?Math.round((filled/total)*100):0;
 }
-function updateProgress(){const pct=computeProgress();const bar=document.getElementById('progress-fill');if(bar)bar.style.width=pct+'%';}
+function updateProgress(){
+  const pct=computeProgress();
+  const bar=document.getElementById('progress-fill');
+  const txt=document.getElementById('progress-text');
+  if(bar)bar.style.width=pct+'%';
+  if(txt){
+    txt.textContent=pct+'%';
+    txt.style.color=pct<30?'var(--rd)':pct<70?'var(--or)':'var(--gn)';
+  }
+}
 
 function exportJSON() {
   const data = gatherData();
@@ -534,14 +1341,707 @@ function exportJSON() {
   a.href = URL.createObjectURL(blob); a.download = 'exercice-sem.json'; a.click(); URL.revokeObjectURL(a.href);
 }
 
+// ===================== WYSIWYG =====================
+function upgradeTextareas(root) {
+  const scope = root || document;
+  scope.querySelectorAll('textarea:not([data-upgraded])').forEach(ta => {
+    // Skip textareas in special areas or code fields
+    if (ta.closest('.add-member-form') || ta.closest('#page-group')) return;
+    if (ta.id && ta.id.endsWith('-lp-html')) return;
+
+    ta.setAttribute('data-upgraded', '1');
+    ta.style.display = 'none';
+
+    const wrap = document.createElement('div');
+    wrap.className = 'wysiwyg-wrap';
+
+    // Toolbar
+    const tb = document.createElement('div');
+    tb.className = 'wysiwyg-toolbar';
+    tb.innerHTML = `
+      <button type="button" data-cmd="bold" title="Gras"><b>G</b></button>
+      <button type="button" data-cmd="italic" title="Italique"><i>I</i></button>
+      <button type="button" data-cmd="underline" title="Souligne"><u>S</u></button>
+      <div class="sep"></div>
+      <button type="button" data-cmd="insertUnorderedList" title="Liste a puces">&#8226;</button>
+      <button type="button" data-cmd="insertOrderedList" title="Liste numerotee">1.</button>
+    `;
+
+    // Editor
+    const editor = document.createElement('div');
+    editor.className = 'wysiwyg-editor';
+    editor.contentEditable = 'true';
+    editor.id = ta.id;
+    editor.setAttribute('data-placeholder', ta.placeholder || '');
+    if (ta.style.minHeight) editor.style.minHeight = ta.style.minHeight;
+    const rows = ta.getAttribute('rows');
+    if (rows) editor.style.minHeight = (parseInt(rows) * 1.6 + 1) + 'em';
+
+    // Transfer content (convert newlines to <br> if plain text)
+    if (ta.value) {
+      editor.innerHTML = ta.value.includes('<') ? ta.value : ta.value.replace(/\n/g, '<br>');
+    }
+
+    // Remove id from textarea so editor has the unique id
+    ta.removeAttribute('id');
+
+    // Toolbar button clicks
+    tb.addEventListener('mousedown', e => {
+      e.preventDefault(); // keep focus in editor
+      const btn = e.target.closest('button[data-cmd]');
+      if (!btn) return;
+      document.execCommand(btn.dataset.cmd, false, null);
+      updateToolbarState(tb);
+    });
+
+    // Focus/blur for toolbar visibility
+    editor.addEventListener('focus', () => {
+      wrap.classList.add('focused');
+      updateToolbarState(tb);
+    });
+    editor.addEventListener('blur', () => {
+      wrap.classList.remove('focused');
+    });
+
+    // Update toolbar active states on selection change
+    editor.addEventListener('keyup', () => updateToolbarState(tb));
+    editor.addEventListener('mouseup', () => updateToolbarState(tb));
+
+    // Trigger save on input
+    editor.addEventListener('input', () => {
+      scheduleSave();
+      updateProgress();
+    });
+
+    // Copy oninput handlers (like SERP/ad preview updates)
+    const oninput = ta.getAttribute('oninput');
+    if (oninput) {
+      editor.addEventListener('input', () => {
+        try { eval(oninput); } catch(_) {}
+      });
+    }
+
+    wrap.appendChild(tb);
+    wrap.appendChild(editor);
+    ta.parentNode.insertBefore(wrap, ta.nextSibling);
+  });
+}
+
+function updateToolbarState(tb) {
+  tb.querySelectorAll('button[data-cmd]').forEach(btn => {
+    btn.classList.toggle('active', document.queryCommandState(btn.dataset.cmd));
+  });
+}
+
+// Helper: get value from either input or contenteditable editor
+function getFieldValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return '';
+  if (el.classList.contains('wysiwyg-editor')) return el.innerHTML === '<br>' ? '' : el.innerHTML;
+  return el.value !== undefined ? el.value : el.textContent;
+}
+
+function setFieldValue(id, value) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.classList.contains('wysiwyg-editor')) {
+    el.innerHTML = value || '';
+  } else if (el.value !== undefined) {
+    el.value = value || '';
+  }
+}
+
+// Override gatherData to use getFieldValue for textarea fields
+const _origGatherData = gatherData;
+gatherData = function() {
+  const data = { nbAct, version: 2 };
+  ['client-name','client-sector','client-zone','client-url','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id => { data[id] = getFieldValue(id); });
+  for(let i=1;i<=nbAct;i++){
+    data['act-name-'+i] = getFieldValue('act-name-'+i);
+    const p='a'+i;
+    ['persona-name','persona-profil','persona-desc'].forEach(f=>{ data[p+'-'+f] = getFieldValue(p+'-'+f); });
+    ['douleurs','besoins','peurs','motivations'].forEach(cat=>{const c=document.getElementById(p+'-'+cat);if(!c)return;data[p+'-'+cat]=Array.from(c.querySelectorAll('.inv-item input')).map(i=>i.value);});
+    ['tofu','mofu','bofu'].forEach(f=>{
+      data[p+'-'+f+'-intention'] = getFieldValue(p+'-'+f+'-intention');
+      const kwC=document.getElementById(p+'-'+f+'-kws');
+      if(kwC)data[p+'-'+f+'-kws']=Array.from(kwC.querySelectorAll('.kw-row')).map(r=>({kw:r.querySelector('input').value}));
+      ['seo-title','seo-meta'].forEach(fld=>{ data[p+'-'+f+'-'+fld] = getFieldValue(p+'-'+f+'-'+fld); });
+      data[p+'-'+f+'-seo-h1']=getFieldValue(p+'-'+f+'-seo-h1');
+      {const h2C=document.getElementById(p+'-'+f+'-seo-h2s');if(h2C)data[p+'-'+f+'-seo-h2s']=Array.from(h2C.querySelectorAll('.h2-row input')).map(i=>i.value);}
+      if(f!=='tofu'){
+        data[p+'-'+f+'-sea-group']=getFieldValue(p+'-'+f+'-sea-group');
+        for(let ti=1;ti<=15;ti++)data[p+'-'+f+'-sea-t'+ti]=getFieldValue(p+'-'+f+'-sea-t'+ti);
+        for(let di=1;di<=4;di++)data[p+'-'+f+'-sea-d'+di]=getFieldValue(p+'-'+f+'-sea-d'+di);
+        // Neg keywords per funnel
+        const negC=document.getElementById(p+'-'+f+'-neg-kws');
+        if(negC)data[p+'-'+f+'-neg-kws']=Array.from(negC.querySelectorAll('.neg-kw-item input')).map(i=>i.value);
+        // Geo, schedule, extensions
+        data[p+'-'+f+'-sea-geo']=getFieldValue(p+'-'+f+'-sea-geo');
+        data[p+'-'+f+'-sea-schedule']=getFieldValue(p+'-'+f+'-sea-schedule');
+        data[p+'-'+f+'-sea-extensions']=getFieldValue(p+'-'+f+'-sea-extensions');
+      }
+      data[p+'-'+f+'-lp-cta'] = getFieldValue(p+'-'+f+'-lp-cta');
+      data[p+'-'+f+'-lp-html'] = getFieldValue(p+'-'+f+'-lp-html');
+      const lpC=document.getElementById(p+'-'+f+'-lp-blocks');
+      if(lpC)data[p+'-'+f+'-lp-blocks']=Array.from(lpC.querySelectorAll('.lp-block')).map(b=>{const roleEl=b.querySelector('input[id$="-role"]');const descEl=b.querySelector('textarea[id$="-desc"]')||b.querySelector('.wysiwyg-editor[id$="-desc"]');return{name:roleEl?.value||'',desc:descEl?(descEl.value!==undefined?descEl.value:descEl.innerHTML)||'':'',tags:getLpBlockTags(b)};});
+    });
+    // Other campaigns
+    data[p+'-other-campaigns']=getFieldValue(p+'-other-campaigns');
+    data[p+'-other-campaigns-why']=getFieldValue(p+'-other-campaigns-why');
+  }
+  data['group-notes'] = getFieldValue('group-notes');
+  data['gads-campaigns'] = gatherGadsData();
+  return data;
+};
+
+// Override restoreData to use setFieldValue
+const _origRestoreData = restoreData;
+restoreData = function(data) {
+  ['client-name','client-sector','client-zone','client-url','client-activities','client-particularites','client-forces','client-faiblesses'].forEach(id=>{if(data[id]!==undefined) setFieldValue(id, data[id]);});
+  for(let i=1;i<=nbAct;i++){
+    if(data['act-name-'+i]) { setFieldValue('act-name-'+i, data['act-name-'+i]); updateActTitle(i); }
+    const p='a'+i;
+    ['persona-name','persona-profil','persona-desc'].forEach(f=>{if(data[p+'-'+f]) setFieldValue(p+'-'+f, data[p+'-'+f]);});
+    const cats={douleurs:['D','d'],besoins:['B','b'],peurs:['P','p'],motivations:['M','m']};
+    Object.entries(cats).forEach(([cat,[letter,cls]])=>{const key=p+'-'+cat;if(!data[key])return;const c=document.getElementById(key);if(!c)return;c.innerHTML='';data[key].forEach(v=>addInvItem(key,letter,cls,v));});
+    ['tofu','mofu','bofu'].forEach(f=>{
+      if(data[p+'-'+f+'-intention']) setFieldValue(p+'-'+f+'-intention', data[p+'-'+f+'-intention']);
+      const kwKey=p+'-'+f+'-kws';if(data[kwKey]){const c=document.getElementById(kwKey);if(c){c.innerHTML='';data[kwKey].forEach(k=>addKw(kwKey,k.kw));}}
+      ['seo-title','seo-meta'].forEach(fld=>{if(data[p+'-'+f+'-'+fld]) setFieldValue(p+'-'+f+'-'+fld, data[p+'-'+f+'-'+fld]);});
+      if(data[p+'-'+f+'-seo-h1'])setFieldValue(p+'-'+f+'-seo-h1',data[p+'-'+f+'-seo-h1']);
+      {const h2Key=p+'-'+f+'-seo-h2s';if(data[h2Key]){const c=document.getElementById(h2Key);if(c){c.innerHTML='';data[h2Key].forEach(v=>addH2(h2Key,v));}}}
+      if(f!=='tofu'){
+        if(data[p+'-'+f+'-sea-group'])setFieldValue(p+'-'+f+'-sea-group',data[p+'-'+f+'-sea-group']);
+        for(let ti=1;ti<=15;ti++){if(data[p+'-'+f+'-sea-t'+ti])setFieldValue(p+'-'+f+'-sea-t'+ti,data[p+'-'+f+'-sea-t'+ti]);}
+        for(let di=1;di<=4;di++){if(data[p+'-'+f+'-sea-d'+di])setFieldValue(p+'-'+f+'-sea-d'+di,data[p+'-'+f+'-sea-d'+di]);}
+        // Neg keywords
+        const negKey=p+'-'+f+'-neg-kws';if(data[negKey]){const nc=document.getElementById(negKey);if(nc){nc.innerHTML='';data[negKey].forEach(v=>addNegKw(negKey,v));}}
+        // Geo, schedule, extensions
+        if(data[p+'-'+f+'-sea-geo'])setFieldValue(p+'-'+f+'-sea-geo',data[p+'-'+f+'-sea-geo']);
+        if(data[p+'-'+f+'-sea-schedule'])setFieldValue(p+'-'+f+'-sea-schedule',data[p+'-'+f+'-sea-schedule']);
+        if(data[p+'-'+f+'-sea-extensions'])setFieldValue(p+'-'+f+'-sea-extensions',data[p+'-'+f+'-sea-extensions']);
+      }
+      if(data[p+'-'+f+'-lp-cta']) setFieldValue(p+'-'+f+'-lp-cta', data[p+'-'+f+'-lp-cta']);
+      if(data[p+'-'+f+'-lp-html']) setFieldValue(p+'-'+f+'-lp-html', data[p+'-'+f+'-lp-html']);
+      const lpKey=p+'-'+f+'-lp-blocks';if(data[lpKey]){const c=document.getElementById(lpKey);if(c){c.innerHTML='';data[lpKey].forEach(b=>addLpBlock(lpKey,f,p,b.name,b.desc,b.tags));}}
+      updateSerpPreview(p,f);updateAdPreview(p,f);updateLpCoverage(p,f);
+    });
+    // Other campaigns
+    if(data[p+'-other-campaigns'])setFieldValue(p+'-other-campaigns',data[p+'-other-campaigns']);
+    if(data[p+'-other-campaigns-why'])setFieldValue(p+'-other-campaigns-why',data[p+'-other-campaigns-why']);
+  }
+  if(data['group-notes']) setFieldValue('group-notes', data['group-notes']);
+  if(data['gads-campaigns']) restoreGadsData(data['gads-campaigns']);
+  updateProgress();
+};
+
+// Override computeProgress to count contenteditable editors too
+computeProgress = function() {
+  let filled=0,total=0;
+  document.querySelectorAll('input[type="text"]').forEach(inp=>{
+    if(inp.closest('.action-bar')||inp.closest('.neg-kw-item')||inp.closest('.add-member-form')||inp.closest('#page-group')||inp.closest('.lp-tag-check'))return;
+    total++;if(inp.value.trim())filled++;
+  });
+  document.querySelectorAll('.wysiwyg-editor').forEach(ed=>{
+    if(ed.closest('#page-group'))return;
+    total++;
+    const txt = ed.textContent.trim();
+    if(txt)filled++;
+  });
+  return total>0?Math.round((filled/total)*100):0;
+};
+
+// ===================== GOOGLE ADS STRUCTURE =====================
+function addGadsCampaign(name) {
+  const c = document.getElementById('gads-campaigns');
+  const n = c.querySelectorAll('.gads-campaign').length;
+  const cid = 'gads-c-' + n;
+  const d = document.createElement('div'); d.className = 'gads-campaign'; d.id = cid;
+  d.innerHTML = `<div class="gads-campaign-header">
+    <div class="gads-icon">C</div>
+    <input type="text" id="${cid}-name" placeholder="Nom de la campagne Search">
+    <button class="rm-btn" onclick="this.closest('.gads-campaign').remove();reindexGadsCampaigns();scheduleSave();">&times;</button>
+  </div>
+  <div class="gads-groups" id="${cid}-groups"></div>
+  <div style="padding:0 1rem .8rem 2.5rem;"><button class="add-btn" onclick="addGadsGroup('${cid}-groups')" style="font-size:.72rem;">+ Groupe d'annonces</button></div>`;
+  if (name) d.querySelector('input').value = name;
+  c.appendChild(d);
+}
+
+function addGadsGroup(groupsId, name) {
+  const c = document.getElementById(groupsId);
+  const n = c.querySelectorAll('.gads-group').length;
+  const gid = groupsId + '-g-' + n;
+  const d = document.createElement('div'); d.className = 'gads-group';
+  d.innerHTML = `<div class="gads-g-icon">G</div>
+    <input type="text" id="${gid}-name" placeholder="Nom du groupe d'annonces">
+    <button class="rm-btn" onclick="this.closest('.gads-group').remove();scheduleSave();">&times;</button>`;
+  if (name) d.querySelector('input').value = name;
+  c.appendChild(d);
+}
+
+function reindexGadsCampaigns() {
+  document.getElementById('gads-campaigns').querySelectorAll('.gads-campaign').forEach((camp, i) => {
+    camp.id = 'gads-c-' + i;
+    const nameInput = camp.querySelector('.gads-campaign-header input');
+    if (nameInput) nameInput.id = 'gads-c-' + i + '-name';
+    const groupsDiv = camp.querySelector('.gads-groups');
+    if (groupsDiv) {
+      groupsDiv.id = 'gads-c-' + i + '-groups';
+      // Update add button onclick
+      const addBtn = camp.querySelector('.add-btn');
+      if (addBtn) addBtn.setAttribute('onclick', "addGadsGroup('gads-c-" + i + "-groups')");
+      groupsDiv.querySelectorAll('.gads-group').forEach((g, j) => {
+        const gi = g.querySelector('input');
+        if (gi) gi.id = 'gads-c-' + i + '-groups-g-' + j + '-name';
+      });
+    }
+  });
+}
+
+function gatherGadsData() {
+  const campaigns = [];
+  document.querySelectorAll('#gads-campaigns .gads-campaign').forEach(camp => {
+    const nameInput = camp.querySelector('.gads-campaign-header input');
+    const groups = [];
+    camp.querySelectorAll('.gads-group input').forEach(gi => {
+      groups.push(gi.value);
+    });
+    campaigns.push({ name: nameInput ? nameInput.value : '', groups });
+  });
+  return campaigns;
+}
+
+function restoreGadsData(campaigns) {
+  const c = document.getElementById('gads-campaigns');
+  if (!c || !campaigns) return;
+  c.innerHTML = '';
+  campaigns.forEach((camp, i) => {
+    addGadsCampaign(camp.name);
+    const groupsId = 'gads-c-' + i + '-groups';
+    (camp.groups || []).forEach(g => addGadsGroup(groupsId, g));
+  });
+}
+
+// ===================== PRESENTATION =====================
+let presSlides = [];
+let presIdx = 0;
+
+function generatePresentation() {
+  // Save first
+  saveToSupabase();
+  const d = gatherData();
+  presSlides = [];
+  const sh = stripHtml;
+  const fColors = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
+  const fNames = {tofu:'TOFU — Sensibilisation',mofu:'MOFU — Consideration',bofu:'BOFU — Decision'};
+  const clientUrl = d['client-url'] || 'www.example.com';
+
+  // Slide 1: Title
+  presSlides.push(`<div class="ps ps-title-slide">
+    <span class="ps-tag">Strategie SEM</span>
+    <h1>${esc(d['client-name']||'Mon exercice SEM')}</h1>
+    <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
+    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupName||'')}${d['group-notes']?' — '+esc(sh(d['group-notes'])).substring(0,80):''}</p>
+  </div>`);
+
+  // Slide 2: Client presentation
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
+    <h1>${esc(d['client-name']||'Client')}</h1>
+    <h2>${esc(d['client-sector']||'')} — ${esc(d['client-zone']||'')}</h2>
+    <div class="ps-grid">
+      <div>
+        ${d['client-activities']?'<h3>Activites</h3><p>'+sh(d['client-activities'])+'</p>':''}
+        ${d['client-particularites']?'<h3 style="margin-top:.5rem;">Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
+      </div>
+      <div>
+        ${d['client-forces']?'<h3 style="color:var(--gn);">Forces</h3><p>'+sh(d['client-forces'])+'</p>':''}
+        ${d['client-faiblesses']?'<h3 style="margin-top:.5rem;color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
+      </div>
+    </div>
+    <div class="ps-footer">${esc(d['client-url']||'')}</div>
+  </div>`);
+
+  // Slide 3: Activities overview with personas
+  const actColors = ['var(--bl)','var(--gn)','var(--pu)','var(--or)','var(--rd)'];
+  let actCards = '';
+  for (let i=1;i<=d.nbAct;i++) {
+    const p='a'+i;
+    const name = d['act-name-'+i]||'Activite '+i;
+    const persona = d[p+'-persona-name']||'';
+    const profil = d[p+'-persona-profil']||'';
+    actCards += `<div class="ps-card" style="border-top:3px solid ${actColors[(i-1)%5]};">
+      <h3 style="color:${actColors[(i-1)%5]};">${esc(name)}</h3>
+      ${persona?'<p><strong>Persona :</strong> '+esc(persona)+'</p>':''}
+      ${profil?'<p>'+esc(profil)+'</p>':''}
+    </div>`;
+  }
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Vue d'ensemble</span>
+    <h1>Activites & Personas</h1>
+    <div class="ps-grid-3" style="margin-top:1rem;">${actCards}</div>
+    <div class="ps-footer">${esc(d['client-name']||'')}</div>
+  </div>`);
+
+  // For each activity
+  for (let i=1;i<=d.nbAct;i++) {
+    const p='a'+i;
+    const actName = d['act-name-'+i]||'Activite '+i;
+    const actColor = actColors[(i-1)%5];
+    const footer = `<div class="ps-footer">${esc(actName)} — ${esc(d['client-name']||'')}</div>`;
+
+    // Slide 1: Persona presentation
+    presSlides.push(`<div class="ps">
+      <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+      <h1 style="color:${actColor};">Persona : ${esc(d[p+'-persona-name']||'')}</h1>
+      <h2>${esc(d[p+'-persona-profil']||'')}</h2>
+      ${d[p+'-persona-desc']?'<p style="margin-top:1rem;font-size:.85rem;">'+sh(d[p+'-persona-desc'])+'</p>':''}
+      ${footer}
+    </div>`);
+
+    // Slides 2-5: One per DBPM category
+    const dbpmCats = [
+      {key:'douleurs',l:'Douleurs',c:'var(--or)',icon:'D'},
+      {key:'besoins',l:'Besoins',c:'var(--bl)',icon:'B'},
+      {key:'peurs',l:'Peurs / Freins',c:'var(--rd)',icon:'P'},
+      {key:'motivations',l:'Motivations',c:'var(--gn)',icon:'M'}
+    ];
+    dbpmCats.forEach(cat => {
+      const items = d[p+'-'+cat.key];
+      if (items && items.some(v=>v)) {
+        const itemsHtml = items.filter(v=>v).map((v,j) =>
+          `<div class="ps-card" style="border-left:4px solid ${cat.c};padding:.6rem .8rem;margin-bottom:.4rem;">
+            <div style="display:flex;align-items:center;gap:.4rem;">
+              <span style="background:${cat.c};color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.6rem;font-weight:800;">${cat.icon}${j+1}</span>
+              <span style="font-size:.8rem;font-weight:600;">${esc(v)}</span>
+            </div>
+          </div>`
+        ).join('');
+        presSlides.push(`<div class="ps">
+          <div style="display:flex;gap:.4rem;align-items:center;margin-bottom:.3rem;">
+            <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+          </div>
+          <h1 style="color:${cat.c};">${cat.l}</h1>
+          <h2>Persona : ${esc(d[p+'-persona-name']||'')}</h2>
+          <div style="margin-top:.8rem;">${itemsHtml}</div>
+          ${footer}
+        </div>`);
+      }
+    });
+
+    // For each funnel level
+    ['tofu','mofu','bofu'].forEach(f => {
+      const kws = d[p+'-'+f+'-kws'];
+      const kwList = kws ? kws.filter(k=>k.kw).map(k=>k.kw) : [];
+      const intention = d[p+'-'+f+'-intention']||'';
+      const seoTitle = d[p+'-'+f+'-seo-title']||'';
+      const seoMeta = d[p+'-'+f+'-seo-meta']||'';
+      const lpBlocks = d[p+'-'+f+'-lp-blocks']||[];
+      const cta = d[p+'-'+f+'-lp-cta']||'';
+      const fc = fColors[f];
+      const tags = (hd) => `<div style="display:flex;gap:.4rem;align-items:center;margin-bottom:.3rem;">
+        <span class="ps-tag" style="background:${fc};color:#fff;">${f.toUpperCase()} — ${hd}</span>
+        <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+      </div>`;
+
+      const seoH1 = d[p+'-'+f+'-seo-h1']||'';
+      const seoH2s = d[p+'-'+f+'-seo-h2s']||[];
+
+      // SEO slide 1: Mots-cles + Apercu SERP
+      if (seoTitle || kwList.length > 0) {
+        presSlides.push(`<div class="ps">
+          ${tags('SEO')}
+          <h2>${esc(fNames[f])} — Mots-cles & SERP</h2>
+          ${intention?'<p style="margin-bottom:.5rem;"><strong>Intention :</strong> '+esc(intention)+'</p>':''}
+          <div class="ps-grid">
+            <div>
+              ${kwList.length?'<h3>Mots-cles cibles</h3><div class="ps-kw-list">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
+            </div>
+            <div>
+              ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div>':''}
+            </div>
+          </div>
+          ${footer}
+        </div>`);
+      }
+
+      // SEO slide 1b: Structure Hn
+      if (seoH1 || seoH2s.some(h=>h)) {
+        presSlides.push(`<div class="ps">
+          ${tags('SEO — Structure')}
+          <h2>Structure de la page</h2>
+          ${seoH1?'<div style="margin:.6rem 0;padding:.5rem .8rem;background:var(--bl-l);border-left:4px solid var(--bl);border-radius:0 6px 6px 0;"><span style="font-size:.65rem;font-weight:800;color:var(--bl);margin-right:.4rem;">H1</span><span style="font-size:.88rem;font-weight:700;">'+esc(seoH1)+'</span></div>':''}
+          ${seoH2s.filter(h=>h).map(h => '<div style="margin:.3rem 0 .3rem 1.5rem;padding:.4rem .7rem;background:var(--g50);border-left:3px solid var(--g300);border-radius:0 6px 6px 0;"><span style="font-size:.6rem;font-weight:800;color:var(--g500);margin-right:.4rem;">H2</span><span style="font-size:.82rem;font-weight:600;">'+esc(h)+'</span></div>').join('')}
+          ${footer}
+        </div>`);
+      }
+
+      // LP slides: sliding window of 2, offset by 1
+      const validBlocks = lpBlocks.filter(b=>b.name);
+      if (validBlocks.length > 0) {
+        function buildLpBlockHtml(b, num) {
+          let tagsDetail = '';
+          if (b.tags) {
+            tagsDetail = b.tags.split(',').map(t => {
+              t = t.trim(); if(!t) return '';
+              const cat = t[0]==='D'?'douleurs':t[0]==='B'?'besoins':t[0]==='P'?'peurs':t[0]==='M'?'motivations':'';
+              const idx = parseInt(t.substring(1)) - 1;
+              const items = d[p+'-'+cat];
+              const val = items && items[idx] ? items[idx] : '';
+              const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
+              return `<span class="tag ${cls}" style="font-size:.55rem;">${val ? esc(val) : esc(t)}</span>`;
+            }).join(' ');
+          }
+          return `<div class="ps-lp" style="display:flex;gap:.4rem;align-items:flex-start;">
+            <span class="ps-lp-num" style="background:${fc};">${num}</span>
+            <div><span class="ps-lp-name">${esc(b.name)}</span>
+            ${b.desc?'<div class="ps-lp-desc">'+esc(sh(b.desc))+'</div>':''}
+            ${tagsDetail?'<div style="margin-top:.15rem;">'+tagsDetail+'</div>':''}
+            </div>
+          </div>`;
+        }
+        // Coverage indicator
+        const allChecked = new Set();
+        validBlocks.forEach(b => { if(b.tags) b.tags.split(',').map(t=>t.trim()).filter(Boolean).forEach(t=>allChecked.add(t)); });
+        const covCats = [{key:'douleurs',l:'D',c:'var(--or)'},{key:'besoins',l:'B',c:'var(--bl)'},{key:'peurs',l:'P',c:'var(--rd)'},{key:'motivations',l:'M',c:'var(--gn)'}];
+        let covHtml = '', covTotal=0, covDone=0;
+        covCats.forEach(cc => {
+          const items = d[p+'-'+cc.key]||[];
+          const count = items.filter(v=>v).length;
+          if (!count) return;
+          let catDone = 0;
+          for (let ci=1;ci<=count;ci++) if(allChecked.has(cc.l+ci)) catDone++;
+          covTotal += count; covDone += catDone;
+          const ok = catDone===count;
+          covHtml += `<span style="font-size:.65rem;padding:.15rem .4rem;border-radius:4px;font-weight:700;${ok?'background:var(--gn-l);color:var(--gn)':'background:var(--rd-l);color:var(--rd)'}">${cc.l}: ${catDone}/${count}</span> `;
+        });
+        const covPct = covTotal>0?Math.round(covDone/covTotal*100):0;
+        const covLine = covTotal>0?`<div style="margin-bottom:.5rem;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;"><span style="font-size:.7rem;font-weight:700;${covPct===100?'color:var(--gn)':'color:var(--or)'}">Couverture : ${covPct}%</span>${covHtml}</div>`:'';
+
+        const totalSlides = Math.max(1, validBlocks.length - 1);
+        for (let si=0; si < totalSlides; si++) {
+          const pair = validBlocks.slice(si, si+2);
+          const lpHtml = pair.map((b,bi) => buildLpBlockHtml(b, si+bi+1)).join('');
+          const pageInfo = totalSlides > 1 ? ` (${si+1}/${totalSlides})` : '';
+          presSlides.push(`<div class="ps">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Structure LP${pageInfo}</h2>
+            ${si===0 && cta?'<p style="margin-bottom:.3rem;"><strong>CTA :</strong> '+esc(cta)+'</p>':''}
+            ${si===0?covLine:''}
+            <div style="flex:1;">${lpHtml}</div>
+            ${footer}
+          </div>`);
+        }
+        // If only 1 block, show it alone
+        if (validBlocks.length === 1) {
+          presSlides.push(`<div class="ps">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Structure LP</h2>
+            ${cta?'<p style="margin-bottom:.5rem;"><strong>CTA :</strong> '+esc(cta)+'</p>':''}
+            <div style="flex:1;">${buildLpBlockHtml(validBlocks[0], 1)}</div>
+            ${footer}
+          </div>`);
+        }
+
+        // LP preview slide if HTML exists
+        const lpHtmlCode = d[p+'-'+f+'-lp-html']||'';
+        if (lpHtmlCode.trim()) {
+          const lpStoreKey = 'lp_'+p+'_'+f;
+          window[lpStoreKey] = lpHtmlCode;
+          presSlides.push(`<div class="ps" style="justify-content:center;align-items:center;text-align:center;">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Apercu LP</h2>
+            <p style="margin-bottom:1.5rem;">La landing page a ete generee. Cliquez pour l'ouvrir.</p>
+            <button onclick="openHtmlInNewTab(window['${lpStoreKey}'])" style="padding:.8rem 2rem;font-size:1rem;font-weight:700;background:var(--gn);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;">Ouvrir la Landing Page</button>
+            ${footer}
+          </div>`);
+        }
+      }
+
+      // SEA slides (MOFU/BOFU only)
+      if (f !== 'tofu') {
+        const seaTitles = [];
+        for (let ti=1;ti<=15;ti++) { const v=d[p+'-'+f+'-sea-t'+ti]; if(v) seaTitles.push(v); }
+        const seaDescs = [];
+        for (let di=1;di<=4;di++) { const v=d[p+'-'+f+'-sea-d'+di]; if(v) seaDescs.push(v); }
+        const seaGroup = d[p+'-'+f+'-sea-group']||'';
+
+        if (seaTitles.length > 0 || seaGroup) {
+          // SEA slide 1: Mots-cles + Apercu annonce
+          presSlides.push(`<div class="ps">
+            ${tags('SEA')}
+            <h2>${esc(fNames[f])} — Google Ads</h2>
+            ${intention?'<p style="margin-bottom:.5rem;"><strong>Intention :</strong> '+esc(intention)+'</p>':''}
+            <div class="ps-grid">
+              <div>
+                ${seaGroup?'<h3>Groupe : '+esc(seaGroup)+'</h3>':''}
+                ${kwList.length?'<div class="ps-kw-list">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
+              </div>
+              <div>
+                <h3>Apercu annonce</h3>
+                <div class="ps-ad">
+                  <div class="a-sp">Sponsorise</div>
+                  <div class="a-url">${esc(clientUrl)}</div>
+                  <div class="a-title">${esc(seaTitles.slice(0,3).join(' | ')||'Titres...')}</div>
+                  <div class="a-desc">${esc(seaDescs[0]||'Description...')}</div>
+                </div>
+              </div>
+            </div>
+            ${footer}
+          </div>`);
+
+          // SEA slide 2: Tous les titres et descriptions
+          let titlesHtml = seaTitles.map((t,j) => `<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span><span style="font-size:.6rem;color:var(--g500);">(${t.length}/30)</span></div>`).join('');
+          let descsHtml = seaDescs.map((dd,j) => `<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span><span style="font-size:.6rem;color:var(--g500);"> (${dd.length}/90)</span></div>`).join('');
+          presSlides.push(`<div class="ps">
+            ${tags('SEA — Annonce')}
+            <h2>Titres & Descriptions</h2>
+            <div class="ps-grid">
+              <div style="overflow-y:auto;"><h3>${seaTitles.length} Titre(s)</h3>${titlesHtml}</div>
+              <div><h3>${seaDescs.length} Description(s)</h3>${descsHtml}</div>
+            </div>
+            ${footer}
+          </div>`);
+
+          // SEA slide 3: Parametres (neg kws, geo, schedule, extensions)
+          const negKws = d[p+'-'+f+'-neg-kws']||[];
+          const geo = d[p+'-'+f+'-sea-geo']||'';
+          const sched = d[p+'-'+f+'-sea-schedule']||'';
+          const exts = d[p+'-'+f+'-sea-extensions']||'';
+          if (negKws.length > 0 || geo || sched || exts) {
+            presSlides.push(`<div class="ps">
+              ${tags('SEA — Parametres')}
+              <h2>Configuration de la campagne</h2>
+              <div class="ps-grid">
+                <div>
+                  ${geo?'<h3>Zone geographique</h3><p>'+esc(geo)+'</p>':''}
+                  ${sched?'<h3 style="margin-top:.6rem;">Calendrier de diffusion</h3><p>'+esc(sched)+'</p>':''}
+                  ${negKws.length?'<h3 style="margin-top:.6rem;">Mots-cles negatifs</h3><div class="ps-kw-list">'+negKws.filter(k=>k).map(k=>'<span class="ps-kw" style="color:var(--rd);border-color:var(--rd);">-'+esc(k)+'</span>').join('')+'</div>':''}
+                </div>
+                <div>
+                  ${exts?'<h3>Extensions</h3><p style="font-size:.75rem;white-space:pre-line;">'+esc(sh(exts))+'</p>':''}
+                </div>
+              </div>
+              ${footer}
+            </div>`);
+          }
+        }
+      }
+    });
+
+    // Other campaigns slide
+    if (d[p+'-other-campaigns']) {
+      presSlides.push(`<div class="ps">
+        <span class="ps-tag" style="background:var(--pu-l);color:var(--pu);">Autres campagnes</span>
+        <h1 style="color:${actColor};">${esc(actName)}</h1>
+        <h2>Campagnes Google Ads supplementaires</h2>
+        <div class="ps-grid">
+          <div><h3>Types de campagnes</h3><p>${sh(d[p+'-other-campaigns'])}</p></div>
+          <div>${d[p+'-other-campaigns-why']?'<h3>Justification</h3><p>'+sh(d[p+'-other-campaigns-why'])+'</p>':''}</div>
+        </div>
+        <div class="ps-footer">${esc(actName)} — ${esc(d['client-name']||'')}</div>
+      </div>`);
+    }
+  }
+
+  // Google Ads account structure (after all activities)
+  const gadsCampaigns = d['gads-campaigns'] || [];
+  if (gadsCampaigns.length > 0 && gadsCampaigns.some(c=>c.name)) {
+    let gadsHtml = '<div style="display:flex;flex-wrap:wrap;gap:.6rem;flex:1;align-content:flex-start;">';
+    gadsCampaigns.forEach(camp => {
+      if (!camp.name) return;
+      gadsHtml += `<div style="background:var(--or-l);border:2px solid var(--or);border-radius:8px;padding:.5rem .7rem;min-width:180px;flex:1;max-width:280px;">
+        <div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.3rem;">
+          <span style="background:var(--or);color:#fff;border-radius:4px;padding:.1rem .3rem;font-size:.55rem;font-weight:800;">C</span>
+          <span style="font-size:.75rem;font-weight:700;">${esc(camp.name)}</span>
+        </div>`;
+      (camp.groups||[]).forEach(g => {
+        if (!g) return;
+        gadsHtml += `<div style="display:flex;align-items:center;gap:.25rem;margin-left:.8rem;margin-bottom:.15rem;">
+          <span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .2rem;font-size:.5rem;font-weight:800;">G</span>
+          <span style="font-size:.65rem;color:var(--g700);">${esc(g)}</span>
+        </div>`;
+      });
+      gadsHtml += '</div>';
+    });
+    gadsHtml += '</div>';
+    presSlides.push(`<div class="ps">
+      <span class="ps-tag" style="background:var(--or-l);color:var(--or);">Google Ads</span>
+      <h1>Structure du compte</h1>
+      <h2>${esc(d['client-name']||'')} — ${gadsCampaigns.filter(c=>c.name).length} campagne(s)</h2>
+      ${gadsHtml}
+      <div class="ps-footer">${esc(d['client-name']||'')}</div>
+    </div>`);
+    gadsCampaigns.forEach((camp, ci) => {
+      if (!camp.name) return;
+      const groups = (camp.groups||[]).filter(g=>g);
+      if (groups.length === 0) return;
+      presSlides.push(`<div class="ps">
+        <span class="ps-tag" style="background:var(--or);color:#fff;">Campagne ${ci+1}</span>
+        <h1 style="color:var(--or);">${esc(camp.name)}</h1>
+        <h2>${groups.length} groupe(s) d'annonces</h2>
+        <div style="margin-top:.8rem;">${groups.map((g,gi)=>`<div class="ps-card" style="border-left:4px solid var(--bl);padding:.6rem .8rem;margin-bottom:.4rem;"><div style="display:flex;align-items:center;gap:.4rem;"><span style="background:var(--bl);color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.6rem;font-weight:800;">G${gi+1}</span><span style="font-size:.82rem;font-weight:600;">${esc(g)}</span></div></div>`).join('')}</div>
+        <div class="ps-footer">${esc(d['client-name']||'')}</div>
+      </div>`);
+    });
+  }
+
+  // Final slide
+  presSlides.push(`<div class="ps ps-title-slide">
+    <h1>Merci</h1>
+    <p>${esc(d['client-name']||'')} — Strategie SEM</p>
+    <p style="margin-top:.5rem;font-size:.78rem;">${esc(groupName||'')}</p>
+  </div>`);
+
+  presIdx = 0;
+  showSlide();
+  document.getElementById('pres-overlay').classList.add('show');
+}
+
+function esc(s) { if(!s)return ''; const d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+
+function showSlide() {
+  document.getElementById('pres-slide').innerHTML = presSlides[presIdx];
+  document.getElementById('pres-counter').textContent = (presIdx+1) + ' / ' + presSlides.length;
+}
+
+function presNav(dir) {
+  presIdx = Math.max(0, Math.min(presSlides.length-1, presIdx+dir));
+  showSlide();
+}
+
+function closePresentation() {
+  document.getElementById('pres-overlay').classList.remove('show');
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('pres-overlay').classList.contains('show')) return;
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); presNav(1); }
+  else if (e.key==='ArrowLeft') { e.preventDefault(); presNav(-1); }
+  else if (e.key==='Escape') closePresentation();
+});
+
 // ===================== INIT =====================
 renderActivityNames();
 renderActivityPages();
-['gratuit','emploi','stage','formation','tuto','definition','wikipedia'].forEach(v=>addNegKw('neg-kw-global',v));
+upgradeTextareas();
 initApp();
 
+// Group notes: save on input despite being in #page-group
+const groupNotesEl = document.getElementById('group-notes');
+if (groupNotesEl) groupNotesEl.addEventListener('input', () => scheduleSave());
+
+// Re-upgrade textareas after dynamic renders
+const _origRenderActivityPages = renderActivityPages;
+renderActivityPages = function() {
+  _origRenderActivityPages();
+  upgradeTextareas();
+};
+
 document.addEventListener('input', e => {
-  if(e.target.closest('.action-bar'))return;
+  if(e.target.closest('.action-bar')||e.target.closest('.add-member-form')||e.target.closest('#page-group'))return;
+  if(e.target.classList.contains('wysiwyg-editor')) return; // already handled
   scheduleSave();
   updateProgress();
 });

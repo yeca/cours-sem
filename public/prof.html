@@ -34,13 +34,13 @@ tr:hover td{background:var(--g50);}
 .progress-mini .fill.low{background:var(--rd);}.progress-mini .fill.mid{background:var(--or);}.progress-mini .fill.high{background:var(--gn);}
 .badge-submitted{display:inline-block;padding:.15rem .5rem;border-radius:6px;font-size:.72rem;font-weight:700;}
 .badge-submitted.yes{background:var(--gn-l);color:var(--gn);}.badge-submitted.no{background:var(--g100);color:var(--g500);}
-.btn-view{font-size:.78rem;color:var(--bl);font-weight:600;cursor:pointer;border:none;background:none;text-decoration:underline;}
-.btn-view:hover{color:var(--bl-d);}
-
-/* MODAL */
+.btn-view,.btn-pres{font-size:.78rem;font-weight:600;cursor:pointer;border:none;background:none;text-decoration:underline;margin-right:.5rem;}
+.btn-view{color:var(--bl);}.btn-view:hover{color:var(--bl-d);}
+.btn-pres{color:var(--pu);}.btn-pres:hover{color:var(--pu);}
+/* Modal */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.show{display:flex;}
-.modal{background:#fff;border-radius:var(--r);max-width:1000px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal{background:#fff;border-radius:var(--r);max-width:1100px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.2);}
 .modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border:none;background:var(--g100);border-radius:8px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--g700);}
 .modal-close:hover{background:var(--rd-l);color:var(--rd);}
 .modal h2{font-size:1.2rem;font-weight:800;margin-bottom:.2rem;}
@@ -63,6 +63,46 @@ tr:hover td{background:var(--g50);}
 .lp-item{display:flex;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--g100);font-size:.82rem;align-items:flex-start;}
 .lp-item .lp-n{width:20px;height:20px;border-radius:4px;font-size:.68rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .empty-state{text-align:center;padding:3rem;color:var(--g500);}
+/* Presentation (same as app.html) */
+.pres-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#111;z-index:9999;display:none;flex-direction:column;}
+.pres-overlay.show{display:flex;}
+.pres-topbar{display:flex;justify-content:space-between;align-items:center;padding:.4rem 1rem;background:#000;flex-shrink:0;}
+.pres-counter{color:#fff;font-size:.82rem;font-weight:600;}
+.pres-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;border-radius:6px;}.pres-close:hover{background:rgba(255,255,255,.15);}
+.pres-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem;overflow:hidden;}
+.pres-arrow{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.8rem 1rem;border-radius:8px;flex-shrink:0;transition:background .15s;}.pres-arrow:hover{background:rgba(255,255,255,.25);}
+.pres-slide-wrap{flex:1;display:flex;align-items:center;justify-content:center;max-height:100%;max-width:100%;}
+.pres-slide{width:960px;height:540px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+@media(max-width:1000px){.pres-slide{width:100%;height:0;padding-bottom:56.25%;}}
+.ps{width:100%;height:100%;position:absolute;top:0;left:0;display:flex;flex-direction:column;padding:2.5rem 3rem;}
+.ps .ps-tag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:999px;display:inline-block;margin-bottom:.6rem;}
+.ps h1{font-size:1.6rem;font-weight:800;margin-bottom:.3rem;line-height:1.2;}
+.ps h2{font-size:1.2rem;font-weight:700;margin-bottom:.4rem;color:var(--g700);}
+.ps h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem;}
+.ps p,.ps li{font-size:.78rem;color:var(--g700);line-height:1.5;}
+.ps ul{margin:.3rem 0 .3rem 1.2rem;}
+.ps .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex:1;}
+.ps .ps-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;flex:1;}
+.ps .ps-card{background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:.8rem;}
+.ps .ps-card h3{font-size:.82rem;margin-bottom:.2rem;}
+.ps .ps-card p{font-size:.7rem;}
+.ps .ps-serp{background:#fff;border:1px solid var(--g200);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;}
+.ps .ps-serp .s-url{font-size:.6rem;color:#4d5156;}.ps .ps-serp .s-title{font-size:.82rem;color:#1a0dab;font-weight:600;}.ps .ps-serp .s-desc{font-size:.65rem;color:#4d5156;}
+.ps .ps-ad{background:#fff;border:1px solid var(--g200);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;}
+.ps .ps-ad .a-sp{font-size:.55rem;font-weight:700;color:var(--g500);text-transform:uppercase;margin-bottom:.15rem;}
+.ps .ps-ad .a-url{font-size:.6rem;color:var(--g900);font-weight:600;}.ps .ps-ad .a-title{font-size:.82rem;color:#1a0dab;font-weight:600;}.ps .ps-ad .a-desc{font-size:.65rem;color:#4d5156;}
+.ps .ps-flow{display:flex;align-items:center;gap:.5rem;margin:.4rem 0;flex-wrap:wrap;}
+.ps .ps-flow-item{background:var(--g50);border:1px solid var(--g200);border-radius:6px;padding:.3rem .6rem;font-size:.7rem;font-weight:600;}
+.ps .ps-flow-arrow{color:var(--g300);font-size:.9rem;}
+.ps .ps-footer{margin-top:auto;font-size:.6rem;color:var(--g500);text-align:right;padding-top:.5rem;border-top:1px solid var(--g100);}
+.ps-title-slide{background:linear-gradient(135deg,var(--bl-d),var(--bl) 50%,#4f8ff7);color:#fff;justify-content:center;align-items:center;text-align:center;}
+.ps-title-slide h1{font-size:2.2rem;color:#fff;}.ps-title-slide p{color:rgba(255,255,255,.8);font-size:.95rem;}
+.ps-title-slide .ps-tag{background:rgba(255,255,255,.2);color:#fff;}
+.ps .ps-kw-list{display:flex;flex-wrap:wrap;gap:.3rem;margin:.3rem 0;}
+.ps .ps-kw{background:var(--g100);border:1px solid var(--g200);border-radius:4px;padding:.15rem .4rem;font-size:.65rem;font-family:monospace;}
+.ps .ps-lp{background:var(--g50);border:1px solid var(--g200);border-radius:6px;padding:.4rem .6rem;margin:.2rem 0;}
+.ps .ps-lp-num{display:inline-flex;width:18px;height:18px;border-radius:4px;font-size:.6rem;font-weight:800;color:#fff;align-items:center;justify-content:center;margin-right:.3rem;}
+.ps .ps-lp-name{font-size:.7rem;font-weight:700;}.ps .ps-lp-desc{font-size:.62rem;color:var(--g500);}
 </style>
 </head>
 <body>
@@ -71,23 +111,22 @@ tr:hover td{background:var(--g50);}
   <span class="role">PROF</span>
   <div class="spacer"></div>
   <span class="user" id="user-email"></span>
-  <button class="nb" onclick="location.href='/app'">Mon exercice</button>
   <button class="nb logout" onclick="doLogout()">Deconnexion</button>
 </nav>
 
 <div class="main" id="main">
   <h1>Dashboard Enseignant</h1>
-  <p class="subtitle">Suivez l'avancement des exercices de vos etudiants</p>
+  <p class="subtitle">Suivez l'avancement des exercices de vos groupes</p>
 
   <div class="stats">
-    <div class="stat blue"><div class="val" id="s-total">-</div><div class="lbl">Etudiants inscrits</div></div>
+    <div class="stat blue"><div class="val" id="s-total">-</div><div class="lbl">Groupes inscrits</div></div>
     <div class="stat green"><div class="val" id="s-submitted">-</div><div class="lbl">Exercices soumis</div></div>
     <div class="stat orange"><div class="val" id="s-progress">-</div><div class="lbl">Progression moyenne</div></div>
     <div class="stat purple"><div class="val" id="s-active">-</div><div class="lbl">Actifs (7j)</div></div>
   </div>
 
   <table>
-    <thead><tr><th>Etudiant</th><th>Sujet</th><th>Progression</th><th>Soumis</th><th>Derniere modif.</th><th></th></tr></thead>
+    <thead><tr><th>Groupe</th><th>Membres</th><th>Sujet</th><th>Progression</th><th>Derniere modif.</th><th></th></tr></thead>
     <tbody id="students-tbody"><tr><td colspan="6" class="empty-state">Chargement...</td></tr></tbody>
   </table>
 </div>
@@ -100,21 +139,34 @@ tr:hover td{background:var(--g50);}
   </div>
 </div>
 
+<!-- PRESENTATION OVERLAY -->
+<div class="pres-overlay" id="pres-overlay">
+  <div class="pres-topbar">
+    <span class="pres-counter" id="pres-counter">1 / 1</span>
+    <button class="pres-close" onclick="closePresentation()">&times;</button>
+  </div>
+  <div class="pres-stage">
+    <button class="pres-arrow pres-prev" onclick="presNav(-1)">&#8592;</button>
+    <div class="pres-slide-wrap"><div class="pres-slide" id="pres-slide"></div></div>
+    <button class="pres-arrow pres-next" onclick="presNav(1)">&#8594;</button>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/js/config.js"></script>
 <script>
 const { createClient } = supabase;
 let sb, currentUser;
+let allExercises = []; // store for presentation
 
 async function init() {
   const cfg = window.__SEM_CONFIG;
-  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  sb = createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, { db: { schema: 'courssem' } });
 
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = '/'; return; }
   currentUser = session.user;
 
-  // Verify prof role
   if (!cfg.PROF_EMAILS.includes(currentUser.email.toLowerCase())) {
     window.location.href = '/app';
     return;
@@ -125,9 +177,8 @@ async function init() {
 }
 
 async function loadStudents() {
-  // Fetch all exercises with profiles
   const { data: exercises, error } = await sb.from('sem_exercises')
-    .select('*, sem_profiles!inner(full_name, email)')
+    .select('*, sem_groups(group_name)')
     .order('updated_at', { ascending: false });
 
   if (error) {
@@ -136,63 +187,89 @@ async function loadStudents() {
   }
 
   if (!exercises || exercises.length === 0) {
-    document.getElementById('students-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Aucun etudiant inscrit pour le moment.</td></tr>';
-    updateStats([], []);
+    document.getElementById('students-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Aucun groupe inscrit pour le moment.</td></tr>';
     return;
   }
 
-  // Stats
+  allExercises = exercises;
+
+  const { data: allProfiles } = await sb.from('sem_profiles').select('first_name, last_name, email, group_id');
+  const profilesByGroup = {};
+  (allProfiles || []).forEach(p => {
+    if (!p.group_id) return;
+    if (!profilesByGroup[p.group_id]) profilesByGroup[p.group_id] = [];
+    profilesByGroup[p.group_id].push(p);
+  });
+
   const sevenDaysAgo = new Date(Date.now() - 7 * 86400000);
-  const totalStudents = new Set(exercises.map(e => e.user_id)).size;
-  const submitted = exercises.filter(e => e.submitted).length;
-  const avgProgress = Math.round(exercises.reduce((s, e) => s + (e.progress || 0), 0) / exercises.length);
-  const active = exercises.filter(e => new Date(e.updated_at) > sevenDaysAgo).length;
+  document.getElementById('s-total').textContent = exercises.length;
+  document.getElementById('s-submitted').textContent = exercises.filter(e => e.submitted).length;
+  document.getElementById('s-progress').textContent = Math.round(exercises.reduce((s, e) => s + (e.progress || 0), 0) / exercises.length) + '%';
+  document.getElementById('s-active').textContent = exercises.filter(e => new Date(e.updated_at) > sevenDaysAgo).length;
 
-  document.getElementById('s-total').textContent = totalStudents;
-  document.getElementById('s-submitted').textContent = submitted;
-  document.getElementById('s-progress').textContent = avgProgress + '%';
-  document.getElementById('s-active').textContent = active;
-
-  // Table
   const tbody = document.getElementById('students-tbody');
-  tbody.innerHTML = exercises.map(ex => {
+  tbody.innerHTML = exercises.map((ex, idx) => {
     const p = ex.progress || 0;
     const pClass = p < 30 ? 'low' : p < 70 ? 'mid' : 'high';
-    const name = ex.sem_profiles?.full_name || ex.sem_profiles?.email || 'Inconnu';
+    const gn = ex.sem_groups?.group_name || 'Sans groupe';
+    const members = profilesByGroup[ex.group_id] || [];
+    const membersStr = members.map(m => esc(m.first_name + ' ' + m.last_name)).join(', ');
     const title = ex.title || 'Sans titre';
     const updated = new Date(ex.updated_at).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
     return `<tr>
-      <td><strong>${esc(name)}</strong><br><span style="font-size:.75rem;color:var(--g500);">${esc(ex.sem_profiles?.email||'')}</span></td>
+      <td><strong>${esc(gn)}</strong></td>
+      <td style="font-size:.82rem;color:var(--g500);">${membersStr || 'Aucun'}</td>
       <td>${esc(title)}</td>
       <td><div class="progress-cell"><div class="progress-mini"><div class="fill ${pClass}" style="width:${p}%"></div></div><span style="font-size:.78rem;font-weight:600;">${p}%</span></div></td>
-      <td><span class="badge-submitted ${ex.submitted?'yes':'no'}">${ex.submitted?'Soumis':'En cours'}</span></td>
       <td style="font-size:.82rem;color:var(--g500);">${updated}</td>
-      <td><button class="btn-view" onclick='viewExercise(${JSON.stringify(JSON.stringify({name,email:ex.sem_profiles?.email,data:ex.data,progress:p,submitted:ex.submitted,submitted_at:ex.submitted_at,updated_at:ex.updated_at}))})'>Voir</button></td>
+      <td>
+        <button class="btn-view" onclick="viewExercise(${idx})">Voir</button>
+        <button class="btn-pres" onclick="showPresentation(${idx})">Presentation</button>
+      </td>
     </tr>`;
   }).join('');
 }
 
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function esc(s) { if(!s)return ''; const d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+function openHtmlInNewTab(html) {
+  if (!html || !html.trim()) { alert('Aucun code HTML a afficher.'); return; }
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+function stripHtml(html) { const t=document.createElement('div');t.innerHTML=html;return t.textContent.replace(/\s+/g,' ').trim(); }
+function _truncate(text, max) { if(!text||text.length<=max)return text;const tr=text.substring(0,max);const ls=tr.lastIndexOf(' ');return(ls>0?tr.substring(0,ls):tr)+'...'; }
 
-function viewExercise(jsonStr) {
-  const ex = JSON.parse(jsonStr);
+function dataItem(label, value) {
+  return `<div class="data-item"><div class="dl">${label}</div><div class="dv">${value||''}</div></div>`;
+}
+
+// ===================== VIEW MODAL =====================
+function viewExercise(idx) {
+  const ex = allExercises[idx];
   const d = ex.data || {};
+  const gn = ex.sem_groups?.group_name || 'Sans groupe';
+  const sh = stripHtml;
+
   let h = `<h2>${esc(d['client-name'] || 'Sans titre')}</h2>
-  <div class="meta">${esc(ex.name)} &bull; ${esc(ex.email)} &bull; ${ex.progress}% &bull; ${ex.submitted ? 'Soumis le ' + new Date(ex.submitted_at).toLocaleDateString('fr-FR') : 'Non soumis'}</div>`;
+  <div class="meta">Groupe : ${esc(gn)} &bull; ${ex.progress||0}% &bull; Modifie le ${new Date(ex.updated_at).toLocaleDateString('fr-FR')}</div>`;
 
   // Client
   h += '<div class="section-title">Presentation du client</div>';
   h += '<div class="data-grid">';
-  h += dataItem('Entreprise', d['client-name']);
-  h += dataItem('Secteur', d['client-sector']);
-  h += dataItem('Zone', d['client-zone']);
-  h += dataItem('Budget', d['client-budget']);
+  h += dataItem('Entreprise', esc(d['client-name']));
+  h += dataItem('Secteur', esc(d['client-sector']));
+  h += dataItem('Zone', esc(d['client-zone']));
+  h += dataItem('URL', esc(d['client-url']));
   h += '</div>';
-  h += dataItem('Activites', d['client-activities']);
-  h += dataItem('Particularites', d['client-particularites']);
+  h += dataItem('Activites', d['client-activities']||'');
+  h += dataItem('Particularites', d['client-particularites']||'');
   h += '<div class="data-grid">';
-  h += dataItem('Forces', (d['client-forces']||'').replace(/\n/g, '<br>'));
-  h += dataItem('Faiblesses', (d['client-faiblesses']||'').replace(/\n/g, '<br>'));
+  h += dataItem('Forces', d['client-forces']||'');
+  h += dataItem('Faiblesses', d['client-faiblesses']||'');
   h += '</div>';
 
   // Activities
@@ -201,10 +278,10 @@ function viewExercise(jsonStr) {
     const p = 'a' + i;
     h += `<div class="section-title">Activite ${i} — ${esc(d['act-name-'+i]||'')}</div>`;
     h += '<div class="data-grid">';
-    h += dataItem('Persona', d[p+'-persona-name']);
-    h += dataItem('Profil', d[p+'-persona-profil']);
+    h += dataItem('Persona', esc(d[p+'-persona-name']));
+    h += dataItem('Profil', esc(d[p+'-persona-profil']));
     h += '</div>';
-    h += dataItem('Description', d[p+'-persona-desc']);
+    if(d[p+'-persona-desc']) h += dataItem('Description', d[p+'-persona-desc']);
 
     // DBPM
     const cats = {douleurs:['D','d','Douleurs'],besoins:['B','b','Besoins'],peurs:['P','p','Peurs'],motivations:['M','m','Motivations']};
@@ -220,29 +297,23 @@ function viewExercise(jsonStr) {
     // Funnel
     ['tofu','mofu','bofu'].forEach((f,fi) => {
       h += `<div class="funnel-label ${f}">${f.toUpperCase()}</div>`;
-
-      // KWs
       const kws = d[p+'-'+f+'-kws'];
       if(kws && kws.some(k=>k.kw)) {
         h += '<div style="margin:.3rem 0;">';
-        kws.forEach(k => { if(k.kw) h += `<span class="kw">${k.match==='exact'?'['+esc(k.kw)+']':k.match==='phrase'?'"'+esc(k.kw)+'"':esc(k.kw)}</span>`; });
+        kws.forEach(k => { if(k.kw) h += `<span class="kw">${esc(k.kw)}</span>`; });
         h += '</div>';
       }
-
-      // SERP
       const title = d[p+'-'+f+'-seo-title'];
       const meta = d[p+'-'+f+'-seo-meta'];
       if(title||meta) {
-        h += `<div class="serp-mini"><div class="s-url">${esc(d[p+'-'+f+'-seo-url']||'')}</div><div class="s-title">${esc(title||'')}</div><div class="s-desc">${esc(meta||'')}</div></div>`;
+        h += `<div class="serp-mini"><div class="s-url">${esc(d['client-url']||'')}</div><div class="s-title">${esc(title||'')}</div><div class="s-desc">${esc(sh(meta||''))}</div></div>`;
       }
-
-      // Ad
-      const t1 = d[p+'-'+f+'-sea-t1'];
-      if(t1) {
-        h += `<div style="font-size:.82rem;margin:.3rem 0;"><strong>Annonce :</strong> ${esc(t1)} | ${esc(d[p+'-'+f+'-sea-t2']||'')} | ${esc(d[p+'-'+f+'-sea-t3']||'')}<br><span style="color:var(--g500);">${esc(d[p+'-'+f+'-sea-d1']||'')}</span></div>`;
+      if(f!=='tofu') {
+        const seaTitles=[];for(let ti=1;ti<=15;ti++){const v=d[p+'-'+f+'-sea-t'+ti];if(v)seaTitles.push(v);}
+        if(seaTitles.length>0) {
+          h += `<div style="font-size:.82rem;margin:.3rem 0;"><strong>Annonce :</strong> ${esc(seaTitles.slice(0,3).join(' | '))}<br><span style="color:var(--g500);">${esc(d[p+'-'+f+'-sea-d1']||'')}</span></div>`;
+        }
       }
-
-      // LP
       const blocks = d[p+'-'+f+'-lp-blocks'];
       if(blocks && blocks.some(b=>b.name)) {
         const fColors = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
@@ -250,33 +321,397 @@ function viewExercise(jsonStr) {
         blocks.forEach((b,j) => {
           if(!b.name) return;
           h += `<div class="lp-item"><div class="lp-n" style="background:${fColors[f]};">${j+1}</div><div><strong>${esc(b.name)}</strong>`;
-          if(b.desc) h += ` — <span style="color:var(--g500);">${esc(b.desc)}</span>`;
+          if(b.desc) h += ` — <span style="color:var(--g500);">${esc(sh(b.desc))}</span>`;
           if(b.tags) { h += '<br>'; b.tags.split(',').forEach(t=>{t=t.trim();const c=t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':t[0]==='M'?'m':'';h+=`<span class="tag ${c}">${esc(t)}</span>`;}); }
           h += '</div></div>';
         });
         h += '</div>';
       }
     });
+
+    // Other campaigns
+    if(d[p+'-other-campaigns']) {
+      h += '<div style="margin:.5rem 0;">';
+      h += '<strong style="font-size:.78rem;">Autres campagnes :</strong>';
+      h += '<p style="font-size:.82rem;">'+d[p+'-other-campaigns']+'</p>';
+      if(d[p+'-other-campaigns-why']) h += '<p style="font-size:.82rem;color:var(--g500);"><em>'+d[p+'-other-campaigns-why']+'</em></p>';
+      h += '</div>';
+    }
   }
 
-  // Syntheses
-  h += '<div class="section-title">Synthese SEO</div>';
-  ['seo-vision','seo-priorites','seo-kpis','seo-timeline'].forEach(k => { if(d[k]) h += dataItem(k.replace('seo-',''), (d[k]||'').replace(/\n/g,'<br>')); });
+  // Google Ads structure
+  const gadsCampaigns = d['gads-campaigns'];
+  if(gadsCampaigns && gadsCampaigns.length>0) {
+    h += '<div class="section-title">Structure Google Ads</div>';
+    gadsCampaigns.forEach(camp => {
+      if(!camp.name) return;
+      h += `<div style="margin:.3rem 0;"><strong>${esc(camp.name)}</strong>`;
+      (camp.groups||[]).forEach(g => { if(g) h += `<div style="margin-left:1.2rem;font-size:.82rem;color:var(--g500);">└ ${esc(g)}</div>`; });
+      h += '</div>';
+    });
+  }
 
-  h += '<div class="section-title">Synthese SEA</div>';
-  if(d['sea-archi']) h += `<pre style="background:var(--g900);color:#e5e7eb;padding:.8rem;border-radius:8px;font-size:.76rem;overflow-x:auto;">${esc(d['sea-archi'])}</pre>`;
-  ['sea-encheres','sea-budget','sea-extensions','sea-kpis'].forEach(k => { if(d[k]) h += dataItem(k.replace('sea-',''), (d[k]||'').replace(/\n/g,'<br>')); });
+  // Group notes
+  if(d['group-notes']) {
+    h += '<div class="section-title">Notes du groupe</div>';
+    h += '<p style="font-size:.86rem;">'+d['group-notes']+'</p>';
+  }
 
   document.getElementById('modal-content').innerHTML = h;
   document.getElementById('modal').classList.add('show');
 }
 
-function dataItem(label, value) {
-  return `<div class="data-item"><div class="dl">${label}</div><div class="dv">${value||''}</div></div>`;
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') { closeModal(); closePresentation(); }
+});
+
+// ===================== PRESENTATION =====================
+let presSlides = [];
+let presIdx = 0;
+
+function showPresentation(idx) {
+  const ex = allExercises[idx];
+  const d = ex.data || {};
+  const gn = ex.sem_groups?.group_name || '';
+  generateProfPresentation(d, gn);
 }
 
-function closeModal() { document.getElementById('modal').classList.remove('show'); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+function generateProfPresentation(d, groupNameVal) {
+  presSlides = [];
+  const sh = stripHtml;
+  const fColors = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
+  const fNames = {tofu:'TOFU — Sensibilisation',mofu:'MOFU — Consideration',bofu:'BOFU — Decision'};
+  const clientUrl = d['client-url'] || 'www.example.com';
+  const actColors = ['var(--bl)','var(--gn)','var(--pu)','var(--or)','var(--rd)'];
+  const nbAct = d.nbAct || 3;
+
+  // Title
+  presSlides.push(`<div class="ps ps-title-slide">
+    <span class="ps-tag">Strategie SEM</span>
+    <h1>${esc(d['client-name']||'Exercice SEM')}</h1>
+    <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
+    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupNameVal||'')}</p>
+  </div>`);
+
+  // Client
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
+    <h1>${esc(d['client-name']||'Client')}</h1>
+    <h2>${esc(d['client-sector']||'')} — ${esc(d['client-zone']||'')}</h2>
+    <div class="ps-grid">
+      <div>
+        ${d['client-activities']?'<h3>Activites</h3><p>'+sh(d['client-activities'])+'</p>':''}
+        ${d['client-particularites']?'<h3 style="margin-top:.5rem;">Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
+      </div>
+      <div>
+        ${d['client-forces']?'<h3 style="color:var(--gn);">Forces</h3><p>'+sh(d['client-forces'])+'</p>':''}
+        ${d['client-faiblesses']?'<h3 style="margin-top:.5rem;color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
+      </div>
+    </div>
+    <div class="ps-footer">${esc(d['client-url']||'')}</div>
+  </div>`);
+
+  // Activities overview
+  let actCards = '';
+  for (let i=1;i<=nbAct;i++) {
+    const p='a'+i;
+    actCards += `<div class="ps-card" style="border-top:3px solid ${actColors[(i-1)%5]};">
+      <h3 style="color:${actColors[(i-1)%5]};">${esc(d['act-name-'+i]||'Act '+i)}</h3>
+      ${d[p+'-persona-name']?'<p><strong>Persona :</strong> '+esc(d[p+'-persona-name'])+'</p>':''}
+      ${d[p+'-persona-profil']?'<p>'+esc(d[p+'-persona-profil'])+'</p>':''}
+    </div>`;
+  }
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Vue d'ensemble</span>
+    <h1>Activites & Personas</h1>
+    <div class="ps-grid-3" style="margin-top:1rem;">${actCards}</div>
+    <div class="ps-footer">${esc(d['client-name']||'')}</div>
+  </div>`);
+
+  // For each activity
+  for (let i=1;i<=nbAct;i++) {
+    const p='a'+i;
+    const actName = d['act-name-'+i]||'Activite '+i;
+    const actColor = actColors[(i-1)%5];
+    const footer = `<div class="ps-footer">${esc(actName)} — ${esc(d['client-name']||'')}</div>`;
+
+    // Slide: Persona presentation
+    presSlides.push(`<div class="ps">
+      <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+      <h1 style="color:${actColor};">Persona : ${esc(d[p+'-persona-name']||'')}</h1>
+      <h2>${esc(d[p+'-persona-profil']||'')}</h2>
+      ${d[p+'-persona-desc']?'<p style="margin-top:1rem;font-size:.85rem;">'+sh(d[p+'-persona-desc'])+'</p>':''}
+      ${footer}
+    </div>`);
+
+    // Slides: One per DBPM category
+    [{key:'douleurs',l:'Douleurs',c:'var(--or)',icon:'D'},{key:'besoins',l:'Besoins',c:'var(--bl)',icon:'B'},{key:'peurs',l:'Peurs / Freins',c:'var(--rd)',icon:'P'},{key:'motivations',l:'Motivations',c:'var(--gn)',icon:'M'}].forEach(cat => {
+      const items = d[p+'-'+cat.key];
+      if (items && items.some(v=>v)) {
+        const itemsHtml = items.filter(v=>v).map((v,j) =>
+          `<div class="ps-card" style="border-left:4px solid ${cat.c};padding:.6rem .8rem;margin-bottom:.4rem;">
+            <div style="display:flex;align-items:center;gap:.4rem;">
+              <span style="background:${cat.c};color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.6rem;font-weight:800;">${cat.icon}${j+1}</span>
+              <span style="font-size:.8rem;font-weight:600;">${esc(v)}</span>
+            </div>
+          </div>`
+        ).join('');
+        presSlides.push(`<div class="ps">
+          <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+          <h1 style="color:${cat.c};">${cat.l}</h1>
+          <h2>Persona : ${esc(d[p+'-persona-name']||'')}</h2>
+          <div style="margin-top:.8rem;">${itemsHtml}</div>
+          ${footer}
+        </div>`);
+      }
+    });
+
+    // Funnel slides
+    ['tofu','mofu','bofu'].forEach(f => {
+      const kws = d[p+'-'+f+'-kws'];
+      const kwList = kws ? kws.filter(k=>k.kw).map(k=>k.kw) : [];
+      const intention = d[p+'-'+f+'-intention']||'';
+      const seoTitle = d[p+'-'+f+'-seo-title']||'';
+      const seoMeta = d[p+'-'+f+'-seo-meta']||'';
+      const lpBlocks = d[p+'-'+f+'-lp-blocks']||[];
+      const cta = d[p+'-'+f+'-lp-cta']||'';
+      const fc = fColors[f];
+      const tags = (hd) => `<div style="display:flex;gap:.4rem;align-items:center;margin-bottom:.3rem;">
+        <span class="ps-tag" style="background:${fc};color:#fff;">${f.toUpperCase()} — ${hd}</span>
+        <span class="ps-tag" style="background:${actColor};color:#fff;">${esc(actName)}</span>
+      </div>`;
+
+      // SEO: Mots-cles + SERP
+      if (seoTitle || kwList.length > 0) {
+        presSlides.push(`<div class="ps">
+          ${tags('SEO')}
+          <h2>${esc(fNames[f])} — Mots-cles & SERP</h2>
+          ${intention?'<p style="margin-bottom:.5rem;"><strong>Intention :</strong> '+esc(intention)+'</p>':''}
+          ${kwList.length?'<h3>Mots-cles cibles</h3><div class="ps-kw-list" style="margin-bottom:.8rem;">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
+          ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div>':''}
+          ${footer}
+        </div>`);
+      }
+
+      // LP slides: sliding window of 2, offset by 1
+      const validBlocks = lpBlocks.filter(b=>b.name);
+      if (validBlocks.length > 0) {
+        function buildLpBlockHtml(b, num) {
+          let tagsDetail = '';
+          if (b.tags) {
+            tagsDetail = b.tags.split(',').map(t => {
+              t = t.trim(); if(!t) return '';
+              const cat = t[0]==='D'?'douleurs':t[0]==='B'?'besoins':t[0]==='P'?'peurs':t[0]==='M'?'motivations':'';
+              const idx = parseInt(t.substring(1)) - 1;
+              const items = d[p+'-'+cat];
+              const val = items && items[idx] ? items[idx] : '';
+              const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
+              return `<span class="tag ${cls}" style="font-size:.55rem;">${val ? esc(val) : esc(t)}</span>`;
+            }).join(' ');
+          }
+          return `<div class="ps-lp" style="display:flex;gap:.4rem;align-items:flex-start;">
+            <span class="ps-lp-num" style="background:${fc};">${num}</span>
+            <div><span class="ps-lp-name">${esc(b.name)}</span>
+            ${b.desc?'<div class="ps-lp-desc">'+esc(sh(b.desc))+'</div>':''}
+            ${tagsDetail?'<div style="margin-top:.15rem;">'+tagsDetail+'</div>':''}
+            </div>
+          </div>`;
+        }
+        // Coverage
+        const allChecked = new Set();
+        validBlocks.forEach(b => { if(b.tags) b.tags.split(',').map(t=>t.trim()).filter(Boolean).forEach(t=>allChecked.add(t)); });
+        const covCats = [{key:'douleurs',l:'D',c:'var(--or)'},{key:'besoins',l:'B',c:'var(--bl)'},{key:'peurs',l:'P',c:'var(--rd)'},{key:'motivations',l:'M',c:'var(--gn)'}];
+        let covHtml='',covTotal=0,covDone=0;
+        covCats.forEach(cc=>{const items=d[p+'-'+cc.key]||[];const count=items.filter(v=>v).length;if(!count)return;let catDone=0;for(let ci=1;ci<=count;ci++)if(allChecked.has(cc.l+ci))catDone++;covTotal+=count;covDone+=catDone;const ok=catDone===count;covHtml+=`<span style="font-size:.65rem;padding:.15rem .4rem;border-radius:4px;font-weight:700;${ok?'background:var(--gn-l);color:var(--gn)':'background:var(--rd-l);color:var(--rd)'}">${cc.l}: ${catDone}/${count}</span> `;});
+        const covPct=covTotal>0?Math.round(covDone/covTotal*100):0;
+        const covLine=covTotal>0?`<div style="margin-bottom:.5rem;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;"><span style="font-size:.7rem;font-weight:700;${covPct===100?'color:var(--gn)':'color:var(--or)'}">Couverture : ${covPct}%</span>${covHtml}</div>`:'';
+
+        const totalSlides = Math.max(1, validBlocks.length - 1);
+        for (let si=0; si < totalSlides; si++) {
+          const pair = validBlocks.slice(si, si+2);
+          const lpHtml = pair.map((b,bi) => buildLpBlockHtml(b, si+bi+1)).join('');
+          const pageInfo = totalSlides > 1 ? ` (${si+1}/${totalSlides})` : '';
+          presSlides.push(`<div class="ps">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Structure LP${pageInfo}</h2>
+            ${si===0 && cta?'<p style="margin-bottom:.3rem;"><strong>CTA :</strong> '+esc(cta)+'</p>':''}
+            ${si===0?covLine:''}
+            <div style="flex:1;">${lpHtml}</div>
+            ${footer}
+          </div>`);
+        }
+        if (validBlocks.length === 1) {
+          presSlides.push(`<div class="ps">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Structure LP</h2>
+            ${cta?'<p style="margin-bottom:.5rem;"><strong>CTA :</strong> '+esc(cta)+'</p>':''}
+            <div style="flex:1;">${buildLpBlockHtml(validBlocks[0], 1)}</div>
+            ${footer}
+          </div>`);
+        }
+
+        // LP preview slide if HTML exists
+        const lpHtmlCode = d[p+'-'+f+'-lp-html']||'';
+        if (lpHtmlCode.trim()) {
+          const lpStoreKey = 'lp_'+p+'_'+f;
+          window[lpStoreKey] = lpHtmlCode;
+          presSlides.push(`<div class="ps" style="justify-content:center;align-items:center;text-align:center;">
+            ${tags('Landing Page')}
+            <h2>${esc(fNames[f])} — Apercu LP</h2>
+            <p style="margin-bottom:1.5rem;">La landing page a ete generee. Cliquez pour l'ouvrir.</p>
+            <button onclick="openHtmlInNewTab(window['${lpStoreKey}'])" style="padding:.8rem 2rem;font-size:1rem;font-weight:700;background:var(--gn);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;">Ouvrir la Landing Page</button>
+            ${footer}
+          </div>`);
+        }
+      }
+
+      // SEA slides (MOFU/BOFU)
+      if (f !== 'tofu') {
+        const seaTitles=[];for(let ti=1;ti<=15;ti++){const v=d[p+'-'+f+'-sea-t'+ti];if(v)seaTitles.push(v);}
+        const seaDescs=[];for(let di=1;di<=4;di++){const v=d[p+'-'+f+'-sea-d'+di];if(v)seaDescs.push(v);}
+        const seaGroup = d[p+'-'+f+'-sea-group']||'';
+        if (seaTitles.length > 0 || seaGroup) {
+          // Apercu annonce
+          presSlides.push(`<div class="ps">
+            ${tags('SEA')}
+            <h2>${esc(fNames[f])} — Google Ads</h2>
+            ${intention?'<p style="margin-bottom:.5rem;"><strong>Intention :</strong> '+esc(intention)+'</p>':''}
+            <div class="ps-grid">
+              <div>
+                ${seaGroup?'<h3>Groupe : '+esc(seaGroup)+'</h3>':''}
+                ${kwList.length?'<div class="ps-kw-list">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
+              </div>
+              <div>
+                <h3>Apercu annonce</h3>
+                <div class="ps-ad"><div class="a-sp">Sponsorise</div><div class="a-url">${esc(clientUrl)}</div><div class="a-title">${esc(seaTitles.slice(0,3).join(' | '))}</div><div class="a-desc">${esc(seaDescs[0]||'')}</div></div>
+              </div>
+            </div>
+            ${footer}
+          </div>`);
+          // Titres & descriptions
+          presSlides.push(`<div class="ps">
+            ${tags('SEA — Annonce')}
+            <h2>Titres & Descriptions</h2>
+            <div class="ps-grid">
+              <div style="overflow-y:auto;"><h3>${seaTitles.length} Titre(s)</h3>${seaTitles.map((t,j)=>`<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span></div>`).join('')}</div>
+              <div><h3>${seaDescs.length} Description(s)</h3>${seaDescs.map((dd,j)=>`<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span></div>`).join('')}</div>
+            </div>
+            ${footer}
+          </div>`);
+          // Parametres
+          const negKws=d[p+'-'+f+'-neg-kws']||[];const geo=d[p+'-'+f+'-sea-geo']||'';const sched=d[p+'-'+f+'-sea-schedule']||'';const exts=d[p+'-'+f+'-sea-extensions']||'';
+          if(negKws.length>0||geo||sched||exts){
+            presSlides.push(`<div class="ps">
+              ${tags('SEA — Parametres')}
+              <h2>Configuration de la campagne</h2>
+              <div class="ps-grid">
+                <div>
+                  ${geo?'<h3>Zone geographique</h3><p>'+esc(geo)+'</p>':''}
+                  ${sched?'<h3 style="margin-top:.6rem;">Calendrier</h3><p>'+esc(sched)+'</p>':''}
+                  ${negKws.length?'<h3 style="margin-top:.6rem;">Mots-cles negatifs</h3><div class="ps-kw-list">'+negKws.filter(k=>k).map(k=>'<span class="ps-kw" style="color:var(--rd);border-color:var(--rd);">-'+esc(k)+'</span>').join('')+'</div>':''}
+                </div>
+                <div>${exts?'<h3>Extensions</h3><p style="font-size:.75rem;">'+esc(sh(exts))+'</p>':''}</div>
+              </div>
+              ${footer}
+            </div>`);
+          }
+        }
+      }
+    });
+
+    // Other campaigns
+    if (d[p+'-other-campaigns']) {
+      presSlides.push(`<div class="ps">
+        <span class="ps-tag" style="background:var(--pu-l);color:var(--pu);">Autres campagnes</span>
+        <h1 style="color:${actColor};">${esc(actName)}</h1>
+        <h2>Campagnes Google Ads supplementaires</h2>
+        <div class="ps-grid">
+          <div><h3>Types de campagnes</h3><p>${sh(d[p+'-other-campaigns'])}</p></div>
+          <div>${d[p+'-other-campaigns-why']?'<h3>Justification</h3><p>'+sh(d[p+'-other-campaigns-why'])+'</p>':''}</div>
+        </div>
+        ${footer}
+      </div>`);
+    }
+  }
+
+  // Google Ads account structure (after all activities)
+  const gadsCampaigns = d['gads-campaigns'] || [];
+  if (gadsCampaigns.length > 0 && gadsCampaigns.some(c=>c.name)) {
+    let gadsHtml = '<div style="display:flex;flex-wrap:wrap;gap:.6rem;flex:1;align-content:flex-start;">';
+    gadsCampaigns.forEach(camp => {
+      if (!camp.name) return;
+      gadsHtml += `<div style="background:var(--or-l);border:2px solid var(--or);border-radius:8px;padding:.5rem .7rem;min-width:180px;flex:1;max-width:280px;">
+        <div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.3rem;">
+          <span style="background:var(--or);color:#fff;border-radius:4px;padding:.1rem .3rem;font-size:.55rem;font-weight:800;">C</span>
+          <span style="font-size:.75rem;font-weight:700;">${esc(camp.name)}</span>
+        </div>`;
+      (camp.groups||[]).forEach(g => {
+        if (!g) return;
+        gadsHtml += `<div style="display:flex;align-items:center;gap:.25rem;margin-left:.8rem;margin-bottom:.15rem;">
+          <span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .2rem;font-size:.5rem;font-weight:800;">G</span>
+          <span style="font-size:.65rem;color:var(--g700);">${esc(g)}</span>
+        </div>`;
+      });
+      gadsHtml += '</div>';
+    });
+    gadsHtml += '</div>';
+    presSlides.push(`<div class="ps">
+      <span class="ps-tag" style="background:var(--or-l);color:var(--or);">Google Ads</span>
+      <h1>Structure du compte</h1>
+      <h2>${esc(d['client-name']||'')} — ${gadsCampaigns.filter(c=>c.name).length} campagne(s)</h2>
+      ${gadsHtml}
+      <div class="ps-footer">${esc(d['client-name']||'')}</div>
+    </div>`);
+    gadsCampaigns.forEach((camp, ci) => {
+      if (!camp.name) return;
+      const groups = (camp.groups||[]).filter(g=>g);
+      if (groups.length === 0) return;
+      presSlides.push(`<div class="ps">
+        <span class="ps-tag" style="background:var(--or);color:#fff;">Campagne ${ci+1}</span>
+        <h1 style="color:var(--or);">${esc(camp.name)}</h1>
+        <h2>${groups.length} groupe(s) d'annonces</h2>
+        <div style="margin-top:.8rem;">${groups.map((g,gi)=>`<div class="ps-card" style="border-left:4px solid var(--bl);padding:.6rem .8rem;margin-bottom:.4rem;"><div style="display:flex;align-items:center;gap:.4rem;"><span style="background:var(--bl);color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.6rem;font-weight:800;">G${gi+1}</span><span style="font-size:.82rem;font-weight:600;">${esc(g)}</span></div></div>`).join('')}</div>
+        <div class="ps-footer">${esc(d['client-name']||'')}</div>
+      </div>`);
+    });
+  }
+
+  // End
+  presSlides.push(`<div class="ps ps-title-slide">
+    <h1>Merci</h1>
+    <p>${esc(d['client-name']||'')} — Strategie SEM</p>
+    <p style="margin-top:.5rem;font-size:.78rem;">${esc(groupNameVal||'')}</p>
+  </div>`);
+
+  presIdx = 0;
+  showSlide();
+  document.getElementById('pres-overlay').classList.add('show');
+}
+
+function showSlide() {
+  document.getElementById('pres-slide').innerHTML = presSlides[presIdx];
+  document.getElementById('pres-counter').textContent = (presIdx+1) + ' / ' + presSlides.length;
+}
+
+function presNav(dir) {
+  presIdx = Math.max(0, Math.min(presSlides.length-1, presIdx+dir));
+  showSlide();
+}
+
+function closePresentation() {
+  document.getElementById('pres-overlay').classList.remove('show');
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('pres-overlay').classList.contains('show')) {
+    if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); presNav(1); }
+    else if (e.key==='ArrowLeft') { e.preventDefault(); presNav(-1); }
+    else if (e.key==='Escape') { e.preventDefault(); closePresentation(); }
+    return;
+  }
+  if (e.key==='Escape') closeModal();
+});
 
 async function doLogout() { await sb.auth.signOut(); window.location.href = '/'; }
 
