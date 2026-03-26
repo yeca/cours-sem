@@ -1,0 +1,363 @@
+# Exercice SEM — Agence SEM à Annecy
+## Contenu brut à ajuster avant présentation
+
+---
+
+## 1. Présentation du client
+
+**Nom** : SEM Alpes — Agence de Search Marketing à Annecy
+
+**Activités** :
+- **Audit et stratégie SEO** : audit technique, recherche de mots-clés, stratégie de contenu, netlinking
+- **Gestion de campagnes SEA** (Google Ads) : création, optimisation et suivi de campagnes Search, Display, Shopping
+- **Création de landing pages** : conception et optimisation de pages d'atterrissage orientées conversion
+
+**Zone de chalandise** : Annecy et sa région (Haute-Savoie), mais aussi clients dans toute la France (prestations à distance)
+
+**Particularités** :
+- Positionnement local fort (expertise du tissu économique annécien : tourisme, outdoor, PME locales)
+- Petite structure agile (2–5 personnes) → proximité client, réactivité
+- Spécialisation SEM pure (pas de création de sites, pas de community management)
+
+**Forces** :
+- Expertise pointue SEO + SEA (double compétence rare dans les petites agences)
+- Connaissance du marché local (tourisme, sports outdoor, artisanat, restauration)
+- Approche ROI : chaque action est mesurée et justifiée
+- Certifications Google Ads
+
+**Faiblesses** :
+- Petite équipe → capacité limitée en nombre de clients simultanés
+- Pas de compétences en développement web ou création graphique poussée
+- Notoriété encore à construire face aux agences web généralistes plus installées
+
+---
+
+## 2. Profils cibles (personas)
+
+### Persona 1 — Le commerçant local
+**Profil** : Gérant d'une boutique physique à Annecy (ex. magasin de sport, restaurant, institut de beauté)
+- 35–55 ans, peu à l'aise avec le digital
+- A un site vitrine basique, peu ou pas de trafic organique
+- Budget marketing limité (500–2 000 €/mois)
+
+**Besoins** : Attirer des clients locaux dans sa boutique, être visible quand les gens cherchent son type de commerce à Annecy
+
+**Douleurs** :
+- "Je ne sors pas sur Google quand on cherche mon métier à Annecy"
+- "J'ai un site mais il ne me rapporte rien"
+- "Je ne comprends rien au référencement"
+- Peur de dépenser de l'argent pour rien
+
+**Motivations** : Voir des résultats concrets (appels, visites en boutique), être accompagné par quelqu'un qui explique simplement
+
+**Fréquence de besoin** : Accompagnement mensuel continu (SEO) + campagnes ponctuelles (SEA pour les temps forts : soldes, fêtes, saison touristique)
+
+---
+
+### Persona 2 — Le dirigeant de PME B2B
+**Profil** : Dirigeant ou responsable marketing d'une PME industrielle ou de services (ex. sous-traitant mécanique, cabinet comptable, éditeur de logiciel)
+- 40–55 ans, comprend l'intérêt du digital mais n'a pas les compétences en interne
+- Site web existant mais mal optimisé
+- Budget marketing : 2 000–10 000 €/mois
+
+**Besoins** : Générer des leads qualifiés via Google, se positionner sur des requêtes métier spécifiques
+
+**Douleurs** :
+- "On a investi dans un site refait il y a 2 ans mais le trafic n'a pas bougé"
+- "Nos concurrents sont devant nous sur Google"
+- "On a testé Google Ads en interne mais on a perdu de l'argent"
+- Peur de l'engagement long sans résultats mesurables
+
+**Motivations** : Prouver un ROI, avoir un reporting clair, déléguer à des experts
+
+**Fréquence de besoin** : Mission de 6–12 mois avec suivi mensuel
+
+---
+
+### Persona 3 — Le créateur d'entreprise / startup
+**Profil** : Entrepreneur qui lance son activité (e-commerce, service en ligne, activité locale)
+- 25–40 ans, à l'aise avec le digital, curieux
+- Pas encore de site ou site tout neuf, aucune visibilité
+- Budget limité mais prêt à investir intelligemment
+
+**Besoins** : Obtenir ses premiers clients rapidement, comprendre comment fonctionne le SEM pour éventuellement l'internaliser plus tard
+
+**Douleurs** :
+- "Je viens de lancer mon site et personne ne le trouve"
+- "Je ne sais pas par où commencer : SEO ou SEA ?"
+- "J'ai peu de budget, je ne peux pas me tromper"
+- Peur de se faire arnaquer par une agence qui promet tout
+
+**Motivations** : Résultats rapides (SEA), construction durable (SEO), apprendre et monter en compétence
+
+**Fréquence de besoin** : Mission ponctuelle de lancement (3–6 mois) puis autonomie progressive
+
+---
+
+## 3. Trois cas focus détaillés
+
+---
+
+### FOCUS 1 — Audit SEO pour un commerçant local (Persona 1)
+
+**Activité** : Audit et stratégie SEO
+
+**Scénario** : Un fleuriste d'Annecy veut apparaître en première page Google.
+
+#### Funnel de conversion
+
+**TOFU — Sensibilisation**
+- Le prospect se rend compte que son site n'apparaît pas sur Google
+- Intention de recherche : *"comment apparaître sur Google"*, *"pourquoi mon site n'est pas sur Google"*, *"référencement site internet"*
+- Type de mot-clé : Informationnel
+- Contenu adapté : Article de blog → "Pourquoi votre site n'apparaît pas sur Google : 7 raisons courantes"
+- CTA adapté au funnel : Télécharger un guide gratuit "Checklist SEO pour les commerçants"
+
+**MOFU — Considération**
+- Le prospect comprend qu'il a besoin d'aide et cherche une solution
+- Intention de recherche : *"agence SEO Annecy"*, *"audit SEO prix"*, *"freelance SEO Haute-Savoie"*
+- Type de mot-clé : Commercial / investigation
+- Contenu adapté : Page de service → "Audit SEO à Annecy — Identifiez ce qui bloque votre visibilité"
+- CTA : Demander un pré-audit gratuit (formulaire)
+
+**BOFU — Décision**
+- Le prospect compare les offres et veut se décider
+- Intention de recherche : *"SEM Alpes avis"*, *"tarif audit SEO Annecy"*, *"agence SEO Annecy avis clients"*
+- Type de mot-clé : Transactionnel / navigationnel
+- Contenu adapté : Page tarifs + témoignages clients + études de cas
+- CTA : Prendre rendez-vous pour un audit (calendrier en ligne)
+
+#### Mots-clés identifiés
+
+| Mot-clé | Volume estimé | Difficulté | Funnel | Priorité |
+|---------|--------------|------------|--------|----------|
+| comment apparaître sur google | élevé | moyenne | TOFU | moyenne |
+| pourquoi mon site n'est pas sur google | moyen | faible | TOFU | haute |
+| agence seo annecy | moyen | élevée | MOFU | très haute |
+| audit seo prix | moyen | moyenne | MOFU | haute |
+| freelance seo haute-savoie | faible | faible | MOFU | moyenne |
+| audit seo annecy | faible | moyenne | BOFU | très haute |
+
+---
+
+### FOCUS 2 — Campagne Google Ads pour une PME B2B (Persona 2)
+
+**Activité** : Gestion de campagnes SEA
+
+**Scénario** : Un éditeur de logiciel de gestion basé à Annecy veut générer des leads via Google Ads.
+
+#### Funnel de conversion
+
+**TOFU — Sensibilisation**
+- Le dirigeant de PME cherche à comprendre Google Ads
+- Intention de recherche : *"google ads ça marche vraiment ?"*, *"publicité google pour PME"*, *"comment faire de la pub sur google"*
+- Type de mot-clé : Informationnel
+- Contenu adapté : Article → "Google Ads pour les PME : est-ce rentable en 2026 ?"
+- CTA : S'inscrire à un webinar gratuit
+
+**MOFU — Considération**
+- Le prospect cherche une agence pour gérer ses campagnes
+- Intention de recherche : *"agence google ads annecy"*, *"gestion campagne google ads"*, *"agence sea haute-savoie"*
+- Type de mot-clé : Commercial
+- Contenu adapté : Page service → "Gestion Google Ads à Annecy — Maximisez votre ROI publicitaire"
+- CTA : Demander un audit gratuit de votre compte Google Ads
+
+**BOFU — Décision**
+- Le prospect veut des preuves et un devis
+- Intention de recherche : *"agence google ads certifiée annecy"*, *"sem alpes avis"*, *"tarif gestion google ads"*
+- Type de mot-clé : Transactionnel
+- Contenu adapté : Page avec études de cas chiffrées + devis en ligne
+- CTA : Demander un devis personnalisé
+
+#### Structure de campagne Google Ads proposée
+
+**Campagne 1 : Search — Mots-clés génériques agence**
+- Groupe d'annonces 1 : "agence google ads"
+  - Mots-clés : [agence google ads annecy], "agence google ads haute-savoie", agence sea annecy
+  - Exclusions : gratuit, formation, emploi, stage
+- Groupe d'annonces 2 : "gestion campagne"
+  - Mots-clés : [gestion campagne google ads], "gestion pub google PME"
+  - Exclusions : gratuit, auto-entrepreneur
+
+**Campagne 2 : Search — Mots-clés marque**
+- Groupe d'annonces : "marque SEM Alpes"
+  - Mots-clés : [sem alpes], [sem alpes annecy], "sem alpes avis"
+
+**Paramètres** :
+- Zone géographique : Rayon de 50 km autour d'Annecy + France entière (observation)
+- Calendrier : Lundi–vendredi, 8h–19h
+- Budget : 30 €/jour
+- Stratégie d'enchères : Maximiser les conversions (CPA cible)
+- Extensions : liens annexes (nos services, études de cas, contact), extension d'appel, extension de lieu
+
+#### Exemples d'annonces
+
+**Annonce — Groupe "agence google ads"**
+
+| Élément | Contenu |
+|---------|---------|
+| Titre 1 | Agence Google Ads à Annecy |
+| Titre 2 | Certifiée Google Partner |
+| Titre 3 | +30% de leads en moyenne |
+| Description 1 | Confiez vos campagnes Google Ads à des experts certifiés basés à Annecy. Audit gratuit de votre compte. |
+| Description 2 | ROI mesuré et reporting mensuel. Plus de 50 PME accompagnées en Haute-Savoie. Devis sous 48h. |
+
+---
+
+### FOCUS 3 — Landing page pour un créateur d'entreprise (Persona 3)
+
+**Activité** : Création de landing pages
+
+**Scénario** : Un entrepreneur lance sa boutique en ligne et cherche ses premiers clients.
+
+#### Funnel de conversion
+
+**TOFU — Sensibilisation**
+- L'entrepreneur cherche à comprendre comment attirer du trafic
+- Intention de recherche : *"comment avoir du trafic sur son site"*, *"seo ou sea pour commencer"*, *"premiers clients site e-commerce"*
+- Type de mot-clé : Informationnel
+- Contenu : Article → "SEO ou SEA : par quoi commencer quand on lance son site ?"
+- CTA : Télécharger le guide "Les 5 étapes pour vos 100 premiers clients en ligne"
+
+**MOFU — Considération**
+- Le prospect cherche un prestataire pour l'accompagner
+- Intention de recherche : *"agence sem pour startup"*, *"accompagnement seo lancement site"*, *"landing page agence annecy"*
+- Type de mot-clé : Commercial
+- Contenu : Page service → "Pack Lancement — SEO + SEA + Landing Pages pour votre nouveau site"
+- CTA : Réserver un appel découverte gratuit de 30 min
+
+**BOFU — Décision**
+- Le prospect veut savoir combien ça coûte et voir des résultats
+- Intention de recherche : *"pack seo sea lancement prix"*, *"avis sem alpes startup"*, *"agence sem pas cher annecy"*
+- Type de mot-clé : Transactionnel
+- Contenu : Page offre détaillée + témoignages de startups accompagnées
+- CTA : Commander le Pack Lancement / Demander un devis
+
+#### Landing page MOFU — "Pack Lancement" (structure en blocs)
+
+| Bloc | Contenu | Rôle par rapport au profil cible |
+|------|---------|----------------------------------|
+| **1. Hero** | Titre : "Lancez votre site avec une visibilité immédiate" + sous-titre + CTA "Réserver mon appel découverte" | Accueil — prise en compte du besoin (être trouvé rapidement) |
+| **2. Problème** | "Vous avez un super produit mais personne ne le trouve ?" — 3 douleurs listées avec icônes | Empathie — montrer qu'on comprend la frustration du créateur |
+| **3. Solution** | Présentation du Pack (SEO + SEA + Landing page) en 3 colonnes | Réponse structurée au besoin — clarifier ce qu'on propose |
+| **4. Processus** | Étapes 1-2-3-4 illustrées : Audit → Stratégie → Mise en place → Suivi | Rassurer sur la méthode — le prospect sait à quoi s'attendre |
+| **5. Résultats** | Chiffres clés : "En moyenne +200% de trafic en 3 mois" + graphique | Preuve de valeur — convaincre par les données |
+| **6. Témoignages** | 2–3 témoignages de créateurs d'entreprise accompagnés | Réassurance sociale — "d'autres comme moi ont réussi" |
+| **7. Tarif** | Prix du pack + ce qui est inclus + mention "sans engagement" | Lever le frein prix — transparence |
+| **8. FAQ** | Questions courantes : durée, résultats, engagement, remboursement | Lever les derniers freins et objections |
+| **9. CTA final** | "Prêt à lancer votre visibilité ?" + bouton "Réserver mon appel" + numéro de téléphone | Conversion — passage à l'action |
+
+---
+
+## 4. Stratégie SEO — Détail des 3 pages (pour les 3 focus, niveau MOFU)
+
+### Page 1 — "Audit SEO à Annecy"
+
+**Title** : Audit SEO à Annecy | Identifiez vos blocages — SEM Alpes
+*(57 caractères)*
+
+**Meta description** : Votre site n'apparaît pas sur Google ? Notre audit SEO complet identifie les problèmes et vous donne un plan d'action concret. Agence à Annecy.
+*(155 caractères)*
+
+**Structure Hn** :
+- H1 : Audit SEO à Annecy — Découvrez pourquoi votre site est invisible
+- H2 : Pourquoi votre site n'apparaît pas sur Google
+- H2 : Ce que comprend notre audit SEO
+- H2 : Comment se déroule un audit avec SEM Alpes
+- H2 : Nos résultats : avant / après audit
+
+---
+
+### Page 2 — "Gestion Google Ads à Annecy"
+
+**Title** : Gestion Google Ads Annecy | Agence certifiée — SEM Alpes
+*(60 caractères)*
+
+**Meta description** : Agence Google Ads certifiée à Annecy. Nous créons et optimisons vos campagnes pour maximiser votre ROI. Audit gratuit de votre compte.
+*(146 caractères)*
+
+**Structure Hn** :
+- H1 : Gestion de campagnes Google Ads à Annecy
+- H2 : Pourquoi confier vos campagnes Google Ads à une agence
+- H2 : Notre méthode en 4 étapes
+- H2 : Nos domaines d'expertise Google Ads
+- H2 : Résultats et témoignages clients
+
+---
+
+### Page 3 — "Pack Lancement SEO + SEA"
+
+**Title** : Pack Lancement SEO + SEA | Premiers clients — SEM Alpes
+*(59 caractères)*
+
+**Meta description** : Vous lancez votre activité ? Notre pack SEO + SEA + landing page vous apporte vos premiers clients en moins de 3 mois. Devis gratuit.
+*(143 caractères)*
+
+**Structure Hn** :
+- H1 : Pack Lancement — SEO + SEA pour votre nouveau site
+- H2 : Le problème quand on lance un nouveau site
+- H2 : Ce que contient le Pack Lancement
+- H2 : Résultats attendus et calendrier
+- H2 : Témoignages de créateurs accompagnés
+
+---
+
+## 5. Structure globale du compte Google Ads
+
+```
+Compte SEM Alpes
+│
+├── Campagne 1 : Search — Services SEO
+│   ├── Groupe : Audit SEO
+│   │   └── MCs : [audit seo annecy], "audit seo prix", audit référencement
+│   ├── Groupe : Agence SEO
+│   │   └── MCs : [agence seo annecy], "agence référencement haute-savoie"
+│   └── Groupe : Freelance SEO
+│       └── MCs : "freelance seo annecy", consultant seo haute-savoie
+│
+├── Campagne 2 : Search — Services SEA
+│   ├── Groupe : Agence Google Ads
+│   │   └── MCs : [agence google ads annecy], "gestion google ads"
+│   └── Groupe : Campagne Ads
+│       └── MCs : "création campagne google ads", "optimisation google ads"
+│
+├── Campagne 3 : Search — Landing pages
+│   ├── Groupe : Création landing page
+│   │   └── MCs : [création landing page annecy], "landing page conversion"
+│   └── Groupe : Pack lancement
+│       └── MCs : "pack lancement site web", "accompagnement lancement site"
+│
+├── Campagne 4 : Search — Marque
+│   └── Groupe : SEM Alpes
+│       └── MCs : [sem alpes], [sem alpes annecy], "sem alpes avis"
+│
+└── Campagne 5 : Display — Remarketing
+    └── Audience : visiteurs du site 30 derniers jours
+        └── Bannières : "Vous cherchez à booster votre visibilité ?"
+```
+
+**Mots-clés négatifs (niveau compte)** : gratuit, emploi, stage, formation, cours, tuto, définition, c'est quoi, wikipedia
+
+**Zone géographique** : Rayon 50 km Annecy (ciblage) + France entière (observation)
+
+**Calendrier** : Lundi–Vendredi, 8h–19h
+
+**Extensions** :
+- Liens annexes : Audit SEO, Google Ads, Landing Pages, Nos résultats
+- Extension d'appel : 04 50 XX XX XX
+- Extension de lieu : Annecy
+- Extension d'accroche : Certifié Google Partner, +50 clients accompagnés, Devis sous 48h
+
+---
+
+## 6. Récapitulatif de cohérence
+
+| Élément | Focus 1 (SEO) | Focus 2 (SEA) | Focus 3 (Landing pages) |
+|---------|---------------|---------------|------------------------|
+| **Persona** | Commerçant local | Dirigeant PME B2B | Créateur d'entreprise |
+| **Besoin principal** | Être trouvé localement | Générer des leads qualifiés | Obtenir ses premiers clients |
+| **Douleur principale** | "Mon site est invisible" | "Google Ads ne marche pas pour nous" | "Personne ne trouve mon site" |
+| **MC principal (MOFU)** | agence seo annecy | agence google ads annecy | accompagnement seo lancement site |
+| **Page d'atterrissage** | Audit SEO Annecy | Gestion Google Ads Annecy | Pack Lancement SEO+SEA |
+| **CTA MOFU** | Demander un pré-audit gratuit | Audit gratuit du compte Ads | Réserver un appel découverte |
+| **CTA BOFU** | Prendre RDV audit | Demander un devis | Commander le Pack |
