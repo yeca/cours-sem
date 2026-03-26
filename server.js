@@ -1,4 +1,4 @@
-require('dotenv').config();
+try { require('dotenv').config(); } catch(_) {}
 const express = require('express');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
@@ -7,11 +7,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Supabase service role client (server-side only)
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { db: { schema: 'courssem' } }
-);
+let supabaseAdmin;
+if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  supabaseAdmin = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { db: { schema: 'courssem' } }
+  );
+} else {
+  console.error('WARNING: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not set. API endpoints will not work.');
+}
 
 app.use(express.json());
 
