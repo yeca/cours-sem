@@ -213,7 +213,7 @@ body{padding-bottom:60px;}
 <!-- ======================== HOME ======================== -->
 <div class="page active" id="page-home">
 <div class="hero">
-  <h1>Mon Exercice SEM v2.3</h1>
+  <h1>Mon Exercice SEM v2.4</h1>
   <p class="sub">Remplissez chaque section avec votre recherche et reflexion</p>
   <div class="badges"><span class="badge">SEO</span><span class="badge">SEA</span><span class="badge">Landing Pages</span><span class="badge">TOFU / MOFU / BOFU</span></div>
 </div>
@@ -297,6 +297,12 @@ body{padding-bottom:60px;}
   <div id="add-member-msg" style="font-size:.82rem;margin-top:.5rem;"></div>
 </div>
 <div class="dv"></div>
+<h3>Classe</h3>
+<div class="field"><select id="group-class" onchange="scheduleSave()"><option value="">-- Choisir --</option><option>SDEB</option><option>SDMC</option></select></div>
+<div class="dv"></div>
+<h3>Sujet</h3>
+<div class="field"><select id="group-subject" onchange="scheduleSave()"><option value="">-- Aucun sujet --</option><option>Escalade</option><option>Smartphones</option><option>Healthy food</option><option>Instruments de musique</option><option>Drones</option><option>Fitness</option><option>Paddle</option><option>Parapente</option><option>Photo</option><option>Robes de mariée</option><option>Ski</option><option>Padel</option></select></div>
+<div class="dv"></div>
 <h3>Notes du groupe</h3>
 <p style="font-size:.85rem;color:var(--g500);margin-bottom:.8rem;">Informations complementaires, precisions, remarques...</p>
 <div class="field"><textarea id="group-notes" rows="5" placeholder="Ajoutez ici toute precision utile pour votre exercice..."></textarea></div>
@@ -332,6 +338,7 @@ body{padding-bottom:60px;}
 const { createClient } = supabase;
 let sb, currentUser, exerciseId;
 let currentGroupId, currentFirstName, groupCreatedBy, groupName;
+let groupMembers = [];
 let realtimeChannel;
 
 async function initApp() {
@@ -691,6 +698,7 @@ async function loadGroupMembers() {
     if (!resp.ok) return;
 
     document.getElementById('group-name-display').textContent = 'Groupe : ' + result.group.groupName;
+    groupMembers = result.members || [];
     const tbody = document.getElementById('group-members-tbody');
     const isCreator = currentUser.id === result.group.createdBy;
     tbody.innerHTML = result.members.map(m => {
@@ -1503,6 +1511,10 @@ gatherData = function() {
     data[p+'-other-campaigns-why']=getFieldValue(p+'-other-campaigns-why');
   }
   data['group-notes'] = getFieldValue('group-notes');
+  const subjectEl = document.getElementById('group-subject');
+  if (subjectEl) data['group-subject'] = subjectEl.value;
+  const classEl = document.getElementById('group-class');
+  if (classEl) data['group-class'] = classEl.value;
   data['gads-campaigns'] = gatherGadsData();
   return data;
 };
@@ -1544,6 +1556,8 @@ restoreData = function(data) {
     if(data[p+'-other-campaigns-why'])setFieldValue(p+'-other-campaigns-why',data[p+'-other-campaigns-why']);
   }
   if(data['group-notes']) setFieldValue('group-notes', data['group-notes']);
+  if(data['group-subject']) { const se = document.getElementById('group-subject'); if(se) se.value = data['group-subject']; }
+  if(data['group-class']) { const ce = document.getElementById('group-class'); if(ce) ce.value = data['group-class']; }
   if(data['gads-campaigns']) restoreGadsData(data['gads-campaigns']);
   updateProgress();
 };
@@ -1656,11 +1670,15 @@ function generatePresentation() {
   const clientUrl = d['client-url'] || 'www.example.com';
 
   // Slide 1: Title
+  const groupSubject = d['group-subject'] || '';
+  const groupClass = d['group-class'] || '';
+  const membersLine = groupMembers.map(m => esc(m.first_name + ' ' + m.last_name)).join(', ');
   presSlides.push(`<div class="ps ps-title-slide">
-    <span class="ps-tag">Strategie SEM</span>
+    <span class="ps-tag">Strategie SEM${groupClass?' — '+esc(groupClass):''}</span>
     <h1>${esc(d['client-name']||'Mon Exercice SEM v2')}</h1>
     <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
-    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupName||'')}</p>
+    ${groupSubject?'<p style="margin-top:.8rem;font-size:.95rem;"><strong>Sujet :</strong> '+esc(groupSubject)+'</p>':''}
+    <p style="margin-top:.4rem;font-size:.78rem;">${membersLine||esc(groupName||'')}</p>
   </div>`);
 
   // Slide 2a: Activites & Particularites

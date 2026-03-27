@@ -83,6 +83,8 @@ footer{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--g500);}
           <input type="text" id="reg-group-name" placeholder="MonGroupe (sans espaces)" pattern="[a-zA-Z0-9_-]+">
           <div class="hint">Lettres, chiffres, tirets ou underscores uniquement</div>
         </div>
+        <div class="field"><label>Classe</label><select id="reg-class"><option value="">-- Choisir la classe --</option><option>SDEB</option><option>SDMC</option></select></div>
+        <div class="field"><label>Sujet</label><select id="reg-subject"><option value="">-- Choisir un sujet --</option><option>Escalade</option><option>Smartphones</option><option>Healthy food</option><option>Instruments de musique</option><option>Drones</option><option>Fitness</option><option>Paddle</option><option>Parapente</option><option>Photo</option><option>Robes de mariée</option><option>Ski</option><option>Padel</option></select></div>
         <div class="field"><label>Mot de passe du groupe</label><input type="password" id="reg-password" placeholder="Min. 6 caracteres"></div>
         <div class="field"><label>Confirmer le mot de passe</label><input type="password" id="reg-password-confirm" placeholder="Confirmez le mot de passe"></div>
         <button class="btn btn-primary" onclick="goToStep2()">Suivant</button>
@@ -215,6 +217,8 @@ async function doRegisterGroup() {
   hideMessages();
   const groupName = document.getElementById('reg-group-name').value.trim();
   const password = document.getElementById('reg-password').value;
+  const subject = document.getElementById('reg-subject').value;
+  const groupClass = document.getElementById('reg-class').value;
 
   // Gather members
   const rows = document.querySelectorAll('#members-list .member-row');
@@ -239,7 +243,7 @@ async function doRegisterGroup() {
     const resp = await fetch('/api/register-group', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ groupName, password, members })
+      body: JSON.stringify({ groupName, password, members, subject, groupClass })
     });
     const result = await resp.json();
 

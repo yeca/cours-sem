@@ -157,6 +157,7 @@ tr:hover td{background:var(--g50);}
 const { createClient } = supabase;
 let sb, currentUser;
 let allExercises = []; // store for presentation
+let profilesByGroup = {};
 
 async function init() {
   const cfg = window.__SEM_CONFIG;
@@ -193,7 +194,7 @@ async function loadStudents() {
   allExercises = exercises;
 
   const { data: allProfiles } = await sb.from('sem_profiles').select('first_name, last_name, email, group_id');
-  const profilesByGroup = {};
+  profilesByGroup = {};
   (allProfiles || []).forEach(p => {
     if (!p.group_id) return;
     if (!profilesByGroup[p.group_id]) profilesByGroup[p.group_id] = [];
@@ -373,10 +374,11 @@ function showPresentation(idx) {
   const ex = allExercises[idx];
   const d = ex.data || {};
   const gn = ex.sem_groups?.group_name || '';
-  generateProfPresentation(d, gn);
+  const members = profilesByGroup[ex.group_id] || [];
+  generateProfPresentation(d, gn, members);
 }
 
-function generateProfPresentation(d, groupNameVal) {
+function generateProfPresentation(d, groupNameVal, members) {
   presSlides = [];
   const sh = stripHtml;
   const fColors = {tofu:'var(--tofu)',mofu:'var(--mofu)',bofu:'var(--bofu)'};
@@ -386,11 +388,15 @@ function generateProfPresentation(d, groupNameVal) {
   const nbAct = d.nbAct || 3;
 
   // Title
+  const groupSubject = d['group-subject'] || '';
+  const groupClass = d['group-class'] || '';
+  const membersLine = (members||[]).map(m => esc(m.first_name + ' ' + m.last_name)).join(', ');
   presSlides.push(`<div class="ps ps-title-slide">
-    <span class="ps-tag">Strategie SEM</span>
+    <span class="ps-tag">Strategie SEM${groupClass?' — '+esc(groupClass):''}</span>
     <h1>${esc(d['client-name']||'Exercice SEM')}</h1>
     <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
-    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupNameVal||'')}</p>
+    ${groupSubject?'<p style="margin-top:.8rem;font-size:.95rem;"><strong>Sujet :</strong> '+esc(groupSubject)+'</p>':''}
+    <p style="margin-top:.4rem;font-size:.78rem;">${membersLine||esc(groupNameVal||'')}</p>
   </div>`);
 
   // Client: Activites & Particularites

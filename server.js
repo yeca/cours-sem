@@ -44,7 +44,7 @@ app.get('/js/config.js', (req, res) => {
 
 app.post('/api/register-group', async (req, res) => {
   try {
-    const { groupName, password, members } = req.body;
+    const { groupName, password, members, subject, groupClass } = req.body;
 
     // Validation
     if (!groupName || !password || !members || !Array.isArray(members) || members.length === 0) {
@@ -102,7 +102,7 @@ app.post('/api/register-group', async (req, res) => {
       await supabaseAdmin.from('sem_exercises').insert({
         group_id: group.id,
         title: 'Mon exercice SEM',
-        data: {}
+        data: { ...(subject ? { 'group-subject': subject } : {}), ...(groupClass ? { 'group-class': groupClass } : {}) }
       });
 
       res.json({ success: true, groupId: group.id, memberCount: createdUsers.length });
