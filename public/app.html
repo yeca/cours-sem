@@ -461,11 +461,16 @@ function setupRealtime() {
         const el = document.getElementById(fid);
         if (el) savedDirty.set(fid, _getFieldVal(el));
       }
-      // Also save focused field even if not yet marked dirty
+      // Also save focused field even if not yet marked dirty, including cursor position
       const focused = document.activeElement;
+      let cursorStart = null, cursorEnd = null;
       if (focused && focused.id && (focused.matches('input, textarea, select') || focused.classList.contains('wysiwyg-editor'))) {
         if (!savedDirty.has(focused.id)) {
           savedDirty.set(focused.id, _getFieldVal(focused));
+        }
+        if (focused.matches('input, textarea') && typeof focused.selectionStart === 'number') {
+          cursorStart = focused.selectionStart;
+          cursorEnd = focused.selectionEnd;
         }
       }
 
@@ -478,7 +483,13 @@ function setupRealtime() {
       }
       if (focused && focused.id) {
         const el = document.getElementById(focused.id);
-        if (el) el.focus();
+        if (el) {
+          el.focus();
+          // Restore cursor position
+          if (cursorStart !== null && el.matches('input, textarea') && typeof el.setSelectionRange === 'function') {
+            el.setSelectionRange(cursorStart, cursorEnd);
+          }
+        }
       }
 
       // Re-apply active locks after restore
