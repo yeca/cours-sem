@@ -213,7 +213,7 @@ body{padding-bottom:60px;}
 <!-- ======================== HOME ======================== -->
 <div class="page active" id="page-home">
 <div class="hero">
-  <h1>Mon Exercice SEM v2.1</h1>
+  <h1>Mon Exercice SEM v2.2</h1>
   <p class="sub">Remplissez chaque section avec votre recherche et reflexion</p>
   <div class="badges"><span class="badge">SEO</span><span class="badge">SEA</span><span class="badge">Landing Pages</span><span class="badge">TOFU / MOFU / BOFU</span></div>
 </div>
@@ -406,6 +406,25 @@ async function initApp() {
 
 // ===================== REALTIME FIELD LOCKING =====================
 const fieldLocks = new Map(); // fieldId -> { userId, firstName, timestamp }
+const dirtyFields = new Set(); // field IDs modified locally since last successful save
+
+// Track dirty fields on any input
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.closest('.action-bar') || t.closest('.add-member-form') || t.closest('#page-group')) return;
+  if (t.id && (t.matches('input, textarea, select') || t.classList.contains('wysiwyg-editor'))) {
+    dirtyFields.add(t.id);
+  }
+}, true);
+
+function _getFieldVal(el) {
+  if (el.classList.contains('wysiwyg-editor')) return el.innerHTML === '<br>' ? '' : el.innerHTML;
+  return el.value !== undefined ? el.value : '';
+}
+function _setFieldVal(el, val) {
+  if (el.classList.contains('wysiwyg-editor')) { el.innerHTML = val || ''; }
+  else if (el.value !== undefined) { el.value = val || ''; }
+}
 
 function setupRealtime() {
   realtimeChannel = sb.channel('exercise-' + currentGroupId, {
@@ -429,31 +448,32 @@ function setupRealtime() {
     // Reload exercise data from DB
     const { data } = await sb.from('sem_exercises').select('data, progress, submitted').eq('id', exerciseId).single();
     if (data && data.data) {
-      // Save current focused field value so restoreData doesn't overwrite it
+      // Save all dirty field values before restore
+      const savedDirty = new Map();
+      for (const fid of dirtyFields) {
+        const el = document.getElementById(fid);
+        if (el) savedDirty.set(fid, _getFieldVal(el));
+      }
+      // Also save focused field even if not yet marked dirty
       const focused = document.activeElement;
-      let focusedId = null, focusedValue = null;
-      if (focused && focused.id) {
-        if (focused.matches('input, textarea, select')) {
-          focusedId = focused.id;
-          focusedValue = focused.value;
-        } else if (focused.classList.contains('wysiwyg-editor')) {
-          focusedId = focused.id;
-          focusedValue = focused.innerHTML;
+      if (focused && focused.id && (focused.matches('input, textarea, select') || focused.classList.contains('wysiwyg-editor'))) {
+        if (!savedDirty.has(focused.id)) {
+          savedDirty.set(focused.id, _getFieldVal(focused));
         }
       }
+
       restoreData(data.data);
-      // Restore focused field value
-      if (focusedId) {
-        const el = document.getElementById(focusedId);
-        if (el) {
-          if (el.classList.contains('wysiwyg-editor')) {
-            el.innerHTML = focusedValue;
-          } else if (el.matches('input, textarea, select')) {
-            el.value = focusedValue;
-          }
-          el.focus();
-        }
+
+      // Restore all dirty/focused field values
+      for (const [fid, val] of savedDirty) {
+        const el = document.getElementById(fid);
+        if (el) _setFieldVal(el, val);
       }
+      if (focused && focused.id) {
+        const el = document.getElementById(focused.id);
+        if (el) el.focus();
+      }
+
       // Re-apply active locks after restore
       for (const [fid, lock] of fieldLocks) {
         applyLock(fid, lock.firstName);
@@ -588,6 +608,7 @@ async function saveToSupabase() {
     } else {
       s.textContent = 'Sauvegarde a ' + new Date().toLocaleTimeString('fr-FR');
       s.style.color = 'var(--gn)';
+      dirtyFields.clear();
       if (realtimeChannel) {
         realtimeChannel.send({
           type: 'broadcast',
@@ -1298,7 +1319,7 @@ function restoreData(data) {
       const kwKey=p+'-'+f+'-kws';if(data[kwKey]){const c=document.getElementById(kwKey);if(c){c.innerHTML='';data[kwKey].forEach(k=>addKw(kwKey,k.kw));}}
       ['seo-title','seo-meta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
       {const h1El=document.getElementById(p+'-'+f+'-seo-h1');if(h1El&&data[p+'-'+f+'-seo-h1'])h1El.value=data[p+'-'+f+'-seo-h1'];const h2Key=p+'-'+f+'-seo-h2s';if(data[h2Key]){const c=document.getElementById(h2Key);if(c){c.innerHTML='';data[h2Key].forEach(v=>addH2(h2Key,v));}}}
-      if(f!=='tofu'){const sgEl=document.getElementById(p+'-'+f+'-sea-group');if(sgEl&&data[p+'-'+f+'-sea-group'])sgEl.value=data[p+'-'+f+'-sea-group'];for(let ti=1;ti<=15;ti++){const el=document.getElementById(p+'-'+f+'-sea-t'+ti);if(el&&data[p+'-'+f+'-sea-t'+ti])el.value=data[p+'-'+f+'-sea-t'+ti];}for(let di=1;di<=4;di++){const el=document.getElementById(p+'-'+f+'-sea-d'+di);if(el&&data[p+'-'+f+'-sea-d'+di])el.value=data[p+'-'+f+'-sea-d'+di];}}
+      if(f!=='tofu'){const sgEl=document.getElementById(p+'-'+f+'-sea-group');if(sgEl&&data[p+'-'+f+'-sea-group'])sgEl.value=data[p+'-'+f+'-sea-group'];for(let ti=1;ti<=15;ti++){const el=document.getElementById(p+'-'+f+'-sea-t'+ti);if(el&&data[p+'-'+f+'-sea-t'+ti])el.value=data[p+'-'+f+'-sea-t'+ti];}for(let di=1;di<=4;di++){const el=document.getElementById(p+'-'+f+'-sea-d'+di);if(el&&data[p+'-'+f+'-sea-d'+di]){let v=data[p+'-'+f+'-sea-d'+di];if(v.includes('<')){const tmp=document.createElement('div');tmp.innerHTML=v;v=tmp.textContent||tmp.innerText||'';}el.value=v;}}}
       ['lp-cta'].forEach(fld=>{const el=document.getElementById(p+'-'+f+'-'+fld);if(el&&data[p+'-'+f+'-'+fld])el.value=data[p+'-'+f+'-'+fld];});
       const lpKey=p+'-'+f+'-lp-blocks';if(data[lpKey]){const c=document.getElementById(lpKey);if(c){c.innerHTML='';data[lpKey].forEach(b=>addLpBlock(lpKey,f,p,b.name,b.desc,b.tags));}}
       updateSerpPreview(p,f);updateAdPreview(p,f);updateLpCoverage(p,f);
@@ -1339,6 +1360,7 @@ function upgradeTextareas(root) {
     // Skip textareas in special areas or code fields
     if (ta.closest('.add-member-form') || ta.closest('#page-group')) return;
     if (ta.id && ta.id.endsWith('-lp-html')) return;
+    if (ta.id && /\-sea\-d\d+$/.test(ta.id)) return;
 
     ta.setAttribute('data-upgraded', '1');
     ta.style.display = 'none';
@@ -1504,7 +1526,7 @@ restoreData = function(data) {
       if(f!=='tofu'){
         if(data[p+'-'+f+'-sea-group'])setFieldValue(p+'-'+f+'-sea-group',data[p+'-'+f+'-sea-group']);
         for(let ti=1;ti<=15;ti++){if(data[p+'-'+f+'-sea-t'+ti])setFieldValue(p+'-'+f+'-sea-t'+ti,data[p+'-'+f+'-sea-t'+ti]);}
-        for(let di=1;di<=4;di++){if(data[p+'-'+f+'-sea-d'+di])setFieldValue(p+'-'+f+'-sea-d'+di,data[p+'-'+f+'-sea-d'+di]);}
+        for(let di=1;di<=4;di++){if(data[p+'-'+f+'-sea-d'+di]){let v=data[p+'-'+f+'-sea-d'+di];if(v.includes('<')){const tmp=document.createElement('div');tmp.innerHTML=v;v=tmp.textContent||tmp.innerText||'';}setFieldValue(p+'-'+f+'-sea-d'+di,v);}}
         // Neg keywords
         const negKey=p+'-'+f+'-neg-kws';if(data[negKey]){const nc=document.getElementById(negKey);if(nc){nc.innerHTML='';data[negKey].forEach(v=>addNegKw(negKey,v));}}
         // Geo, schedule, extensions
@@ -1538,6 +1560,11 @@ computeProgress = function() {
     total++;
     const txt = ed.textContent.trim();
     if(txt)filled++;
+  });
+  document.querySelectorAll('textarea:not([data-upgraded])').forEach(ta=>{
+    if(ta.closest('.add-member-form')||ta.closest('#page-group'))return;
+    if(ta.style.display==='none')return;
+    total++;if(ta.value.trim())filled++;
   });
   return total>0?Math.round((filled/total)*100):0;
 };
