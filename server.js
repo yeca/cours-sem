@@ -156,14 +156,9 @@ app.post('/api/add-member', async (req, res) => {
       return res.status(400).json({ error: 'Tous les champs sont requis.' });
     }
 
-    // Verify user is group creator
+    // Get user's group
     const { data: profile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', user.id).single();
     if (!profile?.group_id) return res.status(404).json({ error: 'Aucun groupe trouve.' });
-
-    const { data: group } = await supabaseAdmin.from('sem_groups').select('created_by').eq('id', profile.group_id).single();
-    if (group.created_by !== user.id) {
-      return res.status(403).json({ error: 'Seul le createur du groupe peut ajouter des membres.' });
-    }
 
     // Create auth user
     const fullName = `${firstName} ${lastName}`;
@@ -184,6 +179,41 @@ app.post('/api/add-member', async (req, res) => {
     res.json({ success: true, memberId: userData.user.id });
   } catch (err) {
     console.error('add-member error:', err);
+    res.status(500).json({ error: err.message || 'Erreur serveur.' });
+  }
+});
+
+// ===================== API: Update Member =====================
+
+app.put('/api/update-member', async (req, res) => {
+  try {
+    const user = await getAuthUser(req);
+    if (!user) return res.status(401).json({ error: 'Non authentifie.' });
+
+    const { memberId, firstName, lastName } = req.body;
+    if (!memberId || !firstName || !lastName) {
+      return res.status(400).json({ error: 'memberId, firstName et lastName requis.' });
+    }
+
+    // Verify user belongs to same group
+    const { data: profile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', user.id).single();
+    if (!profile?.group_id) return res.status(404).json({ error: 'Aucun groupe trouve.' });
+
+    const { data: memberProfile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', memberId).single();
+    if (!memberProfile || memberProfile.group_id !== profile.group_id) {
+      return res.status(400).json({ error: 'Ce membre n\'appartient pas a votre groupe.' });
+    }
+
+    // Update user metadata
+    const fullName = `${firstName} ${lastName}`;
+    const { error: updateErr } = await supabaseAdmin.auth.admin.updateUserById(memberId, {
+      user_metadata: { full_name: fullName, first_name: firstName, last_name: lastName }
+    });
+    if (updateErr) return res.status(400).json({ error: updateErr.message });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error('update-member error:', err);
     res.status(500).json({ error: err.message || 'Erreur serveur.' });
   }
 });

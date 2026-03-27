@@ -697,21 +697,55 @@ async function loadGroupMembers() {
     const result = await resp.json();
     if (!resp.ok) return;
 
-    document.getElementById('group-name-display').textContent = 'Groupe : ' + result.group.groupName;
+    document.getElementById('group-name-display').textContent = 'Groupe : ' + (result.group.group_name || result.group.groupName);
     groupMembers = result.members || [];
     const tbody = document.getElementById('group-members-tbody');
-    const isCreator = currentUser.id === result.group.createdBy;
+    const createdBy = result.group.created_by || result.group.createdBy;
+    const isCreator = currentUser.id === createdBy;
     tbody.innerHTML = result.members.map(m => {
-      const rmBtn = isCreator && m.id !== currentUser.id
+      const rmBtn = m.id !== currentUser.id
         ? `<button class="rm-btn" onclick="removeGroupMember('${m.id}')" title="Supprimer">&times;</button>`
-        : (m.id === result.group.createdBy ? '<span style="font-size:.7rem;color:var(--g500);">Admin</span>' : '');
-      return `<tr><td>${m.first_name}</td><td>${m.last_name}</td><td>${m.email}</td><td>${rmBtn}</td></tr>`;
+        : '';
+      const adminBadge = m.id === createdBy ? ' <span style="font-size:.65rem;color:var(--g500);">Admin</span>' : '';
+      return `<tr>
+        <td><input type="text" value="${_escHtml(m.first_name)}" onblur="updateMember('${m.id}',this)" data-field="first" style="border:1px solid var(--g200);border-radius:5px;padding:.25rem .4rem;font-size:.85rem;width:100%;font-family:inherit;"></td>
+        <td><input type="text" value="${_escHtml(m.last_name)}" onblur="updateMember('${m.id}',this)" data-field="last" style="border:1px solid var(--g200);border-radius:5px;padding:.25rem .4rem;font-size:.85rem;width:100%;font-family:inherit;"></td>
+        <td style="font-size:.82rem;color:var(--g500);">${m.email}${adminBadge}</td>
+        <td>${rmBtn}</td>
+      </tr>`;
     }).join('');
 
-    // Show add member form only for creator
-    document.getElementById('add-member-section').style.display = isCreator ? 'block' : 'none';
+    // Show add member form for everyone
+    document.getElementById('add-member-section').style.display = 'block';
   } catch (err) {
     console.error('Error loading members:', err);
+  }
+}
+
+async function updateMember(memberId, inputEl) {
+  const row = inputEl.closest('tr');
+  const inputs = row.querySelectorAll('input[type="text"]');
+  const firstName = inputs[0].value.trim();
+  const lastName = inputs[1].value.trim();
+  if (!firstName || !lastName) return;
+
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return;
+  try {
+    const resp = await fetch('/api/update-member', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify({ memberId, firstName, lastName })
+    });
+    if (resp.ok) {
+      inputEl.style.borderColor = 'var(--gn)';
+      setTimeout(() => { inputEl.style.borderColor = 'var(--g200)'; }, 1000);
+      // Update groupMembers cache
+      const m = groupMembers.find(m => m.id === memberId);
+      if (m) { m.first_name = firstName; m.last_name = lastName; }
+    }
+  } catch (err) {
+    console.error('updateMember error:', err);
   }
 }
 
