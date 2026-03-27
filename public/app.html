@@ -1167,15 +1167,23 @@ function updateLpCoverage(p, f) {
   cats.forEach(cat => {
     const el = document.getElementById(p+'-'+cat.key);
     if (!el) return;
-    const count = el.querySelectorAll('.inv-item').length;
+    const items = el.querySelectorAll('.inv-item');
+    const count = items.length;
     let catCovered = 0;
+    const missing = [];
     for (let j=1;j<=count;j++) {
       totalTags++;
       if (checkedTags.has(cat.letter+j)) { catCovered++; coveredTags++; }
+      else {
+        const inp = items[j-1] ? items[j-1].querySelector('input[type="text"]') : null;
+        const val = inp ? inp.value : '';
+        missing.push(cat.letter + j + (val ? ' — ' + val : ''));
+      }
     }
     if (count > 0) {
       const ok = catCovered === count;
-      html += `<span class="lp-cov-item ${ok?'ok':'miss'}">${cat.letter}: ${catCovered}/${count}</span>`;
+      const tooltip = missing.length > 0 ? 'Manque : ' + missing.join(', ') : 'Tout couvert';
+      html += `<span class="lp-cov-item ${ok?'ok':'miss'}" title="${_escHtml(tooltip)}">${cat.letter}: ${catCovered}/${count}</span>`;
     }
   });
 
