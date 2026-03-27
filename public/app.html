@@ -386,7 +386,7 @@ async function initApp() {
       }
     } else {
       console.log('No exercise found, creating one...');
-      const { data: newEx, error: newExErr } = await sb.from('sem_exercises').insert({ group_id: currentGroupId, title: 'Mon exercice SEM', data: {} }).select().single();
+      const { data: newEx, error: newExErr } = await sb.from('sem_exercises').insert({ group_id: currentGroupId, title: 'Mon Exercice SEM v2', data: {} }).select().single();
       console.log('New exercise:', newEx, 'Error:', newExErr);
       if (newEx) exerciseId = newEx.id;
     }
@@ -579,7 +579,7 @@ async function saveToSupabase() {
   try {
     const data = gatherData();
     const progress = computeProgress();
-    const title = data['client-name'] || 'Mon exercice SEM';
+    const title = data['client-name'] || 'Mon Exercice SEM v2';
     const { error } = await sb.from('sem_exercises').update({ data, progress, title }).eq('id', exerciseId);
     if (error) {
       s.textContent = 'Erreur : ' + error.message;
@@ -612,7 +612,7 @@ async function submitExercise() {
     return;
   }
   if (!confirm('Soumettre votre exercice ? Vous pourrez encore le modifier apres.')) return;
-  await sb.from('sem_exercises').update({ data, progress, title: data['client-name'] || 'Mon exercice SEM', submitted: true, submitted_at: new Date().toISOString() }).eq('id', exerciseId);
+  await sb.from('sem_exercises').update({ data, progress, title: data['client-name'] || 'Mon Exercice SEM v2', submitted: true, submitted_at: new Date().toISOString() }).eq('id', exerciseId);
   document.getElementById('submitted-banner').classList.add('show');
   document.getElementById('btn-submit').textContent = 'Soumis !';
   alert('Exercice soumis avec succes !');
@@ -1623,7 +1623,7 @@ function generatePresentation() {
   // Slide 1: Title
   presSlides.push(`<div class="ps ps-title-slide">
     <span class="ps-tag">Strategie SEM</span>
-    <h1>${esc(d['client-name']||'Mon exercice SEM')}</h1>
+    <h1>${esc(d['client-name']||'Mon Exercice SEM v2')}</h1>
     <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
     <p style="margin-top:1rem;font-size:.78rem;">${esc(groupName||'')}</p>
   </div>`);
