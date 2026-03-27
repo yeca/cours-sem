@@ -213,7 +213,7 @@ body{padding-bottom:60px;}
 <!-- ======================== HOME ======================== -->
 <div class="page active" id="page-home">
 <div class="hero">
-  <h1>Mon Exercice SEM v2</h1>
+  <h1>Mon Exercice SEM v2.1</h1>
   <p class="sub">Remplissez chaque section avec votre recherche et reflexion</p>
   <div class="badges"><span class="badge">SEO</span><span class="badge">SEA</span><span class="badge">Landing Pages</span><span class="badge">TOFU / MOFU / BOFU</span></div>
 </div>
@@ -810,7 +810,7 @@ ${['tofu','mofu','bofu'].map((f, fi) => {
 </div>
 <div class="funnel-block ${f}"><div class="fb">${f.toUpperCase()} — SEO</div><h4>Proposition SEO</h4>
   <div class="field"><label>Title tag (max 65)</label><input type="text" id="${p}-${f}-seo-title" placeholder="Titre optimise" oninput="updateSerpPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-seo-title-count">0/65</div></div>
-  <div class="field"><label>Meta description (max 160)</label><textarea id="${p}-${f}-seo-meta" rows="2" placeholder="Description" oninput="updateSerpPreview('${p}','${f}')"></textarea><div class="hint" id="${p}-${f}-seo-meta-count">0/160</div></div>
+  <div class="field"><label>Meta description (max 160)</label><input type="text" id="${p}-${f}-seo-meta" placeholder="Description" oninput="updateSerpPreview('${p}','${f}')"><div class="hint" id="${p}-${f}-seo-meta-count">0/160</div></div>
   <div class="field"><label>H1</label><input type="text" id="${p}-${f}-seo-h1" placeholder="Titre principal de la page (H1)"></div>
   <div id="${p}-${f}-seo-h2s"></div>
   <button class="add-btn" onclick="addH2('${p}-${f}-seo-h2s')">+ Ajouter un H2</button>
