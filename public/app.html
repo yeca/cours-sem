@@ -135,17 +135,11 @@ body{padding-bottom:60px;}
 .sec-body.collapsed{max-height:0!important;opacity:0;margin:0;padding:0;}
 .lp-mv{width:26px;height:20px;border:1px solid var(--g200);background:#fff;border-radius:4px;cursor:pointer;font-size:.6rem;color:var(--g500);display:flex;align-items:center;justify-content:center;transition:all .1s;}
 .lp-mv:hover{border-color:var(--bl);color:var(--bl);background:var(--bl-l);}
-/* LP tag dropdown */
-.lp-tag-dropdown{position:relative;display:inline-block;}
-.lp-tag-btn{font-size:.75rem;padding:.3rem .6rem;border:1.5px solid var(--g200);border-radius:6px;background:#fff;cursor:pointer;color:var(--g700);font-weight:600;font-family:inherit;display:flex;align-items:center;gap:.3rem;}
-.lp-tag-btn:hover{border-color:var(--bl);}
-.lp-tag-btn .tag-count{background:var(--bl);color:#fff;border-radius:4px;padding:.05rem .3rem;font-size:.6rem;font-weight:800;}
-.lp-tag-panel{display:none;position:absolute;top:100%;left:0;z-index:50;background:#fff;border:1.5px solid var(--g200);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:.5rem;min-width:280px;max-height:250px;overflow-y:auto;margin-top:.2rem;}
-.lp-tag-panel.show{display:block;}
-.lp-tag-panel label{display:flex;align-items:flex-start;gap:.4rem;padding:.3rem .4rem;border-radius:4px;cursor:pointer;font-size:.75rem;line-height:1.3;}
-.lp-tag-panel label:hover{background:var(--g50);}
-.lp-tag-panel label input[type="checkbox"]{margin-top:2px;flex-shrink:0;}
-.lp-tag-panel .tag-cat{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:.3rem .4rem .15rem;color:var(--g500);}
+/* LP tag checkboxes inline */
+.lp-tag-list{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.2rem;}
+.lp-tag-check-item{display:flex;align-items:center;gap:.3rem;padding:.2rem .5rem;border-radius:6px;cursor:pointer;font-size:.75rem;line-height:1.3;border:1px solid var(--g200);background:var(--g50);}
+.lp-tag-check-item:hover{background:var(--bl-l);border-color:var(--bl);}
+.lp-tag-check-item input[type="checkbox"]{margin:0;flex-shrink:0;}
 .lp-copy-prompt{font-size:.72rem;padding:.25rem .5rem;border:1px solid var(--bl);border-radius:6px;background:var(--bl-l);color:var(--bl);cursor:pointer;font-weight:600;transition:all .15s;font-family:inherit;}
 .lp-copy-prompt:hover{background:var(--bl);color:#fff;}
 .lp-coverage{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem;font-size:.75rem;}
@@ -174,9 +168,8 @@ body{padding-bottom:60px;}
 .pres-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;border-radius:6px;}.pres-close:hover{background:rgba(255,255,255,.15);}
 .pres-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem;overflow:hidden;}
 .pres-arrow{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.8rem 1rem;border-radius:8px;flex-shrink:0;transition:background .15s;}.pres-arrow:hover{background:rgba(255,255,255,.25);}
-.pres-slide-wrap{flex:1;display:flex;align-items:center;justify-content:center;max-height:100%;max-width:100%;}
-.pres-slide{width:960px;height:540px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
-@media(max-width:1000px){.pres-slide{width:100%;height:0;padding-bottom:56.25%;}}
+.pres-slide-wrap{flex:1;display:flex;align-items:stretch;justify-content:center;height:100%;overflow:hidden;}
+.pres-slide{width:100%;height:100%;background:#fff;border-radius:0;overflow:hidden;position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
 .ps{width:100%;height:100%;position:absolute;top:0;left:0;display:flex;flex-direction:column;padding:2.5rem 3rem;}
 .ps .ps-tag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:999px;display:inline-block;margin-bottom:.6rem;}
 .ps h1{font-size:1.6rem;font-weight:800;margin-bottom:.3rem;line-height:1.2;}
@@ -436,7 +429,31 @@ function setupRealtime() {
     // Reload exercise data from DB
     const { data } = await sb.from('sem_exercises').select('data, progress, submitted').eq('id', exerciseId).single();
     if (data && data.data) {
+      // Save current focused field value so restoreData doesn't overwrite it
+      const focused = document.activeElement;
+      let focusedId = null, focusedValue = null;
+      if (focused && focused.id) {
+        if (focused.matches('input, textarea, select')) {
+          focusedId = focused.id;
+          focusedValue = focused.value;
+        } else if (focused.classList.contains('wysiwyg-editor')) {
+          focusedId = focused.id;
+          focusedValue = focused.innerHTML;
+        }
+      }
       restoreData(data.data);
+      // Restore focused field value
+      if (focusedId) {
+        const el = document.getElementById(focusedId);
+        if (el) {
+          if (el.classList.contains('wysiwyg-editor')) {
+            el.innerHTML = focusedValue;
+          } else if (el.matches('input, textarea, select')) {
+            el.value = focusedValue;
+          }
+          el.focus();
+        }
+      }
       // Re-apply active locks after restore
       for (const [fid, lock] of fieldLocks) {
         applyLock(fid, lock.firstName);
@@ -917,6 +934,17 @@ function addLpBlock(cid, f, actPrefix, name, desc, tags) {
   c.appendChild(d);
 }
 
+function _escHtml(s) { if(!s)return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function _getDbpmValue(p, tagCode) {
+  const catKey = tagCode[0]==='D'?'douleurs':tagCode[0]==='B'?'besoins':tagCode[0]==='P'?'peurs':'motivations';
+  const idx = parseInt(tagCode.substring(1)) - 1;
+  const container = document.getElementById(p + '-' + catKey);
+  if (!container) return '';
+  const inputs = container.querySelectorAll('.inv-item input[type="text"]');
+  return inputs[idx] ? inputs[idx].value : '';
+}
+
 function buildTagCheckboxes(p, blockId, selectedTags) {
   const cats = [
     { key: 'douleurs', letter: 'D', cls: 'd', label: 'Douleurs', color: 'var(--or)' },
@@ -925,73 +953,28 @@ function buildTagCheckboxes(p, blockId, selectedTags) {
     { key: 'motivations', letter: 'M', cls: 'm', label: 'Motivations', color: 'var(--gn)' }
   ];
   const selected = selectedTags ? selectedTags.split(',').map(s=>s.trim()).filter(Boolean) : [];
-  const panelId = blockId + '-tag-panel';
 
-  let panelHtml = '';
+  let html = '<div class="lp-tag-list">';
   cats.forEach(cat => {
     const container = document.getElementById(p + '-' + cat.key);
     if (!container) return;
     const items = container.querySelectorAll('.inv-item');
     if (items.length === 0) return;
-    panelHtml += `<div class="tag-cat" style="color:${cat.color};">${cat.label}</div>`;
     items.forEach((item, idx) => {
       const tagName = cat.letter + (idx + 1);
-      const inputEl = item.querySelector('input');
+      const inputEl = item.querySelector('input[type="text"]');
       const val = inputEl ? inputEl.value : '';
       const checked = selected.includes(tagName) ? 'checked' : '';
-      panelHtml += `<label><input type="checkbox" value="${tagName}" ${checked} onchange="updateTagBtn('${blockId}');scheduleSave();updateLpCoverageFromEl(this)"><span class="tag ${cat.cls}" style="flex-shrink:0;">${tagName}</span>${val ? '<span>' + val.replace(/"/g,'&quot;') + '</span>' : ''}</label>`;
+      html += `<label class="lp-tag-check-item"><input type="checkbox" value="${tagName}" ${checked} onchange="scheduleSave();updateLpCoverageFromEl(this)"><span class="tag ${cat.cls}">${tagName}</span> ${_escHtml(val)}</label>`;
     });
   });
-
-  // Build selected tags display
-  const selectedDisplay = selected.map(t => {
-    const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
-    return `<span class="tag ${cls}" style="font-size:.55rem;">${t}</span>`;
-  }).join(' ');
-
-  return `<div class="lp-tag-dropdown">
-    <button type="button" class="lp-tag-btn" id="${blockId}-tag-btn" onclick="toggleTagPanel('${panelId}')">
-      Associer D/B/P/M <span class="tag-count">${selected.length}</span>
-    </button>
-    <div class="lp-tag-panel" id="${panelId}">${panelHtml}</div>
-    <div id="${blockId}-tag-display" style="margin-top:.3rem;">${selectedDisplay}</div>
-  </div>`;
+  html += '</div>';
+  return html;
 }
 
-function toggleTagPanel(panelId) {
-  const panel = document.getElementById(panelId);
-  const wasOpen = panel.classList.contains('show');
-  // Close all panels first
-  document.querySelectorAll('.lp-tag-panel.show').forEach(p => p.classList.remove('show'));
-  if (!wasOpen) panel.classList.add('show');
-}
-
-function updateTagBtn(blockId) {
-  const btn = document.getElementById(blockId + '-tag-btn');
-  const display = document.getElementById(blockId + '-tag-display');
-  if (!btn) return;
-  const panel = btn.nextElementSibling;
-  const checked = panel.querySelectorAll('input[type="checkbox"]:checked');
-  btn.querySelector('.tag-count').textContent = checked.length;
-  // Update display
-  if (display) {
-    display.innerHTML = Array.from(checked).map(cb => {
-      const t = cb.value;
-      const cls = t[0]==='D'?'d':t[0]==='B'?'b':t[0]==='P'?'p':'m';
-      return `<span class="tag ${cls}" style="font-size:.55rem;">${t}</span>`;
-    }).join(' ');
-  }
-}
-
-// Close tag panels when clicking outside
-document.addEventListener('click', e => {
-  if (!e.target.closest('.lp-tag-dropdown')) {
-    document.querySelectorAll('.lp-tag-panel.show').forEach(p => p.classList.remove('show'));
-  }
-});
 
 function getLpBlockTags(block) {
-  const checks = block.querySelectorAll('.lp-tag-panel input[type="checkbox"]:checked, .lp-tag-check input[type="checkbox"]:checked');
+  const checks = block.querySelectorAll('.lp-tag-list input[type="checkbox"]:checked');
   return Array.from(checks).map(c => c.value).join(', ');
 }
 
@@ -1169,7 +1152,7 @@ function updateLpCoverage(p, f) {
 
   // Collect all checked tags across all blocks
   const checkedTags = new Set();
-  container.querySelectorAll('.lp-tag-check input[type="checkbox"]:checked').forEach(cb => checkedTags.add(cb.value));
+  container.querySelectorAll('.lp-tag-list input[type="checkbox"]:checked').forEach(cb => checkedTags.add(cb.value));
 
   // Get all available tags from DBPM
   const cats = [
@@ -1539,7 +1522,7 @@ restoreData = function(data) {
 computeProgress = function() {
   let filled=0,total=0;
   document.querySelectorAll('input[type="text"]').forEach(inp=>{
-    if(inp.closest('.action-bar')||inp.closest('.neg-kw-item')||inp.closest('.add-member-form')||inp.closest('#page-group')||inp.closest('.lp-tag-check'))return;
+    if(inp.closest('.action-bar')||inp.closest('.neg-kw-item')||inp.closest('.add-member-form')||inp.closest('#page-group')||inp.closest('.lp-tag-list'))return;
     total++;if(inp.value.trim())filled++;
   });
   document.querySelectorAll('.wysiwyg-editor').forEach(ed=>{
@@ -1642,10 +1625,10 @@ function generatePresentation() {
     <span class="ps-tag">Strategie SEM</span>
     <h1>${esc(d['client-name']||'Mon exercice SEM')}</h1>
     <p>${esc(d['client-sector']||'')}${d['client-zone']?' — '+esc(d['client-zone']):''}</p>
-    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupName||'')}${d['group-notes']?' — '+esc(sh(d['group-notes'])).substring(0,80):''}</p>
+    <p style="margin-top:1rem;font-size:.78rem;">${esc(groupName||'')}</p>
   </div>`);
 
-  // Slide 2: Client presentation
+  // Slide 2a: Activites & Particularites
   presSlides.push(`<div class="ps">
     <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
     <h1>${esc(d['client-name']||'Client')}</h1>
@@ -1653,11 +1636,25 @@ function generatePresentation() {
     <div class="ps-grid">
       <div>
         ${d['client-activities']?'<h3>Activites</h3><p>'+sh(d['client-activities'])+'</p>':''}
-        ${d['client-particularites']?'<h3 style="margin-top:.5rem;">Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
       </div>
       <div>
+        ${d['client-particularites']?'<h3>Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
+      </div>
+    </div>
+    <div class="ps-footer">${esc(d['client-url']||'')}</div>
+  </div>`);
+
+  // Slide 2b: Forces & Faiblesses
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
+    <h1>${esc(d['client-name']||'Client')}</h1>
+    <h2>Forces & Faiblesses</h2>
+    <div class="ps-grid">
+      <div>
         ${d['client-forces']?'<h3 style="color:var(--gn);">Forces</h3><p>'+sh(d['client-forces'])+'</p>':''}
-        ${d['client-faiblesses']?'<h3 style="margin-top:.5rem;color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
+      </div>
+      <div>
+        ${d['client-faiblesses']?'<h3 style="color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
       </div>
     </div>
     <div class="ps-footer">${esc(d['client-url']||'')}</div>
@@ -1759,7 +1756,7 @@ function generatePresentation() {
               ${kwList.length?'<h3>Mots-cles cibles</h3><div class="ps-kw-list">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
             </div>
             <div>
-              ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div>':''}
+              ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div><div style="display:flex;gap:.8rem;margin-top:.3rem;font-size:.6rem;"><span style="font-weight:700;'+(seoTitle.length>65?'color:var(--rd)':'color:var(--g500)')+'">Titre : '+seoTitle.length+'/65</span><span style="font-weight:700;'+(sh(seoMeta).length>160?'color:var(--rd)':'color:var(--g500)')+'">Description : '+sh(seoMeta).length+'/160</span></div>':''}
             </div>
           </div>
           ${footer}
@@ -1892,8 +1889,8 @@ function generatePresentation() {
           </div>`);
 
           // SEA slide 2: Tous les titres et descriptions
-          let titlesHtml = seaTitles.map((t,j) => `<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span><span style="font-size:.6rem;color:var(--g500);">(${t.length}/30)</span></div>`).join('');
-          let descsHtml = seaDescs.map((dd,j) => `<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span><span style="font-size:.6rem;color:var(--g500);"> (${dd.length}/90)</span></div>`).join('');
+          let titlesHtml = seaTitles.map((t,j) => `<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span><span style="font-size:.6rem;font-weight:700;${t.length>30?'color:var(--rd)':'color:var(--g500)'}">(${t.length}/30)</span></div>`).join('');
+          let descsHtml = seaDescs.map((dd,j) => `<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span><span style="font-size:.6rem;font-weight:700;${dd.length>90?'color:var(--rd)':'color:var(--g500)'}"> (${dd.length}/90)</span></div>`).join('');
           presSlides.push(`<div class="ps">
             ${tags('SEA — Annonce')}
             <h2>Titres & Descriptions</h2>

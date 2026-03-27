@@ -71,9 +71,8 @@ tr:hover td{background:var(--g50);}
 .pres-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;border-radius:6px;}.pres-close:hover{background:rgba(255,255,255,.15);}
 .pres-stage{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem;overflow:hidden;}
 .pres-arrow{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.8rem 1rem;border-radius:8px;flex-shrink:0;transition:background .15s;}.pres-arrow:hover{background:rgba(255,255,255,.25);}
-.pres-slide-wrap{flex:1;display:flex;align-items:center;justify-content:center;max-height:100%;max-width:100%;}
-.pres-slide{width:960px;height:540px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
-@media(max-width:1000px){.pres-slide{width:100%;height:0;padding-bottom:56.25%;}}
+.pres-slide-wrap{flex:1;display:flex;align-items:stretch;justify-content:center;height:100%;overflow:hidden;}
+.pres-slide{width:100%;height:100%;background:#fff;border-radius:0;overflow:hidden;position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
 .ps{width:100%;height:100%;position:absolute;top:0;left:0;display:flex;flex-direction:column;padding:2.5rem 3rem;}
 .ps .ps-tag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:999px;display:inline-block;margin-bottom:.6rem;}
 .ps h1{font-size:1.6rem;font-weight:800;margin-bottom:.3rem;line-height:1.2;}
@@ -394,7 +393,7 @@ function generateProfPresentation(d, groupNameVal) {
     <p style="margin-top:1rem;font-size:.78rem;">${esc(groupNameVal||'')}</p>
   </div>`);
 
-  // Client
+  // Client: Activites & Particularites
   presSlides.push(`<div class="ps">
     <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
     <h1>${esc(d['client-name']||'Client')}</h1>
@@ -402,11 +401,25 @@ function generateProfPresentation(d, groupNameVal) {
     <div class="ps-grid">
       <div>
         ${d['client-activities']?'<h3>Activites</h3><p>'+sh(d['client-activities'])+'</p>':''}
-        ${d['client-particularites']?'<h3 style="margin-top:.5rem;">Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
       </div>
       <div>
+        ${d['client-particularites']?'<h3>Particularites</h3><p>'+sh(d['client-particularites'])+'</p>':''}
+      </div>
+    </div>
+    <div class="ps-footer">${esc(d['client-url']||'')}</div>
+  </div>`);
+
+  // Client: Forces & Faiblesses
+  presSlides.push(`<div class="ps">
+    <span class="ps-tag" style="background:var(--bl-l);color:var(--bl);">Presentation</span>
+    <h1>${esc(d['client-name']||'Client')}</h1>
+    <h2>Forces & Faiblesses</h2>
+    <div class="ps-grid">
+      <div>
         ${d['client-forces']?'<h3 style="color:var(--gn);">Forces</h3><p>'+sh(d['client-forces'])+'</p>':''}
-        ${d['client-faiblesses']?'<h3 style="margin-top:.5rem;color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
+      </div>
+      <div>
+        ${d['client-faiblesses']?'<h3 style="color:var(--rd);">Faiblesses</h3><p>'+sh(d['client-faiblesses'])+'</p>':''}
       </div>
     </div>
     <div class="ps-footer">${esc(d['client-url']||'')}</div>
@@ -489,7 +502,7 @@ function generateProfPresentation(d, groupNameVal) {
           <h2>${esc(fNames[f])} — Mots-cles & SERP</h2>
           ${intention?'<p style="margin-bottom:.5rem;"><strong>Intention :</strong> '+esc(intention)+'</p>':''}
           ${kwList.length?'<h3>Mots-cles cibles</h3><div class="ps-kw-list" style="margin-bottom:.8rem;">'+kwList.map(k=>'<span class="ps-kw">'+esc(k)+'</span>').join('')+'</div>':''}
-          ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div>':''}
+          ${seoTitle?'<h3>Apercu SERP</h3><div class="ps-serp"><div class="s-url">'+esc(clientUrl)+'</div><div class="s-title">'+esc(_truncate(seoTitle,65))+'</div><div class="s-desc">'+esc(_truncate(sh(seoMeta),160))+'</div></div><div style="display:flex;gap:.8rem;margin-top:.3rem;font-size:.6rem;"><span style="font-weight:700;'+(seoTitle.length>65?'color:var(--rd)':'color:var(--g500)')+'">Titre : '+seoTitle.length+'/65</span><span style="font-weight:700;'+(sh(seoMeta).length>160?'color:var(--rd)':'color:var(--g500)')+'">Description : '+sh(seoMeta).length+'/160</span></div>':''}
           ${footer}
         </div>`);
       }
@@ -594,8 +607,8 @@ function generateProfPresentation(d, groupNameVal) {
             ${tags('SEA — Annonce')}
             <h2>Titres & Descriptions</h2>
             <div class="ps-grid">
-              <div style="overflow-y:auto;"><h3>${seaTitles.length} Titre(s)</h3>${seaTitles.map((t,j)=>`<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span></div>`).join('')}</div>
-              <div><h3>${seaDescs.length} Description(s)</h3>${seaDescs.map((dd,j)=>`<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span></div>`).join('')}</div>
+              <div style="overflow-y:auto;"><h3>${seaTitles.length} Titre(s)</h3>${seaTitles.map((t,j)=>`<div style="display:flex;gap:.3rem;align-items:center;margin-bottom:.2rem;"><span style="background:var(--bl);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">T${j+1}</span><span style="font-size:.72rem;">${esc(t)}</span><span style="font-size:.6rem;font-weight:700;${t.length>30?'color:var(--rd)':'color:var(--g500)'}">(${t.length}/30)</span></div>`).join('')}</div>
+              <div><h3>${seaDescs.length} Description(s)</h3>${seaDescs.map((dd,j)=>`<div style="margin-bottom:.3rem;"><span style="background:var(--or);color:#fff;border-radius:3px;padding:.05rem .3rem;font-size:.55rem;font-weight:800;">D${j+1}</span> <span style="font-size:.72rem;">${esc(dd)}</span><span style="font-size:.6rem;font-weight:700;${dd.length>90?'color:var(--rd)':'color:var(--g500)'}"> (${dd.length}/90)</span></div>`).join('')}</div>
             </div>
             ${footer}
           </div>`);
