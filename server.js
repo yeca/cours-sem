@@ -18,13 +18,14 @@ if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
   console.error('WARNING: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not set. API endpoints will not work.');
 }
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // Helper: verify auth token and return user
 async function getAuthUser(req) {
   const token = req.headers.authorization?.replace('Bearer ', '');
-  if (!token) return null;
+  if (!token) { console.log('getAuthUser: no token'); return null; }
   const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
+  if (error) console.log('getAuthUser error:', error.message, 'token prefix:', token.substring(0, 20));
   return error ? null : user;
 }
 
@@ -253,6 +254,103 @@ app.delete('/api/remove-member', async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     console.error('remove-member error:', err);
+    res.status(500).json({ error: err.message || 'Erreur serveur.' });
+  }
+});
+
+// ===================== API: PDF Versions =====================
+
+const PDF_BUCKET = 'sem-presentations';
+
+async function ensureBucket() {
+  const { data } = await supabaseAdmin.storage.getBucket(PDF_BUCKET);
+  if (!data) {
+    await supabaseAdmin.storage.createBucket(PDF_BUCKET, { public: false });
+  }
+}
+
+app.post('/api/upload-pdf', async (req, res) => {
+  try {
+    const user = await getAuthUser(req);
+    if (!user) return res.status(401).json({ error: 'Non authentifie.' });
+
+    const { data: profile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', user.id).single();
+    if (!profile?.group_id) return res.status(404).json({ error: 'Aucun groupe trouve.' });
+
+    const { pdfBase64, clientName } = req.body;
+    if (!pdfBase64) return res.status(400).json({ error: 'PDF manquant.' });
+
+    await ensureBucket();
+
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const safeName = (clientName || 'presentation').replace(/[^a-zA-Z0-9àâäéèêëïîôùûüç\s-]/g, '').trim().replace(/\s+/g, '-');
+    const filePath = `${profile.group_id}/${safeName}_${timestamp}.pdf`;
+
+    const buffer = Buffer.from(pdfBase64, 'base64');
+    const { error: uploadErr } = await supabaseAdmin.storage.from(PDF_BUCKET).upload(filePath, buffer, {
+      contentType: 'application/pdf',
+      upsert: false
+    });
+    if (uploadErr) throw uploadErr;
+
+    res.json({ success: true, path: filePath });
+  } catch (err) {
+    console.error('upload-pdf error:', err);
+    res.status(500).json({ error: err.message || 'Erreur serveur.' });
+  }
+});
+
+app.get('/api/pdf-versions', async (req, res) => {
+  try {
+    const user = await getAuthUser(req);
+    if (!user) return res.status(401).json({ error: 'Non authentifie.' });
+
+    const { data: profile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', user.id).single();
+    if (!profile?.group_id) return res.status(404).json({ error: 'Aucun groupe trouve.' });
+
+    await ensureBucket();
+
+    const { data: files, error } = await supabaseAdmin.storage.from(PDF_BUCKET).list(profile.group_id, {
+      sortBy: { column: 'created_at', order: 'desc' }
+    });
+    if (error) throw error;
+
+    const versions = (files || []).filter(f => f.name.endsWith('.pdf')).map(f => ({
+      name: f.name,
+      created_at: f.created_at,
+      size: f.metadata?.size || 0,
+      path: `${profile.group_id}/${f.name}`
+    }));
+
+    res.json({ versions });
+  } catch (err) {
+    console.error('pdf-versions error:', err);
+    res.status(500).json({ error: err.message || 'Erreur serveur.' });
+  }
+});
+
+app.get('/api/pdf-download/:groupId/:fileName', async (req, res) => {
+  try {
+    const user = await getAuthUser(req);
+    if (!user) return res.status(401).json({ error: 'Non authentifie.' });
+
+    const { data: profile } = await supabaseAdmin.from('sem_profiles').select('group_id').eq('id', user.id).single();
+    if (!profile?.group_id) return res.status(404).json({ error: 'Aucun groupe trouve.' });
+
+    if (profile.group_id !== req.params.groupId) {
+      return res.status(403).json({ error: 'Acces refuse.' });
+    }
+
+    const filePath = `${req.params.groupId}/${req.params.fileName}`;
+    const { data, error } = await supabaseAdmin.storage.from(PDF_BUCKET).download(filePath);
+    if (error) throw error;
+
+    const buffer = Buffer.from(await data.arrayBuffer());
+    res.set('Content-Type', 'application/pdf');
+    res.set('Content-Disposition', `attachment; filename="${req.params.fileName}"`);
+    res.send(buffer);
+  } catch (err) {
+    console.error('pdf-download error:', err);
     res.status(500).json({ error: err.message || 'Erreur serveur.' });
   }
 });
